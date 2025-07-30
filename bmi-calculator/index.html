@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">BMI</div>
+  </header>
+
+  <div class="main-content">
+    <div class="adsense left">
+      <p>Advertisement 1</p>
+    </div>
+
+    <div class="center-content">
+      <div class="container">
+        <h1>BMI Calculator</h1>
+        <form id="bmi-form">
+          <label for="height">Height (in cm):</label>
+          <input type="number" id="height" required />
+          <label for="weight">Weight (in kg):</label>
+          <input type="number" id="weight" required />
+          <button type="submit">Calculate BMI</button>
+        </form>
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <div class="adsense right">
+      <p>Advertisement 2</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 BMI Calculator. All rights reserved.</p>
+
+    <div class="visitor-counter">
+      <p>Total Visitors:</p>
+      <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=5&type=ip&initCount=0"
+           title="Web Counter" alt="visitor counter" border="0" />
+    </div>
+
+    <div class="datetime">
+      Current Time: <span id="current-time"></span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
