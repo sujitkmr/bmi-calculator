@@ -93,3 +93,12 @@ function toggleSuggestions() {
     icon.textContent = '▼';
   }
 }
+function updateDateTime() {
+  const now = new Date();
+  const timeString = now.toLocaleString(); // Shows both date and time
+  document.getElementById('current-time').textContent = timeString;
+}
+
+// Initial call and then update every second
+updateDateTime();
+setInterval(updateDateTime, 1000);
