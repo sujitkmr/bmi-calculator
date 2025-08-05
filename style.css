@@ -9,7 +9,7 @@ body {
 }
 
 header {
-  background-color: #002244; /* dark blue */
+  background-color: #002244;
   padding: 10px 20px;
   text-align: left;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -18,14 +18,14 @@ header {
 .logo {
   font-size: 28px;
   font-weight: bold;
-  color: #ffffff; /* white for contrast */
+  color: #ffffff;
 }
 
 .main-content {
   display: grid;
   grid-template-columns: 1fr minmax(300px, 500px) 1fr;
   gap: 20px;
-  padding: 20px 40px; /* added horizontal padding */
+  padding: 20px 40px;
   align-items: start;
   box-sizing: border-box;
 }
@@ -46,7 +46,7 @@ header {
 .center-content {
   width: 100%;
   max-width: 450px;
-  margin: auto; /* ensure center alignment */
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,6 +60,39 @@ header {
   text-align: center;
   width: 100%;
 }
+.suggestions-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 5px solid #ccc; /* will be overridden by JS */
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  width: 100%;
+  max-width: 450px; /* Same as .container max width */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.suggestion-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.suggestions-box ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.suggestions-box li {
+  margin-bottom: 8px;
+  padding-left: 5px;
+}
+
 
 input {
   display: block;
@@ -110,6 +143,39 @@ footer {
   color: #333;
 }
 
+/* Suggestions Tray Styles */
+.suggestions-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-left: 5px solid #e74c3c;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+}
+
+.suggestions-box ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.suggestions-box li {
+  margin-bottom: 8px;
+}
+
+.suggestion-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #e74c3c;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
 /* Responsive layout for mobile */
 @media (max-width: 768px) {
   .main-content {
@@ -130,4 +196,37 @@ footer {
   .center-content {
     max-width: 100%;
   }
+  .suggestions-box {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 5px solid #e74c3c;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.suggestion-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #e74c3c;
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+
+.suggestions-box ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.suggestions-box li {
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+
 }
