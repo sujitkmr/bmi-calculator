@@ -80,7 +80,7 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
     if (suggestionBox.style.display === 'block') {
       window.popupTimer = setTimeout(() => {
         showThankYouPopup();
-      }, 30000);//30 sec
+      }, 40000);//30 sec
     }
 
   } else {
@@ -165,7 +165,7 @@ function showThankYouPopup() {
   // Auto-close popup in 10 seconds
   window.autoClosePopup = setTimeout(() => {
     closeThankYouPopup();
-  }, 30000);//10 sec
+  }, 40000);//40 sec
 }
 
 function closeThankYouPopup() {
