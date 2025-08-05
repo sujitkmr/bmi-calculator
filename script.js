@@ -66,15 +66,23 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
     resultDiv.textContent = `Your BMI is ${bmi} (${category})`;
     resultDiv.style.color = color;
 
-    // Apply color to suggestion title and border
     suggestionTitle.style.color = color;
     suggestionBox.style.borderLeft = `5px solid ${color}`;
-
-    // Inject suggestions
     suggestionList.innerHTML = suggestions.map(tip => `<li>${tip}</li>`).join('');
     suggestionBox.style.display = 'block';
     suggestionList.style.display = 'none';
     document.getElementById('toggle-icon').textContent = '▼';
+
+    // Reset timer if already running
+    if (window.popupTimer) clearTimeout(window.popupTimer);
+
+    // Start 30-second timer only if suggestions shown
+    if (suggestionBox.style.display === 'block') {
+      window.popupTimer = setTimeout(() => {
+        showThankYouPopup();
+      }, 30000);
+    }
+
   } else {
     resultDiv.textContent = 'Please enter valid height and weight!';
     resultDiv.style.color = '#e74c3c';
@@ -93,12 +101,75 @@ function toggleSuggestions() {
     icon.textContent = '▼';
   }
 }
+
 function updateDateTime() {
   const now = new Date();
-  const timeString = now.toLocaleString(); // Shows both date and time
+  const timeString = now.toLocaleString();
   document.getElementById('current-time').textContent = timeString;
 }
-
-// Initial call and then update every second
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+// Show Thank You Popup
+function showThankYouPopup() {
+  const popup = document.createElement('div');
+  popup.className = 'thankyou-popup';
+  popup.style.display = 'flex';
+  popup.innerHTML = `
+    <div class="thankyou-content">
+      <span class="popup-close" onclick="closeThankYouPopup()">×</span>
+      <div class="popup-left">
+        <h2>🙏 Thank you!</h2>
+        <p>How helpful was the BMI tips section?</p>
+        <div class="feedback-options">
+          <button type="button">😊 Good</button>
+          <button type="button">😐 Okay</button>
+          <button type="button">🙁 Bad</button>
+        </div>
+        <div class="star-rating" id="starRating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+      <div class="popup-right">
+        <h3>💬 Suggest Improvements</h3>
+        <form action="mailto:support@gymbmi.com" method="POST" enctype="text/plain">
+          <input type="text" name="Name" placeholder="Your Name" required>
+          <input type="tel" name="Mobile" placeholder="Mobile Number" required>
+          <input type="email" name="Email" placeholder="Your Email" required>
+          <textarea name="Suggestion" placeholder="Your Suggestion" required></textarea>
+          <div class="popup-footer">
+            <button type="submit">Send</button>
+            <button type="button" onclick="closeThankYouPopup()">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+
+  // Handle star click effect
+  const stars = popup.querySelectorAll('.star');
+  stars.forEach((star, index) => {
+    star.style.color = '#ccc'; // white/gray by default
+    star.addEventListener('click', () => {
+      stars.forEach((s, i) => {
+        s.style.color = i <= index ? 'gold' : '#ccc';
+      });
+    });
+  });
+
+  // Auto-close popup in 10 seconds
+  window.autoClosePopup = setTimeout(() => {
+    closeThankYouPopup();
+  }, 10000);
+}
+
+function closeThankYouPopup() {
+  const popup = document.querySelector('.thankyou-popup');
+  if (popup) popup.remove();
+  clearTimeout(window.autoClosePopup);
+}

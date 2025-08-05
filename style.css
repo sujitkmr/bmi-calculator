@@ -60,41 +60,8 @@ header {
   text-align: center;
   width: 100%;
 }
-.suggestions-box {
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.95);
-  border-left: 5px solid #ccc; /* will be overridden by JS */
-  border-radius: 10px;
-  font-size: 15px;
-  color: #333;
-  width: 100%;
-  max-width: 450px; /* Same as .container max width */
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
 
-.suggestion-header {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.suggestions-box ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.suggestions-box li {
-  margin-bottom: 8px;
-  padding-left: 5px;
-}
-
-
-input {
+input, textarea {
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -121,38 +88,27 @@ button:hover {
   font-weight: bold;
 }
 
-footer {
-  background-color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-  padding: 10px 0;
-  font-size: 14px;
-  color: #555;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.visitor-counter {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #444;
-  text-align: center;
-}
-
-.datetime {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #333;
-}
-
-/* Suggestions Tray Styles */
 .suggestions-box {
   margin-top: 20px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.9);
   border-left: 5px solid #e74c3c;
   border-radius: 8px;
-  text-align: left;
   font-size: 14px;
   color: #333;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.suggestion-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #e74c3c;
 }
 
 .suggestions-box ul {
@@ -163,70 +119,107 @@ footer {
 
 .suggestions-box li {
   margin-bottom: 8px;
+  padding-left: 5px;
 }
 
-.suggestion-header {
+/* === Thank You Popup === */
+.thankyou-popup {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.thankyou-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  gap: 20px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.popup-left, .popup-right {
+  flex: 1 1 300px;
+}
+
+.popup-left h2, .popup-right h3 {
+  margin-top: 0;
+}
+
+.feedback-options button {
+  margin: 5px 10px 15px 0;
+  font-size: 16px;
+}
+
+/* Star ratings default white, yellow when selected */
+.star-rating span {
+  font-size: 24px;
   cursor: pointer;
+  margin: 0 3px;
+  color: white;
+}
+
+.star-rating span.selected {
+  color: gold;
+}
+
+/* Close button */
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+}
+
+.popup-footer {
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  color: #e74c3c;
-  font-size: 16px;
-  margin-bottom: 10px;
 }
 
-/* Responsive layout for mobile */
+/* === Footer === */
+footer {
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #555;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.visitor-counter, .datetime {
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+}
+
+/* === Responsive === */
 @media (max-width: 768px) {
   .main-content {
-    display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 10px 20px;
   }
 
-  .adsense {
-    width: 100%;
-    height: auto;
-    min-height: 80px;
-    margin: 10px 0;
-    max-width: none;
+  .thankyou-content {
+    flex-direction: column;
   }
 
-  .center-content {
-    max-width: 100%;
+  .popup-left, .popup-right {
+    flex: 1 1 100%;
   }
-  .suggestions-box {
-  margin-top: 30px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.95);
-  border-left: 5px solid #e74c3c;
-  border-radius: 10px;
-  font-size: 15px;
-  color: #333;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
 
-.suggestion-header {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  color: #e74c3c;
-  font-size: 17px;
-  margin-bottom: 12px;
-}
-
-.suggestions-box ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.suggestions-box li {
-  margin-bottom: 8px;
-  padding-left: 8px;
-}
-
+  .popup-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

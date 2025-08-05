@@ -16,30 +16,28 @@
       <p>Advertisement 1</p>
     </div>
 
-<div class="center-content">
-  <div class="container">
-    <h1>BMI Calculator</h1>
-    <form id="bmi-form">
-      <label for="height">📏 Height (in cm):</label>
-      <input type="number" id="height" required />
-      <label for="weight">⚖️ Weight (in kg):</label>
-      <input type="number" id="weight" required />
-      <button type="submit">Calculate BMI</button>
-    </form>
-    <div id="result"></div>
-  </div>
+    <div class="center-content">
+      <div class="container">
+        <h1>BMI Calculator</h1>
+        <form id="bmi-form">
+          <label for="height">📏 Height (in cm):</label>
+          <input type="number" id="height" required />
+          <label for="weight">⚖️ Weight (in kg):</label>
+          <input type="number" id="weight" required />
+          <button type="submit">Calculate BMI</button>
+        </form>
+        <div id="result"></div>
+      </div>
 
-  <!-- Suggestion Box (now visually matching container) -->
-  <div id="suggestions" class="suggestions-box" style="display: none;">
-    <div class="suggestion-header" onclick="toggleSuggestions()">
-      <span id="suggestion-title">Tips to Control BMI</span>
-      <span id="toggle-icon">▼</span>
+      <!-- Suggestions Box -->
+      <div id="suggestions" class="suggestions-box" style="display: none;">
+        <div class="suggestion-header" onclick="toggleSuggestions()">
+          <span id="suggestion-title">Tips to Control your Body Mass Index</span>
+          <span id="toggle-icon">▼</span>
+        </div>
+        <ul id="suggestion-list" style="display: none;"></ul>
+      </div>
     </div>
-    <ul id="suggestion-list" style="display: none;"></ul>
-  </div>
-</div>
-
-
 
     <div class="adsense right">
       <p>Advertisement 2</p>
@@ -57,6 +55,8 @@
       Current Time: <span id="current-time"></span>
     </div>
   </footer>
+
+  <!-- Thank You Popup (created dynamically in script.js) -->
 
   <script src="script.js"></script>
 </body>
