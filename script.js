@@ -1,3 +1,4 @@
+// BMI tips by category
 const tips = {
   "Underweight": {
     color: '#3498db',
@@ -40,6 +41,7 @@ const tips = {
   }
 };
 
+// BMI calculator logic
 document.getElementById('bmi-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -73,15 +75,10 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
     suggestionList.style.display = 'none';
     document.getElementById('toggle-icon').textContent = '▼';
 
-    // Reset timer if already running
     if (window.popupTimer) clearTimeout(window.popupTimer);
-
-    // Start 30-second timer only if suggestions shown
-    if (suggestionBox.style.display === 'block') {
-      window.popupTimer = setTimeout(() => {
-        showThankYouPopup();
-      }, 40000);//30 sec
-    }
+    window.popupTimer = setTimeout(() => {
+      showThankYouPopup();
+    }, 30000);
 
   } else {
     resultDiv.textContent = 'Please enter valid height and weight!';
@@ -90,27 +87,24 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
   }
 });
 
+// Toggle suggestions
 function toggleSuggestions() {
   const list = document.getElementById('suggestion-list');
   const icon = document.getElementById('toggle-icon');
-  if (list.style.display === 'none') {
-    list.style.display = 'block';
-    icon.textContent = '▲';
-  } else {
-    list.style.display = 'none';
-    icon.textContent = '▼';
-  }
+  const isOpen = list.style.display === 'block';
+  list.style.display = isOpen ? 'none' : 'block';
+  icon.textContent = isOpen ? '▼' : '▲';
 }
 
+// Clock
 function updateDateTime() {
   const now = new Date();
-  const timeString = now.toLocaleString();
-  document.getElementById('current-time').textContent = timeString;
+  document.getElementById('current-time').textContent = now.toLocaleString();
 }
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
-// Show Thank You Popup
+// Thank You Popup
 function showThankYouPopup() {
   const popup = document.createElement('div');
   popup.className = 'thankyou-popup';
@@ -151,10 +145,8 @@ function showThankYouPopup() {
   `;
   document.body.appendChild(popup);
 
-  // Handle star click effect
-  const stars = popup.querySelectorAll('.star');
-  stars.forEach((star, index) => {
-    star.style.color = '#ccc'; // white/gray by default
+  popup.querySelectorAll('.star').forEach((star, index, stars) => {
+    star.style.color = '#ccc';
     star.addEventListener('click', () => {
       stars.forEach((s, i) => {
         s.style.color = i <= index ? 'gold' : '#ccc';
@@ -162,14 +154,53 @@ function showThankYouPopup() {
     });
   });
 
-  // Auto-close popup in 10 seconds
-  window.autoClosePopup = setTimeout(() => {
-    closeThankYouPopup();
-  }, 40000);//40 sec
+  window.autoClosePopup = setTimeout(closeThankYouPopup, 30000);
 }
 
 function closeThankYouPopup() {
   const popup = document.querySelector('.thankyou-popup');
   if (popup) popup.remove();
   clearTimeout(window.autoClosePopup);
+}
+
+// Modal content map
+const modalContent = {
+  about: {
+    title: "About Us",
+    body: "At gymbmi.com, we aim to help individuals stay informed about their health using a simple, effective BMI tool. Our goal is to provide clear, useful data and wellness tips to promote a healthy lifestyle."
+  },
+  contact: {
+    title: "Contact Us",
+    body: "Email: contact@gymbmi.com<br>Location: Online, Global"
+  },
+  privacy: {
+    title: "Privacy Policy",
+    body: "We respect your privacy. We do not collect personal data. This site may use cookies or third-party services like Google AdSense which may collect information as per their own privacy policies."
+  },
+  terms: {
+    title: "Terms and Conditions",
+    body: "By using gymbmi.com, you agree to use the site responsibly and understand that the information provided is for general wellness and not medical advice."
+  },
+  disclaimer: {
+    title: "Disclaimer",
+    body: "The BMI calculations provided are for educational purposes only. Always consult a healthcare professional for medical advice."
+  }
+};
+
+// Open modal
+function openModal(section) {
+  const modal = document.getElementById("modal");
+  const title = document.getElementById("modal-title");
+  const body = document.getElementById("modal-body");
+
+  if (modalContent[section]) {
+    title.textContent = modalContent[section].title;
+    body.innerHTML = modalContent[section].body;
+    modal.style.display = "flex";
+  }
+}
+
+// Close modal
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
 }

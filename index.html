@@ -3,60 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BMI Calculator</title>
+  <meta name="description" content="Free BMI calculator and health tips to manage your body mass index.">
+  <meta name="keywords" content="BMI, BMI Calculator, Body Mass Index, Health Tips, gymbmi">
+  <meta name="author" content="gymbmi.com">
   <link rel="stylesheet" href="style.css" />
+  <title>gymbmi.com - BMI Calculator</title>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="logo">gymbmi.com</div>
+    <div class="navbar">
+      <div class="logo">gymbmi.com</div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#calculator">BMI Calculator</a>
+        <a href="#" onclick="openModal('about')">About</a>
+        <a href="#" onclick="openModal('contact')">Contact</a>
+        <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
+        <a href="#" onclick="openModal('terms')">Terms</a>
+        <a href="#" onclick="openModal('disclaimer')">Disclaimer</a>
+        <a href="#services">Services</a>
+        <a href="#blog">Blog</a>
+        <a href="#cart">🛒</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="main-content">
-    <div class="adsense left">
-      <p>Advertisement 1</p>
+  <!-- Home Section -->
+  <section id="home" class="section">
+    <div class="home-content">
+      <h1>Welcome to gymbmi.com</h1>
+      <p>Your free and simple tool to calculate Body Mass Index and get health tips.</p>
     </div>
+  </section>
 
-    <div class="center-content">
-      <div class="container">
-        <h1>BMI Calculator</h1>
-        <form id="bmi-form">
-          <label for="height">📏 Height (in cm):</label>
-          <input type="number" id="height" required />
-          <label for="weight">⚖️ Weight (in kg):</label>
-          <input type="number" id="weight" required />
-          <button type="submit">Calculate BMI</button>
-        </form>
-        <div id="result"></div>
-      </div>
+  <!-- BMI Calculator Section -->
+  <section id="calculator" class="section">
+    <div class="main-content">
+      <div class="adsense left"><p>Advertisement 1</p></div>
 
-      <!-- Suggestions Box -->
-      <div id="suggestions" class="suggestions-box" style="display: none;">
-        <div class="suggestion-header" onclick="toggleSuggestions()">
-          <span id="suggestion-title">Tips to Control your Body Mass Index</span>
-          <span id="toggle-icon">▼</span>
+      <div class="center-content">
+        <div class="container">
+          <h1>BMI Calculator</h1>
+          <form id="bmi-form">
+            <label for="height">📏 Height (in cm):</label>
+            <input type="number" id="height" required />
+            <label for="weight">⚖️ Weight (in kg):</label>
+            <input type="number" id="weight" required />
+            <button type="submit">Calculate BMI</button>
+          </form>
+          <div id="result"></div>
         </div>
-        <ul id="suggestion-list" style="display: none;"></ul>
+
+        <div id="suggestions" class="suggestions-box" style="display: none;">
+          <div class="suggestion-header" onclick="toggleSuggestions()">
+            <span id="suggestion-title">Tips to Control your Body Mass Index</span>
+            <span id="toggle-icon">▼</span>
+          </div>
+          <ul id="suggestion-list" style="display: none;"></ul>
+        </div>
       </div>
+
+      <div class="adsense right"><p>Advertisement 2</p></div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Our Services</h2>
+      <p>We provide personalized BMI tips, diet suggestions, and guidance to help users maintain a healthy lifestyle.</p>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="section">
+    <div class="container">
+      <h2>Blog</h2>
+      <p>Coming soon: Health articles, fitness tips, and BMI success stories!</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="modern-footer">
+    <div class="newsletter">
+      <h2>Let’s connect!</h2>
+      <p>Stay up to date with the latest health updates.</p>
+      <form class="subscribe-form">
+        <input type="email" placeholder="Type your e-mail here..." required>
+        <button type="submit">Join</button>
+      </form>
     </div>
 
-    <div class="adsense right">
-      <p>Advertisement 2</p>
+    <div class="social-icons">
+      <a href="#"><img src="icons/facebook.svg" alt="Facebook" /></a>
+      <a href="#"><img src="icons/twitter.svg" alt="Twitter" /></a>
+      <a href="#"><img src="icons/instagram.svg" alt="Instagram" /></a>
+      <a href="#"><img src="icons/youtube.svg" alt="YouTube" /></a>
     </div>
-  </div>
 
-  <footer>
-    <p>&copy; 2025 BMI Calculator. All rights reserved.</p>
     <div class="visitor-counter">
       <p>Total Visitors:</p>
       <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=5&type=ip&initCount=0"
            title="Web Counter" alt="visitor counter" border="0" />
     </div>
+
     <div class="datetime">
       Current Time: <span id="current-time"></span>
     </div>
+
+    <p class="copyright">
+      &copy; 2025 gymbmi.com. All rights reserved.
+    </p>
   </footer>
 
-  <!-- Thank You Popup (created dynamically in script.js) -->
+  <!-- Reusable Modal Popup -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">×</span>
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

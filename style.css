@@ -8,11 +8,18 @@ body {
   min-height: 100vh;
 }
 
+/* Header Navigation */
 header {
   background-color: #002244;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
-  text-align: left;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -21,18 +28,45 @@ header {
   color: #ffffff;
 }
 
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #4CAF50;
+}
+
+/* Sections */
+.section {
+  padding: 40px 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  margin: 20px auto;
+  max-width: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* BMI Calculator layout */
 .main-content {
   display: grid;
-  grid-template-columns: 1fr minmax(300px, 500px) 1fr;
-  gap: 20px;
+  grid-template-columns: auto minmax(300px, 500px) auto;
+  gap: 40px;
   padding: 20px 40px;
-  align-items: start;
   box-sizing: border-box;
 }
 
 .adsense {
-  max-width: 120px;
-  width: 100%;
+  width: 120px;
   height: 350px;
   border: 2px dashed #ccc;
   display: flex;
@@ -44,23 +78,21 @@ header {
 }
 
 .center-content {
-  width: 100%;
-  max-width: 450px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.95);
+  background: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
   width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
 }
 
+/* Input fields */
 input, textarea {
   display: block;
   margin: 10px auto;
@@ -83,6 +115,7 @@ button:hover {
   background-color: #45a049;
 }
 
+/* Result & Tips */
 #result {
   margin-top: 20px;
   font-weight: bold;
@@ -108,7 +141,6 @@ button:hover {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 10px;
-  color: #e74c3c;
 }
 
 .suggestions-box ul {
@@ -119,10 +151,43 @@ button:hover {
 
 .suggestions-box li {
   margin-bottom: 8px;
-  padding-left: 5px;
 }
 
-/* === Thank You Popup === */
+/* Popups (About, Contact, etc.) */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px 30px;
+  max-width: 600px;
+  width: 90%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content .close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Thank You Popup */
 .thankyou-popup {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -130,7 +195,7 @@ button:hover {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .thankyou-content {
@@ -149,16 +214,6 @@ button:hover {
   flex: 1 1 300px;
 }
 
-.popup-left h2, .popup-right h3 {
-  margin-top: 0;
-}
-
-.feedback-options button {
-  margin: 5px 10px 15px 0;
-  font-size: 16px;
-}
-
-/* Star ratings default white, yellow when selected */
 .star-rating span {
   font-size: 24px;
   cursor: pointer;
@@ -170,7 +225,6 @@ button:hover {
   color: gold;
 }
 
-/* Close button */
 .popup-close {
   position: absolute;
   top: 10px;
@@ -181,41 +235,67 @@ button:hover {
   cursor: pointer;
 }
 
-.popup-footer {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* === Footer === */
+/* Footer */
 footer {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #111;
+  color: #ccc;
+  padding: 20px 10px;
   text-align: center;
-  padding: 10px 0;
   font-size: 14px;
-  color: #555;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.visitor-counter, .datetime {
-  font-size: 14px;
-  color: #444;
-  text-align: center;
+footer a {
+  color: #4CAF50;
+  text-decoration: none;
 }
 
-/* === Responsive === */
+footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 10px;
+}
+
+.footer-columns div {
+  flex: 1 1 200px;
+}
+
+.visitor-counter img {
+  margin-top: 5px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .main-content {
+  .navbar {
     flex-direction: column;
-    padding: 10px 20px;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .adsense {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
   }
 
   .thankyou-content {
     flex-direction: column;
-  }
-
-  .popup-left, .popup-right {
-    flex: 1 1 100%;
   }
 
   .popup-footer {
