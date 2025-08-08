@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: url('images/bmi-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #ffffff !important;  /* Removed background image */
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -12,6 +11,9 @@ body {
 header {
   background-color: #002244;
   padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar {
@@ -157,12 +159,13 @@ button:hover {
 .modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: transparent; /* ✅ Removed dark overlay */
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
+
 
 .modal-content {
   background: white;
@@ -171,19 +174,20 @@ button:hover {
   width: 90%;
   border-radius: 10px;
   position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* optional */
 }
 
 .modal-content h2 {
   margin-top: 0;
 }
 
-.modal-content .close {
+.modal-close {
   position: absolute;
   right: 20px;
   top: 15px;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  color: #333;
+  color: red;
   cursor: pointer;
 }
 

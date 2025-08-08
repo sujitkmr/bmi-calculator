@@ -79,7 +79,6 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
     window.popupTimer = setTimeout(() => {
       showThankYouPopup();
     }, 30000);
-
   } else {
     resultDiv.textContent = 'Please enter valid height and weight!';
     resultDiv.style.color = '#e74c3c';
@@ -187,8 +186,10 @@ const modalContent = {
   }
 };
 
-// Open modal
-function openModal(section) {
+// Open modal with event parameter to prevent link default
+function openModal(section, event) {
+  if (event) event.preventDefault();
+
   const modal = document.getElementById("modal");
   const title = document.getElementById("modal-title");
   const body = document.getElementById("modal-body");
