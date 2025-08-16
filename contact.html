@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Contact gymbmi.com for questions, feedback, or support.">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Contact gymbmi.com for questions, feedback, or support." />
   <title>Contact - gymbmi.com</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
 <header>
   <div class="navbar">
-    <!-- ✅ Updated Logo -->
-<div class="logo">
-  <a href="index.html" style="text-decoration:none; color:inherit;">
-    <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
-  </a>
-</div>
+    <div class="logo">
+      <a href="index.html" style="text-decoration:none; color:inherit;">
+        <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+      </a>
+    </div>
 
     <nav class="nav-links">
       <a href="index.html">Home</a>
@@ -36,21 +36,33 @@
   <div class="card">
     <h1>Contact Us</h1>
     <p>We’d love to hear from you. Send us a message and we’ll get back to you soon.</p>
-    <form action="mailto:contact@gymbmi.com" method="POST" enctype="text/plain">
+
+    <form action="https://formsubmit.co/sujitkmr50@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+
       <div class="input-row">
         <div>
           <label for="name">Your Name</label>
-          <input id="name" name="Name" type="text" placeholder="Jane Doe" required>
+          <input id="name" name="Name" type="text" placeholder="Your Good Name" required />
         </div>
         <div>
           <label for="email">Your Email</label>
-          <input id="email" name="Email" type="email" placeholder="jane@example.com" required>
+          <input id="email" name="Email" type="email" placeholder="userName@example.com" required />
         </div>
       </div>
+
       <div style="margin-top:14px">
         <label for="message">Message</label>
-        <textarea id="message" name="Message" rows="6" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:#0b1220;color:var(--text)" placeholder="How can we help?" required></textarea>
+        <textarea
+          id="message"
+          name="Message"
+          rows="6"
+          style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(148,163,184,.25); background:#0b1220; color:var(--text)"
+          placeholder="How can we help?"
+          required
+        ></textarea>
       </div>
+
       <div style="margin-top:14px">
         <button type="submit" class="btn btn-primary">Send Message</button>
       </div>
@@ -65,25 +77,30 @@
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
         <form class="subscribe-form" onsubmit="return false">
-          <input type="email" placeholder="Type your e-mail here..." required>
+          <input type="email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
       </div>
       <div class="social-icons">
-        <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28"></a>
-        <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28"></a>
-        <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28"></a>
-        <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28"></a>
+        <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" /></a>
+        <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28" /></a>
+        <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28" /></a>
       </div>
     </div>
+
     <div>
       <div class="footer-meta">
         <div>Current Time: <span id="current-time"></span></div>
-        <div>Visitors:
-          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=5&type=ip&initCount=0" alt="visitor counter" />
+        <div>
+          Visitors:
+          <img
+            src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=5&type=ip&initCount=0"
+            alt="visitor counter"
+          />
         </div>
       </div>
-      <hr class="sep">
+      <hr class="sep" />
       <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
     </div>
   </div>

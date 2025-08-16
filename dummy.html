@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BMI Bar with Arrow UI</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+    max-width: 600px;
+    margin: auto;
+  }
+  .bmi-bar-container {
+    position: relative;
+    height: 40px;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 30px;
+  }
+  .bmi-bar-fill {
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    width: 0;
+    transition: width 0.7s ease;
+  }
+  .bmi-arrow {
+    position: absolute;
+    top: -15px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 20px solid red;
+    transition: left 0.7s ease;
+  }
+  .bmi-labels {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .bmi-category {
+    font-size: 0.85rem;
+    color: #444;
+  }
+</style>
+</head>
+<body>
+
+<h2>Your BMI</h2>
+<div class="bmi-bar-container" id="bmiBar">
+  <div class="bmi-bar-fill" id="bmiFill"></div>
+  <div class="bmi-arrow" id="bmiArrow"></div>
+</div>
+<div class="bmi-labels">
+  <span class="bmi-category">Underweight<br>&lt; 18.5</span>
+  <span class="bmi-category">Normal<br>18.5–24.9</span>
+  <span class="bmi-category">Overweight<br>25–29.9</span>
+  <span class="bmi-category">Obese<br>≥ 30</span>
+</div>
+
+<script>
+  // Example BMI value:
+  const bmi = 27.5; // Change this number to test
+
+  // BMI bar width max corresponds to BMI 40 for scaling
+  const maxBMI = 40;
+  const barWidthPercent = Math.min((bmi / maxBMI) * 100, 100);
+
+  const fill = document.getElementById('bmiFill');
+  const arrow = document.getElementById('bmiArrow');
+
+  // Set fill width to bmi percentage
+  fill.style.width = barWidthPercent + '%';
+
+  // Position arrow slightly ahead of fill bar (within container width 100%)
+  // Calculate left position relative to container width (consider arrow width ~24px)
+  const containerWidth = 100; // percent
+  const arrowPos = Math.min(barWidthPercent, 100);
+  arrow.style.left = `calc(${arrowPos}% - 12px)`; // 12px half arrow width to center
+</script>
+
+</body>
+</html>
