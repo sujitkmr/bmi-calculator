@@ -6,8 +6,9 @@
   <title>BMI Calculator – Free Online Body Mass Index Tool | gymbmi.com</title>
   <meta name="description" content="Free online BMI calculator. Check your Body Mass Index instantly and get helpful health tips. No sign-up, no data stored." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- ✅ Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Header -->
@@ -34,8 +35,7 @@
         <h1>Check Your BMI in Seconds</h1>
         <p>Simple, accurate, and free. Our BMI calculator helps you understand your weight category and take the next step toward better health.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="#calculator">Calculate BMI</a>
-          <a class="btn btn-outline" href="#how-it-works">How it works</a>
+          <a class="btn btn-primary" href="#calculator">Know your BMI</a>
         </div>
         <div class="trust">
           <span>✔ No login needed</span>
@@ -54,12 +54,12 @@
         <form id="bmi-form">
           <div class="input-row">
             <div class="input-group">
-              <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
-              <input type="number" id="height" placeholder="e.g. 170" min="50" max="260" required>
+              <label for="height"><i class="fa-solid fa-ruler"></i> Height (cm)</label>
+              <input type="number" id="height" placeholder="e.g. - 170" min="50" max="260" required>
             </div>
             <div class="input-group">
-              <label for="weight"><i class="fas fa-weight"></i> Weight (kg)</label>
-              <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
+              <label for="weight"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
+              <input type="number" id="weight" placeholder="e.g. - 65" min="10" max="300" required>
             </div>
           </div>
           <div style="margin-top:14px">
@@ -81,17 +81,26 @@
           </div>
           <ul id="suggestion-list"></ul>
         </div>
+
+        <div class="card fade-in">
+          <h2>BMI Ranges (Adults)</h2>
+          <ul style="margin:0; padding-left:18px">
+            <li>Underweight: &lt; 18.5</li>
+            <li>Normal weight: 18.5 – 24.9</li>
+            <li>Overweight: 25 – 29.9</li>
+            <li>Obesity: ≥ 30</li>
+          </ul>
+          <hr class="sep">
+          <p style="margin:0; color:var(--muted)">Note: BMI is a general indicator and doesn’t account for muscle mass, age, or body composition. Always seek professional medical advice for personalized guidance.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ✅ BMI Chart + Tips -->
+  <!-- ✅ BMI Chart + Category Tips -->
   <section class="bmi-chart section fade-in">
     <h2>BMI Categories & Tips</h2>
-
-    <div class="bmi-chart-wrapper">
-      <img src="images/bmi-chart.webp" alt="BMI Chart" class="bmi-chart-img" loading="lazy">
-    </div>
+    <img src="images/bmi-chart.webp" alt="BMI Chart" class="bmi-chart-img" loading="lazy">
 
     <div class="bmi-tips">
       <div class="tip-card underweight">
