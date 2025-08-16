@@ -31,9 +31,18 @@ header {
   align-items: center;
 }
 
+/* === Logo Styling === */
 .logo {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+.logo .blue-text {
+  color: #00205B;
+}
+.logo .red-bars {
+  color: red;
+  padding: 0 4px;
 }
 
 .nav-links {

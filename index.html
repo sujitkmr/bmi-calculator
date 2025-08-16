@@ -9,12 +9,29 @@
   <!-- ✅ Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Added inline CSS for logo styling */
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .blue-text {
+      color: #00205B;
+    }
+    .red-bars {
+      color: red;
+      padding: 0 4px;
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="navbar">
-      <div class="logo">gymbmi.com</div>
+      <div class="logo">
+        <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+      </div>
       <button class="menu-toggle" id="menu-toggle">☰</button>
       <nav class="nav-links" id="nav-links">
         <a href="index.html" class="active">Home</a>
@@ -104,7 +121,7 @@
 
     <div class="bmi-tips">
       <div class="tip-card underweight">
-        <h3>⚠️ Underweight(BMI &lt; 18.5)</h3>
+        <h3>⚠️ Underweight (BMI &lt; 18.5)</h3>
         <ul>
           <li>Eat calorie-dense foods</li>
           <li>Include protein in diet</li>
