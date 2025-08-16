@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (bmiForm) {
     const tips = {
       "Underweight": {
-        color: "#f39c12", // amber
+        color: "#fbbf24", // yellow/amber
         list: [
           "Add calorie-dense, nutritious foods.",
           "Eat small meals more frequently.",
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
       },
       "Overweight": {
-        color: "#e67e22", // orange
+        color: "#f97316", // orange
         list: [
           "Focus on portion control and whole foods.",
           "Add regular cardio and resistance training.",
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById("nav-links");
   if (menuToggle) {
     menuToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("show");
+      navLinks.classList.toggle("active"); // keep consistent with CSS
     });
   }
 });

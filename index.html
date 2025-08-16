@@ -7,6 +7,7 @@
   <meta name="description" content="Free online BMI calculator. Check your Body Mass Index instantly and get helpful health tips. No sign-up, no data stored." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Header -->
@@ -52,13 +53,13 @@
         <h2>BMI Calculator</h2>
         <form id="bmi-form">
           <div class="input-row">
-            <div>
-              <label for="height">Height (cm)</label>
-              <input type="number" id="height" placeholder="e.g., 170" min="50" max="260" required>
+            <div class="input-group">
+              <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+              <input type="number" id="height" placeholder="e.g. 170" min="50" max="260" required>
             </div>
-            <div>
-              <label for="weight">Weight (kg)</label>
-              <input type="number" id="weight" placeholder="e.g., 65" min="10" max="300" required>
+            <div class="input-group">
+              <label for="weight"><i class="fas fa-weight"></i> Weight (kg)</label>
+              <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
             </div>
           </div>
           <div style="margin-top:14px">
@@ -73,25 +74,60 @@
           <p id="result-text"></p>
         </div>
 
-<!-- Tips -->
-<div id="suggestion-box" class="card" style="margin-top:14px; display:none">
-  <div id="toggle-suggestions">
-    <strong id="suggestion-title">Tips</strong> <span id="toggle-icon">▼</span>
-  </div>
-  <ul id="suggestion-list"></ul>
-</div>
+        <!-- Tips -->
+        <div id="suggestion-box" class="card" style="margin-top:14px; display:none">
+          <div id="toggle-suggestions">
+            <strong id="suggestion-title">Tips</strong> <span id="toggle-icon">▼</span>
+          </div>
+          <ul id="suggestion-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ✅ BMI Chart + Tips -->
+  <section class="bmi-chart section fade-in">
+    <h2>BMI Categories & Tips</h2>
 
-      <div class="card fade-in">
-        <h2>BMI Ranges (Adults)</h2>
-        <ul style="margin:0; padding-left:18px">
-          <li>Underweight: &lt; 18.5</li>
-          <li>Normal weight: 18.5 – 24.9</li>
-          <li>Overweight: 25 – 29.9</li>
-          <li>Obesity: ≥ 30</li>
+    <div class="bmi-chart-wrapper">
+      <img src="images/bmi-chart.webp" alt="BMI Chart" class="bmi-chart-img" loading="lazy">
+    </div>
+
+    <div class="bmi-tips">
+      <div class="tip-card underweight">
+        <h3>⚠️ Underweight (BMI &lt; 18.5)</h3>
+        <ul>
+          <li>Eat calorie-dense foods</li>
+          <li>Include protein in diet</li>
+          <li>Add healthy snacks</li>
         </ul>
-        <hr class="sep">
-        <p style="margin:0; color:var(--muted)">Note: BMI is a general indicator and doesn’t account for muscle mass, age, or body composition. Always seek professional medical advice for personalized guidance.</p>
+      </div>
+
+      <div class="tip-card normal">
+        <h3>💪 Normal (18.5 – 24.9)</h3>
+        <ul>
+          <li>Maintain balanced diet</li>
+          <li>Stay active daily</li>
+          <li>Keep hydrated</li>
+        </ul>
+      </div>
+
+      <div class="tip-card overweight">
+        <h3>⚡ Overweight (25 – 29.9)</h3>
+        <ul>
+          <li>Increase fruits & veggies</li>
+          <li>Add daily walks</li>
+          <li>Cut down sugary drinks</li>
+        </ul>
+      </div>
+
+      <div class="tip-card obese">
+        <h3>❌ Obesity (BMI ≥ 30)</h3>
+        <ul>
+          <li>Consult a nutritionist</li>
+          <li>Do regular physical activity</li>
+          <li>Monitor blood pressure</li>
+        </ul>
       </div>
     </div>
   </section>

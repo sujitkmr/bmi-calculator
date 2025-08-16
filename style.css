@@ -125,6 +125,11 @@ button:hover,
 }
 
 /* Forms */
+.input-group label i {
+  margin-right: 6px;
+  color: #2c7be5;
+}
+
 input[type="email"],
 input[type="text"],
 input[type="number"] {
@@ -178,22 +183,6 @@ input:focus {
   transform: scale(1.1);
 }
 
-.visitor-counter {
-  margin: 10px 0;
-}
-
-.datetime {
-  margin: 10px 0;
-  font-size: 0.9rem;
-  color: #bbb;
-}
-
-.copyright {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  color: #888;
-}
-
 /* === New UI Enhancements === */
 
 /* Hero */
@@ -206,11 +195,6 @@ input:focus {
 .hero-text {
   flex: 1;
   padding: 20px;
-}
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
 }
 
 /* BMI Result Badge */
@@ -251,6 +235,49 @@ input:focus {
   }
 }
 
+/* === BMI Chart & Tips Section === */
+.bmi-chart {
+  text-align: center;
+}
+.bmi-chart h2 {
+  color: #2c7be5;
+  margin-bottom: 15px;
+}
+.bmi-chart-img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+.bmi-tips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 15px;
+}
+.tip-card {
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  text-align: left;
+}
+.tip-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.tip-card ul {
+  padding-left: 18px;
+}
+.tip-card li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* Colors for tips */
+.tip-card.underweight { background: #fbbf24; color: #222; }
+.tip-card.normal { background: #22c55e; }
+.tip-card.overweight { background: #f97316; }
+.tip-card.obese { background: #ef4444; }
+
 /* === Mobile Responsiveness === */
 .menu-toggle {
   display: none;
@@ -265,10 +292,6 @@ input:focus {
   .hero-content {
     flex-direction: column;
     text-align: center;
-  }
-  .hero-img img {
-    margin-top: 20px;
-    max-width: 220px;
   }
 
   .input-row {
@@ -291,16 +314,18 @@ input:focus {
     margin: 10px 0;
   }
 
-  .nav-links.show {
+  .nav-links.active {
     display: flex;
   }
-/* Tips Box */
+}
+
+/* Tips Box (Dynamic Suggestions) */
 #suggestion-box {
   transition: all 0.3s ease;
   border-radius: 8px;
-  color: white; /* default text color */
+  padding: 10px;
+  margin-top: 12px;
 }
-
 #suggestion-box ul {
   padding-left: 20px;
   margin: 10px 0;
@@ -308,6 +333,4 @@ input:focus {
 #suggestion-box li {
   margin-bottom: 6px;
   font-size: 0.95rem;
-}
-
 }
