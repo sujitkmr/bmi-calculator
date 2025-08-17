@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BMI Calculator – Free Online Body Mass Index Tool | gymbmi.com</title>
   <meta name="description" content="Free online BMI calculator. Check your Body Mass Index instantly and get helpful health tips. No sign-up, no data stored." />
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- ✅ Font Awesome for icons -->
+
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
   <style>
-    /* Added inline CSS for logo styling */
+    /* Inline logo styling */
     .logo {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
@@ -26,15 +32,20 @@
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <div class="navbar">
-<div class="logo">
-  <a href="index.html" style="text-decoration:none; color:inherit;">
-    <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
-  </a>
-</div>
+      <div class="logo">
+        <a href="index.html" style="text-decoration:none; color:inherit;">
+          <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+        </a>
+      </div>
+
+      <!-- ✅ Mobile hamburger -->
       <button class="menu-toggle" id="menu-toggle">☰</button>
+
+      <!-- ✅ Unified nav -->
       <nav class="nav-links" id="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="#calculator">BMI Calculator</a>
@@ -74,11 +85,11 @@
           <div class="input-row">
             <div class="input-group">
               <label for="height"><i class="fa-solid fa-ruler"></i> Height (cm)</label>
-              <input type="number" id="height" placeholder="e.g. - 170" min="50" max="260" required>
+              <input type="number" id="height" placeholder="e.g. 170" min="50" max="260" required>
             </div>
             <div class="input-group">
               <label for="weight"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
-              <input type="number" id="weight" placeholder="e.g. - 65" min="10" max="300" required>
+              <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
             </div>
           </div>
           <div style="margin-top:14px">
@@ -101,6 +112,7 @@
           <ul id="suggestion-list"></ul>
         </div>
 
+        <!-- BMI Ranges -->
         <div class="card fade-in">
           <h2>BMI Ranges (Adults)</h2>
           <ul style="margin:0; padding-left:18px">
@@ -192,6 +204,7 @@
     </div>
   </footer>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
