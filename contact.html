@@ -5,27 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Contact gymbmi.com for questions, feedback, or support." />
   <title>Contact - gymbmi.com</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <style>
-    input, textarea {
-      color: #fff !important;
-      background: #0b1220;
-    }
-    input::placeholder,
-    textarea::placeholder {
-      color: #bbb;
-      opacity: 1;
-    }
-    #success-msg, #newsletter-success {
-      display: none;
-      color: lightgreen;
-      margin-top: 14px;
-      font-weight: 600;
-    }
-  </style>
 </head>
 <body>
 
@@ -54,8 +41,8 @@
     <h1>Contact Us</h1>
     <p>We’d love to hear from you. Send us a message and we’ll get back to you soon.</p>
 
-    <!-- ✅ Contact form (AJAX submission) -->
-    <form id="contact-form">
+    <!-- ✅ Contact form -->
+    <form id="contact-form" class="contact-form">
       <input type="hidden" name="_captcha" value="false" />
 
       <div class="input-row">
@@ -75,7 +62,6 @@
           id="message"
           name="Message"
           rows="6"
-          style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(148,163,184,.25)"
           placeholder="How can we help?"
           required
         ></textarea>
@@ -99,7 +85,7 @@
         <p>Stay up to date with the latest health updates.</p>
 
         <!-- ✅ Newsletter form -->
-        <form id="newsletter-form" action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST">
+        <form id="newsletter-form" class="contact-form">
           <input type="hidden" name="_captcha" value="false">
           <input type="email" name="Email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
@@ -130,48 +116,9 @@
   </div>
 </footer>
 
-<!-- ✅ Contact form AJAX -->
-<script>
-document.getElementById("contact-form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-
-  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("success-msg").style.display = "block";
-    this.reset();
-    setTimeout(() => {
-      document.getElementById("success-msg").style.display = "none";
-    }, 5000);
-  })
-  .catch(err => alert("❌ Error sending message, please try again."));
-});
-
-// ✅ Newsletter AJAX
-document.getElementById("newsletter-form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-
-  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("newsletter-success").style.display = "block";
-    this.reset();
-    setTimeout(() => {
-      document.getElementById("newsletter-success").style.display = "none";
-    }, 5000);
-  })
-  .catch(err => alert("❌ Error subscribing, please try again."));
-});
-</script>
-
-<script src="script.js"></script>
+<!-- ✅ Modular JS -->
+<script src="js/menu.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/forms.js"></script>
 </body>
 </html>
