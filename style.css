@@ -55,11 +55,12 @@ header {
   margin-left: 15px;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #ffd700;
+  transform: scale(1.05);
 }
 
 /* Active nav link */
@@ -141,7 +142,8 @@ button:hover,
 
 input[type="email"],
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -150,9 +152,21 @@ input[type="number"] {
   margin-bottom: 10px;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   border-color: #2c7be5;
   box-shadow: 0 0 5px rgba(44,123,229,0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2c7be5;
+  outline-offset: 2px;
 }
 
 /* Footer */
@@ -185,11 +199,12 @@ input:focus {
 
 .social-icons a img {
   margin: 0 8px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .social-icons a img:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  filter: brightness(1.2);
 }
 
 /* === New UI Enhancements === */
@@ -342,4 +357,35 @@ input:focus {
 #suggestion-box li {
   margin-bottom: 6px;
   font-size: 0.95rem;
+}
+
+/* === New Additions for Success/Error Messages === */
+#success-msg,
+#newsletter-success {
+  display: none;
+  color: #22c55e;
+  font-weight: 600;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Newsletter alignment fix for mobile */
+@media (max-width: 480px) {
+  .subscribe-form {
+    flex-direction: column;
+  }
+  .subscribe-form input {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+  .subscribe-form button {
+    width: 100%;
+  }
 }

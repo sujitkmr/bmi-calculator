@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (bmiForm) {
     const tips = {
       "Underweight": {
-        color: "#fbbf24", // yellow/amber
+        color: "#fbbf24",
         list: [
           "Add calorie-dense, nutritious foods.",
           "Eat small meals more frequently.",
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
       },
       "Normal weight": {
-        color: "#22c55e", // green
+        color: "#22c55e",
         list: [
           "Maintain a balanced diet with whole foods.",
           "Stay active 150+ minutes/week.",
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
       },
       "Overweight": {
-        color: "#f97316", // orange
+        color: "#f97316",
         list: [
           "Focus on portion control and whole foods.",
           "Add regular cardio and resistance training.",
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
       },
       "Obesity": {
-        color: "#ef4444", // red
+        color: "#ef4444",
         list: [
           "Adopt a sustainable calorie deficit.",
           "Increase daily movement and structured exercise.",
@@ -68,31 +68,21 @@ document.addEventListener("DOMContentLoaded", () => {
         resultBadge.style.color = "white";
         resultText.textContent = `Your BMI is ${bmi}`;
 
-        // Progress bar (scale BMI 0–40 → 0–100%)
+        // Progress bar
         let progress = Math.min((bmi / 40) * 100, 100);
         progressBar.style.width = progress + "%";
         progressBar.style.background = tips[category].color;
 
-        // Tips box
+        // Tips
         suggestionBox.style.display = 'block';
         suggestionList.style.display = 'none';
         toggleIcon.textContent = '▼';
 
-        // Apply background & text color dynamically
         const bgColor = tips[category].color;
         suggestionBox.style.background = bgColor;
+        suggestionBox.style.color = category === "Underweight" ? "#222" : "white";
+        suggestionTitle.style.color = category === "Underweight" ? "#222" : "white";
 
-        if (category === "Underweight") {
-          // Yellow → dark text
-          suggestionBox.style.color = "#222";
-          suggestionTitle.style.color = "#222";
-        } else {
-          // Green, orange, red → white text
-          suggestionBox.style.color = "white";
-          suggestionTitle.style.color = "white";
-        }
-
-        // Fill tips
         suggestionList.innerHTML = tips[category].list.map(t => `<li>${t}</li>`).join('');
       } else {
         resultText.textContent = 'Please enter valid height and weight!';
@@ -115,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Footer current time
+  // ✅ Footer current time
   const timeEl = document.getElementById("current-time");
   function updateTime(){
     if (!timeEl) return;
@@ -125,12 +115,60 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTime();
   setInterval(updateTime, 1000);
 
-  // Mobile menu toggle
+  // ✅ Mobile menu toggle
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
   if (menuToggle) {
     menuToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("active"); // keep consistent with CSS
+      navLinks.classList.toggle("active");
+    });
+  }
+
+  // ✅ Contact form AJAX
+  const contactForm = document.getElementById("contact-form");
+  const successMsg = document.getElementById("success-msg");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (successMsg) successMsg.style.display = "block";
+        this.reset();
+        setTimeout(() => {
+          if (successMsg) successMsg.style.display = "none";
+        }, 5000);
+      })
+      .catch(() => alert("❌ Error sending message, please try again."));
+    });
+  }
+
+  // ✅ Newsletter form AJAX
+  const newsletterForm = document.getElementById("newsletter-form");
+  const newsletterSuccess = document.getElementById("newsletter-success");
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (newsletterSuccess) newsletterSuccess.style.display = "block";
+        this.reset();
+        setTimeout(() => {
+          if (newsletterSuccess) newsletterSuccess.style.display = "none";
+        }, 5000);
+      })
+      .catch(() => alert("❌ Error subscribing, please try again."));
     });
   }
 });

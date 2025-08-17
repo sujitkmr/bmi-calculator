@@ -29,6 +29,13 @@
       color: red;
       padding: 0 4px;
     }
+    /* Newsletter success message */
+    #newsletter-success {
+      display: none;
+      margin-top: 10px;
+      color: lightgreen;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -179,11 +186,23 @@
         <div class="newsletter">
           <h2>Let’s connect!</h2>
           <p>Stay up to date with the latest health updates.</p>
-          <form class="subscribe-form" onsubmit="return false">
-            <input type="email" placeholder="Type your e-mail here..." required>
+
+          <!-- ✅ Newsletter Form -->
+          <form action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST" class="subscribe-form">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://gymbmi.com/#newsletter-success">
+
+            <input type="email" name="Email" placeholder="Type your e-mail here..." required />
             <button type="submit" class="btn btn-primary">Join</button>
           </form>
+
+          <!-- ✅ Success Message -->
+          <div id="newsletter-success">
+            ✅ Thank you for subscribing! We’ll connect with you soon.
+          </div>
         </div>
+
+        <!-- ✅ Social Icons -->
         <div class="social-icons">
           <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28"></a>
           <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28"></a>
@@ -191,11 +210,13 @@
           <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28"></a>
         </div>
       </div>
+
       <div>
         <div class="footer-meta">
           <div>Current Time: <span id="current-time"></span></div>
           <div>Visitors:
-            <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=0" alt="visitor counter" />
+            <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
+                 alt="visitor counter" />
           </div>
         </div>
         <hr class="sep">

@@ -9,6 +9,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    #newsletter-success {
+      display: none;
+      color: lightgreen;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
@@ -59,11 +67,16 @@
       <div class="newsletter">
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
-        <form class="subscribe-form" onsubmit="return false">
-          <input type="email" placeholder="Type your e-mail here..." required />
+
+        <!-- ✅ Newsletter form with AJAX -->
+        <form id="newsletter-form">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="Email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
+        <div id="newsletter-success">✅ Thank you for subscribing!</div>
       </div>
+
       <div class="social-icons">
         <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" /></a>
         <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" /></a>
@@ -78,7 +91,7 @@
         <div>
           Visitors:
           <img
-            src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=0"
+            src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
             alt="visitor counter"
           />
         </div>
@@ -88,6 +101,28 @@
     </div>
   </div>
 </footer>
+
+<!-- ✅ Newsletter AJAX -->
+<script>
+document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("newsletter-success").style.display = "block";
+    this.reset();
+    setTimeout(() => {
+      document.getElementById("newsletter-success").style.display = "none";
+    }, 5000);
+  })
+  .catch(err => alert("❌ Error subscribing, please try again."));
+});
+</script>
 
 <script src="script.js"></script>
 </body>

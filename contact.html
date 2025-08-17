@@ -19,7 +19,7 @@
       color: #bbb;
       opacity: 1;
     }
-    #success-msg {
+    #success-msg, #newsletter-success {
       display: none;
       color: lightgreen;
       margin-top: 14px;
@@ -54,7 +54,7 @@
     <h1>Contact Us</h1>
     <p>We’d love to hear from you. Send us a message and we’ll get back to you soon.</p>
 
-    <!-- ✅ Removed action attribute -->
+    <!-- ✅ Contact form (AJAX submission) -->
     <form id="contact-form">
       <input type="hidden" name="_captcha" value="false" />
 
@@ -97,11 +97,16 @@
       <div class="newsletter">
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
-        <form class="subscribe-form" onsubmit="return false">
-          <input type="email" placeholder="Type your e-mail here..." required />
+
+        <!-- ✅ Newsletter form -->
+        <form id="newsletter-form" action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="Email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
+        <div id="newsletter-success">✅ Thank you for subscribing!</div>
       </div>
+
       <div class="social-icons">
         <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" /></a>
         <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" /></a>
@@ -115,7 +120,7 @@
         <div>Current Time: <span id="current-time"></span></div>
         <div>
           Visitors:
-          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=0"
+          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
                alt="visitor counter" />
         </div>
       </div>
@@ -125,7 +130,7 @@
   </div>
 </footer>
 
-<!-- ✅ AJAX to prevent redirect -->
+<!-- ✅ Contact form AJAX -->
 <script>
 document.getElementById("contact-form").addEventListener("submit", function(e) {
   e.preventDefault();
@@ -139,12 +144,31 @@ document.getElementById("contact-form").addEventListener("submit", function(e) {
   .then(data => {
     document.getElementById("success-msg").style.display = "block";
     this.reset();
-    // ✅ Auto-hide success message after 5s
     setTimeout(() => {
       document.getElementById("success-msg").style.display = "none";
     }, 5000);
   })
   .catch(err => alert("❌ Error sending message, please try again."));
+});
+
+// ✅ Newsletter AJAX
+document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("newsletter-success").style.display = "block";
+    this.reset();
+    setTimeout(() => {
+      document.getElementById("newsletter-success").style.display = "none";
+    }, 5000);
+  })
+  .catch(err => alert("❌ Error subscribing, please try again."));
 });
 </script>
 
