@@ -10,15 +10,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ✅ Ensure text + placeholders are visible */
     input, textarea {
-      color: #fff !important; /* typed text is white */
+      color: #fff !important;
       background: #0b1220;
     }
     input::placeholder,
     textarea::placeholder {
-      color: #bbb; /* light gray for visibility */
+      color: #bbb;
       opacity: 1;
+    }
+    #success-msg {
+      display: none;
+      color: lightgreen;
+      margin-top: 14px;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -31,11 +36,7 @@
         <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
       </a>
     </div>
-
-    <!-- ✅ Mobile hamburger -->
     <button class="menu-toggle" id="menu-toggle">☰</button>
-
-    <!-- ✅ Unified nav -->
     <nav class="nav-links" id="nav-links">
       <a href="index.html">Home</a>
       <a href="index.html#calculator">BMI Calculator</a>
@@ -53,7 +54,8 @@
     <h1>Contact Us</h1>
     <p>We’d love to hear from you. Send us a message and we’ll get back to you soon.</p>
 
-    <form action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST">
+    <!-- ✅ Removed action attribute -->
+    <form id="contact-form">
       <input type="hidden" name="_captcha" value="false" />
 
       <div class="input-row">
@@ -83,6 +85,9 @@
         <button type="submit" class="btn btn-primary">Send Message</button>
       </div>
     </form>
+
+    <!-- ✅ Success message -->
+    <div id="success-msg">✅ Your message was sent successfully!</div>
   </div>
 </section>
 
@@ -119,6 +124,29 @@
     </div>
   </div>
 </footer>
+
+<!-- ✅ AJAX to prevent redirect -->
+<script>
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("success-msg").style.display = "block";
+    this.reset();
+    // ✅ Auto-hide success message after 5s
+    setTimeout(() => {
+      document.getElementById("success-msg").style.display = "none";
+    }, 5000);
+  })
+  .catch(err => alert("❌ Error sending message, please try again."));
+});
+</script>
 
 <script src="script.js"></script>
 </body>
