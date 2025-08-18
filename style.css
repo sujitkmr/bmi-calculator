@@ -31,11 +31,10 @@ header {
   align-items: center;
 }
 
-/* === Logo Styling === */
+/* Logo */
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
 }
 .logo .blue-text {
   color: #00205B;
@@ -45,11 +44,11 @@ header {
   padding: 0 4px;
 }
 
+/* Navigation */
 .nav-links {
   display: flex;
   align-items: center;
 }
-
 .nav-links a {
   color: white;
   margin-left: 15px;
@@ -57,13 +56,10 @@ header {
   font-weight: 500;
   transition: color 0.3s ease, transform 0.2s ease;
 }
-
 .nav-links a:hover {
   color: #ffd700;
   transform: scale(1.05);
 }
-
-/* Active nav link */
 .nav-links a.active {
   border-bottom: 2px solid #ffd700;
   font-weight: 600;
@@ -71,33 +67,29 @@ header {
 
 /* Sections */
 .section {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.08);
 }
-
 .section h1 {
   color: #2c7be5;
   margin-bottom: 20px;
   font-size: 2rem;
 }
-
 .section h2 {
   color: #28a745;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
 }
-
 .section p,
 .section ul {
   margin-bottom: 15px;
   font-size: 1rem;
 }
-
 .section ul {
   padding-left: 20px;
 }
@@ -116,14 +108,12 @@ button,
   text-decoration: none;
   display: inline-block;
 }
-
 button:hover,
 .subscribe-form button:hover,
 .btn:hover {
   background: #218838;
   transform: scale(1.05);
 }
-
 .btn-outline {
   background: transparent;
   border: 2px solid #28a745;
@@ -139,7 +129,6 @@ button:hover,
   margin-right: 6px;
   color: #2c7be5;
 }
-
 input[type="email"],
 input[type="text"],
 input[type="number"],
@@ -151,22 +140,14 @@ textarea {
   width: 100%;
   margin-bottom: 10px;
 }
-
 input:focus,
 textarea:focus {
   border-color: #2c7be5;
   box-shadow: 0 0 5px rgba(44,123,229,0.3);
 }
-
 textarea {
   resize: vertical;
   min-height: 120px;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #2c7be5;
-  outline-offset: 2px;
 }
 
 /* Footer */
@@ -177,86 +158,28 @@ textarea:focus-visible {
   padding: 30px 20px;
   margin-top: 50px;
 }
-
 .modern-footer h2 {
   color: #fff;
 }
-
 .subscribe-form {
   display: flex;
   justify-content: center;
   margin: 15px 0;
 }
-
 .subscribe-form input {
   width: 250px;
   margin-right: 10px;
 }
-
 .social-icons {
   margin: 15px 0;
 }
-
 .social-icons a img {
   margin: 0 8px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
-
 .social-icons a img:hover {
   transform: scale(1.15);
   filter: brightness(1.2);
-}
-
-/* === New UI Enhancements === */
-
-/* Hero */
-.hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.hero-text {
-  flex: 1;
-  padding: 20px;
-}
-
-/* BMI Result Badge */
-.badge {
-  display: inline-block;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-/* Progress Bar */
-#result-progress {
-  width: 100%;
-  height: 14px;
-  background: #eee;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-#progress-bar {
-  height: 100%;
-  width: 0;
-  background: #2c7be5;
-  transition: width 0.8s ease;
-}
-
-/* Animations */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1s forwards;
-}
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* === BMI Chart & Tips Section === */
@@ -296,13 +219,82 @@ textarea:focus-visible {
   font-size: 0.95rem;
 }
 
-/* Colors for tips */
+/* Tip Colors */
 .tip-card.underweight { background: #fbbf24; color: #222; }
 .tip-card.normal { background: #22c55e; }
 .tip-card.overweight { background: #f97316; }
 .tip-card.obese { background: #ef4444; }
 
-/* === Mobile Responsiveness === */
+/* === Article Grid === */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+.article-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.article-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.article-card h3 {
+  padding: 12px;
+  color: #2c7be5;
+  font-size: 1.1rem;
+}
+.article-card p {
+  padding: 0 12px 16px;
+  color: #555;
+  font-size: 0.95rem;
+}
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* === Articles Listing Page === */
+.article-listing {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  line-height: 1.7;
+}
+.article-category {
+  margin-bottom: 30px;
+}
+.article-category h2 {
+  color: #2c7be5;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 6px;
+}
+.topic {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #ddd;
+}
+.topic h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #28a745;
+}
+.topic p {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Mobile Menu */
 .menu-toggle {
   display: none;
   background: none;
@@ -311,21 +303,17 @@ textarea:focus-visible {
   color: white;
   cursor: pointer;
 }
-
 @media (max-width: 768px) {
   .hero-content {
     flex-direction: column;
     text-align: center;
   }
-
   .input-row {
     display: block;
   }
-
   .menu-toggle {
     display: block;
   }
-
   .nav-links {
     display: none;
     flex-direction: column;
@@ -333,11 +321,9 @@ textarea:focus-visible {
     padding: 10px;
     width: 100%;
   }
-
   .nav-links a {
     margin: 10px 0;
   }
-
   .nav-links.active {
     display: flex;
   }
@@ -359,7 +345,7 @@ textarea:focus-visible {
   font-size: 0.95rem;
 }
 
-/* === New Additions for Success/Error Messages === */
+/* Success/Error Messages */
 #success-msg,
 #newsletter-success {
   display: none;
@@ -368,7 +354,6 @@ textarea:focus-visible {
   margin-top: 10px;
   text-align: center;
 }
-
 .error-msg {
   color: #ef4444;
   font-weight: 600;
