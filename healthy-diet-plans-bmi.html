@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Personalized diet and workout plans by BMI category. Find the right nutrition and fitness routine for your body type." />
+  <title>Diet & Workout Plans - gymbmi.com</title>
+  <link rel="canonical" href="https://gymbmi.com/diet-plans.html" />
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .plan-section {
+      margin-bottom: 40px;
+    }
+    .plan-section h2 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .plan-section ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Header -->
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html" style="text-decoration:none; color:inherit;">
+        <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+      </a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#calculator">BMI Calculator</a>
+      <a href="bmi-health-fitness-articles.html">Articles</a>
+      <a href="healthy-diet-plans-bmi.html" class="active">Diet & Workout Plans</a>
+      <a href="about-bmi-gymbmi-fitness.html">About</a>
+      <a href="contact-bmi-gymbmi-team.html">Contact</a>
+      <a href="privacy-policy-gymbmi.html">Privacy Policy</a>
+      <a href="terms-and-conditions-gymbmi.html">Terms</a>
+      <a href="website-disclaimer-gymbmi.html">Disclaimer</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ✅ Content -->
+<section class="section">
+  <div class="card">
+    <h1>Diet & Workout Plans by BMI</h1>
+    <p>Find the right nutrition and exercise plan for your BMI category. Whether you’re underweight, normal, overweight, or obese, we’ve outlined practical steps you can follow.</p>
+  </div>
+
+  <!-- Underweight -->
+  <div class="plan-section card">
+    <h2>Underweight (BMI &lt; 18.5)</h2>
+    <p>Focus on calorie-dense nutritious foods and strength training to build muscle mass.</p>
+    <ul>
+      <li>🍳 Eat 5–6 small meals per day with healthy fats and proteins.</li>
+      <li>🥛 Add dairy, nuts, avocados, peanut butter, and lean meats.</li>
+      <li>🏋️ Prioritize resistance training (weight lifting) 3–4 times/week.</li>
+      <li>💤 Sleep 7–9 hours daily for muscle recovery.</li>
+    </ul>
+  </div>
+
+  <!-- Normal BMI -->
+  <div class="plan-section card">
+    <h2>Normal BMI (18.5 – 24.9)</h2>
+    <p>Maintain your healthy weight with balanced diet and consistent exercise.</p>
+    <ul>
+      <li>🥗 Eat a mix of fruits, vegetables, whole grains, and lean proteins.</li>
+      <li>🚶 Include at least 30 minutes of daily physical activity.</li>
+      <li>🏋️ Strength training 2–3 times/week for metabolism support.</li>
+      <li>🥤 Stay hydrated with 2–3 liters of water daily.</li>
+    </ul>
+  </div>
+
+  <!-- Overweight -->
+  <div class="plan-section card">
+    <h2>Overweight (25 – 29.9)</h2>
+    <p>Aim for gradual weight loss with a calorie deficit and regular cardio.</p>
+    <ul>
+      <li>🥦 Focus on portion control and nutrient-rich, low-calorie meals.</li>
+      <li>🚶 Walk at least 30–45 minutes daily or cycle/swim.</li>
+      <li>🏋️ Add strength training to preserve muscle mass.</li>
+      <li>📉 Target slow, steady weight loss (0.5–1 kg/week).</li>
+    </ul>
+  </div>
+
+  <!-- Obese -->
+  <div class="plan-section card">
+    <h2>Obese (BMI 30+)</h2>
+    <p>Prioritize health and safety — consult a professional before starting.</p>
+    <ul>
+      <li>🥦 Adopt a low-calorie, nutrient-dense diet plan under supervision.</li>
+      <li>🚶 Begin with low-impact activities (walking, swimming, cycling).</li>
+      <li>🏋️ Add gentle resistance exercises to increase strength gradually.</li>
+      <li>🩺 Work with a nutritionist or healthcare provider for safe progress.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ✅ Footer -->
+<footer class="modern-footer">
+  <div class="inner">
+    <div>
+      <div class="newsletter">
+        <h2>Let’s connect!</h2>
+        <p>Stay up to date with the latest health updates.</p>
+
+        <!-- Newsletter Form -->
+        <form id="newsletter-form">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="Email" placeholder="Type your e-mail here..." required />
+          <button type="submit" class="btn btn-primary">Join</button>
+        </form>
+        <div id="newsletter-success" aria-live="polite" style="display:none; margin-top:10px; color:lightgreen; font-weight:600;">
+          ✅ Thank you for subscribing!
+        </div>
+      </div>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" rel="noopener"><img src="icons/facebook.svg" alt="Facebook" width="28" /></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener"><img src="icons/twitter.svg" alt="Twitter" width="28" /></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="icons/instagram.svg" alt="Instagram" width="28" /></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener"><img src="icons/youtube.svg" alt="YouTube" width="28" /></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-meta">
+        <div>Current Time: <span id="current-time"></span></div>
+        <div>Visitors:
+          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000" alt="visitor counter" />
+        </div>
+      </div>
+      <hr class="sep"/>
+      <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ✅ JS -->
+<script src="js/menu.js"></script>
+<script>
+  // Newsletter AJAX Handler
+  document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById("newsletter-success").style.display = "block";
+      this.reset();
+      setTimeout(() => {
+        document.getElementById("newsletter-success").style.display = "none";
+      }, 5000);
+    })
+    .catch(() => alert("❌ Error subscribing, please try again."));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Disclaimer for gymbmi.com - read important information before using our site." />
+  <title>Disclaimer - gymbmi.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #newsletter-success {
+      display: none;
+      color: lightgreen;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html" style="text-decoration:none; color:inherit;">
+        <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+      </a>
+    </div>
+
+    <!-- ✅ Mobile hamburger -->
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+
+    <!-- ✅ Unified nav -->
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#calculator">BMI Calculator</a>
+      <a href="bmi-health-fitness-articles.html">Articles</a>
+       <a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a>
+      <a href="about-bmi-gymbmi-fitness.html">About</a>
+      <a href="contact-bmi-gymbmi-team.html">Contact</a>
+      <a href="privacy-policy-gymbmi.html">Privacy Policy</a>
+      <a href="terms-and-conditions-gymbmi.html">Terms</a>
+      <a href="website-disclaimer-gymbmi.html" class="active">Disclaimer</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="card">
+    <h1>Disclaimer</h1>
+    <p><strong>Effective Date:</strong> January 1, 2025</p>
+    <p>The information provided on <strong>gymbmi.com</strong> is for general informational and educational purposes only. 
+       While we make every effort to provide accurate and updated content, we do not guarantee the accuracy, completeness, 
+       or reliability of any information provided.</p>
+    <p>Any actions taken based on the content of this website are at your own risk. We are not responsible for any losses, 
+       damages, or issues arising from the use of the information on this website.</p>
+    <p>This site may contain external links. We are not responsible for the content, privacy practices, or reliability of 
+       third-party websites.</p>
+    <p><strong>Medical Disclaimer:</strong> The BMI calculator and fitness content provided are not a substitute for 
+       professional medical advice. Always consult with a qualified healthcare provider regarding your health, 
+       nutrition, or exercise decisions.</p>
+  </div>
+</section>
+
+<footer class="modern-footer">
+  <div class="inner">
+    <div>
+      <div class="newsletter">
+        <h2>Let’s connect!</h2>
+        <p>Stay up to date with the latest health updates.</p>
+
+        <!-- ✅ Newsletter form with AJAX -->
+        <form id="newsletter-form">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="Email" placeholder="Type your e-mail here..." required />
+          <button type="submit" class="btn btn-primary">Join</button>
+        </form>
+        <div id="newsletter-success">✅ Thank you for subscribing!</div>
+      </div>
+
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" /></a>
+        <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28" /></a>
+        <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28" /></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-meta">
+        <div>Current Time: <span id="current-time"></span></div>
+        <div>
+          Visitors:
+          <img
+            src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
+            alt="visitor counter"
+          />
+        </div>
+      </div>
+      <hr class="sep" />
+      <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ✅ Newsletter AJAX -->
+<script>
+document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+
+  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("newsletter-success").style.display = "block";
+    this.reset();
+    setTimeout(() => {
+      document.getElementById("newsletter-success").style.display = "none";
+    }, 5000);
+  })
+  .catch(err => alert("❌ Error subscribing, please try again."));
+});
+</script>
+
+  <!-- JS -->
+  <script src="js/menu.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/forms.js"></script>
+</body>
+</html>
