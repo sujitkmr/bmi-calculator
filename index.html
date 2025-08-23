@@ -5,41 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BMI Calculator – Free Online Body Mass Index Tool | gymbmi.com</title>
   <meta name="description" content="Free online BMI calculator. Check your Body Mass Index instantly and get helpful health tips. No sign-up, no data stored." />
+  <meta name="keywords" content="BMI calculator, body mass index, health calculator, fitness tool, weight management, healthy BMI, gymbmi" />
+  <link rel="canonical" href="https://gymbmi.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="BMI Calculator – Free Online Body Mass Index Tool | gymbmi.com" />
+  <meta property="og:description" content="Check your BMI instantly with our free online calculator. No sign-up, WHO-based categories, and health tips included." />
+  <meta property="og:url" content="https://gymbmi.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://gymbmi.com/images/bmi-chart.webp" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BMI Calculator – Free Online Body Mass Index Tool" />
+  <meta name="twitter:description" content="Check your Body Mass Index instantly and get health tips. Free, accurate, and data-safe." />
+  <meta name="twitter:image" content="https://gymbmi.com/images/bmi-chart.webp" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome for icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-
-  <style>
-    /* Inline logo styling */
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-    }
-    .blue-text {
-      color: #00205B;
-    }
-    .red-bars {
-      color: red;
-      padding: 0 4px;
-    }
-    /* Newsletter success message */
-    #newsletter-success {
-      display: none;
-      margin-top: 10px;
-      color: lightgreen;
-      font-weight: 600;
-    }
-  </style>
 </head>
 <body>
-
   <!-- Header -->
   <header>
     <div class="navbar">
@@ -48,15 +39,12 @@
           <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
         </a>
       </div>
-
-      <!-- ✅ Mobile hamburger -->
       <button class="menu-toggle" id="menu-toggle">☰</button>
-
-      <!-- ✅ Unified nav -->
       <nav class="nav-links" id="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="#calculator">BMI Calculator</a>
         <a href="articles.html">Articles</a>
+         <a href="diet-plans.html">Diet & Workout Plans</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
@@ -72,9 +60,7 @@
       <div class="hero-text">
         <h1>Check Your BMI in Seconds</h1>
         <p>Simple, accurate, and free. Our BMI calculator helps you understand your weight category and take the next step toward better health.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="#calculator">Know your BMI</a>
-        </div>
+        <div class="cta"><a class="btn btn-primary" href="#calculator">Know your BMI</a></div>
         <div class="trust">
           <span>✔ No login needed</span>
           <span>✔ We don’t store your data</span>
@@ -100,9 +86,7 @@
               <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
             </div>
           </div>
-          <div style="margin-top:14px">
-            <button type="submit" class="btn btn-primary">Compute BMI</button>
-          </div>
+          <div style="margin-top:14px"><button type="submit" class="btn btn-primary">Compute BMI</button></div>
         </form>
 
         <!-- Result -->
@@ -136,46 +120,26 @@
     </div>
   </section>
 
-  <!-- ✅ BMI Chart + Category Tips -->
+  <!-- BMI Chart + Tips -->
   <section class="bmi-chart section fade-in">
     <h2>BMI Categories & Tips</h2>
-    <img src="images/bmi-chart.webp" alt="BMI Chart" class="bmi-chart-img" loading="lazy">
-
+    <img src="images/bmi-chart.webp" alt="BMI Chart showing BMI categories" class="bmi-chart-img" loading="lazy">
     <div class="bmi-tips">
       <div class="tip-card underweight">
         <h3>⚠️ Underweight (BMI &lt; 18.5)</h3>
-        <ul>
-          <li>Eat calorie-dense foods</li>
-          <li>Include protein in diet</li>
-          <li>Add healthy snacks</li>
-        </ul>
+        <ul><li>Eat calorie-dense foods</li><li>Include protein in diet</li><li>Add healthy snacks</li></ul>
       </div>
-
       <div class="tip-card normal">
         <h3>💪 Normal (18.5 – 24.9)</h3>
-        <ul>
-          <li>Maintain balanced diet</li>
-          <li>Stay active daily</li>
-          <li>Keep hydrated</li>
-        </ul>
+        <ul><li>Maintain balanced diet</li><li>Stay active daily</li><li>Keep hydrated</li></ul>
       </div>
-
       <div class="tip-card overweight">
         <h3>⚡ Overweight (25 – 29.9)</h3>
-        <ul>
-          <li>Increase fruits & veggies</li>
-          <li>Add daily walks</li>
-          <li>Cut down sugary drinks</li>
-        </ul>
+        <ul><li>Increase fruits & veggies</li><li>Add daily walks</li><li>Cut down sugary drinks</li></ul>
       </div>
-
       <div class="tip-card obese">
         <h3>❌ Obesity (BMI ≥ 30)</h3>
-        <ul>
-          <li>Consult a nutritionist</li>
-          <li>Do regular physical activity</li>
-          <li>Monitor blood pressure</li>
-        </ul>
+        <ul><li>Consult a nutritionist</li><li>Do regular physical activity</li><li>Monitor blood pressure</li></ul>
       </div>
     </div>
   </section>
@@ -188,49 +152,67 @@
           <h2>Let’s connect!</h2>
           <p>Stay up to date with the latest health updates.</p>
 
-          <!-- ✅ Newsletter Form -->
-          <form action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST" class="subscribe-form">
+          <!-- ✅ Newsletter AJAX -->
+          <form id="newsletter-form">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://gymbmi.com/#newsletter-success">
-
-            <input type="email" name="Email" placeholder="Type your e-mail here..." required />
+            <input type="email" name="Email" placeholder="Type your e-mail here..." required>
             <button type="submit" class="btn btn-primary">Join</button>
           </form>
-
-          <!-- ✅ Success Message -->
-          <div id="newsletter-success">
-            ✅ Thank you for subscribing! We’ll connect with you soon.
-          </div>
+          <div id="newsletter-success" aria-live="polite">✅ Thank you for subscribing! We’ll connect with you soon.</div>
         </div>
 
-        <!-- ✅ Social Icons -->
         <div class="social-icons">
-          <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28"></a>
-          <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28"></a>
-          <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28"></a>
-          <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28"></a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" loading="lazy"></a>
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" loading="lazy"></a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28" loading="lazy"></a>
+          <a href="https://youtube.com" target="_blank" aria-label="YouTube"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28" loading="lazy"></a>
         </div>
       </div>
-
       <div>
         <div class="footer-meta">
           <div>Current Time: <span id="current-time"></span></div>
           <div>Visitors:
             <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
-                 alt="visitor counter" />
+                 alt="visitor counter" loading="lazy" />
           </div>
         </div>
         <hr class="sep">
-        <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
+        <p style="margin:0; color:var(--muted)">
+          © 2025 gymbmi.com. All rights reserved. |
+          <a href="privacy.html">Privacy</a> |
+          <a href="terms.html">Terms</a> |
+          <a href="disclaimer.html">Disclaimer</a>
+        </p>
       </div>
     </div>
   </footer>
 
-  <!-- JS (for BMI page) -->
+  <!-- JS -->
   <script src="js/menu.js"></script>
   <script src="js/footer.js"></script>
   <script src="js/bmi.js"></script>
   <script src="js/forms.js"></script>
+
+  <!-- ✅ Newsletter AJAX Handler -->
+  <script>
+    document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(() => {
+        document.getElementById("newsletter-success").style.display = "block";
+        this.reset();
+        setTimeout(() => {
+          document.getElementById("newsletter-success").style.display = "none";
+        }, 5000);
+      })
+      .catch(() => alert("❌ Error subscribing, please try again."));
+    });
+  </script>
 </body>
 </html>
-

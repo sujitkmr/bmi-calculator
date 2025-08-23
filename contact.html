@@ -2,17 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Contact gymbmi.com for questions, feedback, or support." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Contact gymbmi.com - Reach out for support, feedback, or inquiries." />
   <title>Contact - gymbmi.com</title>
+  <link rel="canonical" href="https://gymbmi.com/contact.html" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    #newsletter-success {
+      display: none;
+      margin-top: 10px;
+      color: lightgreen;
+      font-weight: 600;
+    }
+    #form-success, #form-error {
+      display: none;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    #form-success { color: lightgreen; }
+    #form-error { color: red; }
+  </style>
 </head>
 <body>
 
@@ -28,6 +40,7 @@
       <a href="index.html">Home</a>
       <a href="index.html#calculator">BMI Calculator</a>
       <a href="articles.html">Articles</a>
+       <a href="diet-plans.html">Diet & Workout Plans</a>
       <a href="about.html">About</a>
       <a href="contact.html" class="active">Contact</a>
       <a href="privacy.html">Privacy Policy</a>
@@ -40,41 +53,28 @@
 <section class="section">
   <div class="card">
     <h1>Contact Us</h1>
-    <p>We’d love to hear from you. Send us a message and we’ll get back to you soon.</p>
+    <p>If you have questions, feedback, or suggestions, please reach out to us using the form below. We’d love to hear from you!</p>
 
-    <!-- ✅ Contact form -->
-    <form id="contact-form" class="contact-form">
-      <input type="hidden" name="_captcha" value="false" />
-
-      <div class="input-row">
-        <div>
-          <label for="name">Your Name</label>
-          <input id="name" name="Name" type="text" placeholder="Your Good Name" required />
-        </div>
-        <div>
-          <label for="email">Your Email</label>
-          <input id="email" name="Email" type="email" placeholder="userName@example.com" required />
-        </div>
+    <!-- ✅ Contact Form (AJAX) -->
+    <form id="contact-form">
+      <div class="input-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="Name" placeholder="Enter your name" required />
       </div>
-
-      <div style="margin-top:14px">
-        <label for="message">Message</label>
-        <textarea
-          id="message"
-          name="Message"
-          rows="6"
-          placeholder="How can we help?"
-          required
-        ></textarea>
+      <div class="input-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="Email" placeholder="Enter your email" required />
       </div>
-
-      <div style="margin-top:14px">
-        <button type="submit" class="btn btn-primary">Send Message</button>
+      <div class="input-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="Message" rows="5" placeholder="Type your message..." required></textarea>
       </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+
+      <!-- ✅ Success / Error Messages -->
+      <div id="form-success" aria-live="polite">✅ Thank you! Your message has been sent.</div>
+      <div id="form-error" aria-live="polite">❌ Oops! Something went wrong, please try again.</div>
     </form>
-
-    <!-- ✅ Success message -->
-    <div id="success-msg">✅ Your message was sent successfully!</div>
   </div>
 </section>
 
@@ -85,41 +85,78 @@
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
 
-        <!-- ✅ Newsletter form -->
-        <form id="newsletter-form" class="contact-form">
+        <!-- ✅ Newsletter AJAX -->
+        <form id="newsletter-form">
           <input type="hidden" name="_captcha" value="false">
           <input type="email" name="Email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
-        <div id="newsletter-success">✅ Thank you for subscribing!</div>
+        <div id="newsletter-success" aria-live="polite">✅ Thank you for subscribing!</div>
       </div>
-
       <div class="social-icons">
-        <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" /></a>
-        <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" /></a>
-        <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28" /></a>
-        <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28" /></a>
+        <a href="https://facebook.com" target="_blank" rel="noopener"><img src="icons/facebook.svg" alt="Facebook" width="28" /></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener"><img src="icons/twitter.svg" alt="Twitter" width="28" /></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="icons/instagram.svg" alt="Instagram" width="28" /></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener"><img src="icons/youtube.svg" alt="YouTube" width="28" /></a>
       </div>
     </div>
-
     <div>
       <div class="footer-meta">
         <div>Current Time: <span id="current-time"></span></div>
-        <div>
-          Visitors:
-          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000"
-               alt="visitor counter" />
+        <div>Visitors:
+          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000" alt="visitor counter" />
         </div>
       </div>
-      <hr class="sep" />
+      <hr class="sep"/>
       <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
     </div>
   </div>
 </footer>
 
-<!-- ✅ Modular JS -->
 <script src="js/menu.js"></script>
 <script src="js/footer.js"></script>
-<script src="js/forms.js"></script>
+
+<!-- ✅ AJAX Handlers -->
+<script>
+  // Contact form submission
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById("form-success").style.display = "block";
+      document.getElementById("form-error").style.display = "none";
+      this.reset();
+      setTimeout(() => { document.getElementById("form-success").style.display = "none"; }, 5000);
+    })
+    .catch(() => {
+      document.getElementById("form-error").style.display = "block";
+      document.getElementById("form-success").style.display = "none";
+    });
+  });
+
+  // Newsletter form submission
+  document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById("newsletter-success").style.display = "block";
+      this.reset();
+      setTimeout(() => { document.getElementById("newsletter-success").style.display = "none"; }, 5000);
+    })
+    .catch(() => alert("❌ Error subscribing, please try again."));
+  });
+</script>
 </body>
 </html>

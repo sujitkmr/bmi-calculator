@@ -4,11 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Articles on BMI, Fitness, Lifestyle, Diet, and Health from gymbmi.com." />
+  <meta name="keywords" content="BMI articles, health tips, fitness, nutrition, lifestyle, diet, weight management" />
   <title>Articles - gymbmi.com</title>
+  <link rel="canonical" href="https://gymbmi.com/articles.html" />
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    #newsletter-success {
+      display: none;
+      margin-top: 10px;
+      color: lightgreen;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
@@ -24,6 +35,7 @@
       <a href="index.html">Home</a>
       <a href="index.html#calculator">BMI Calculator</a>
       <a href="articles.html" class="active">Articles</a>
+       <a href="diet-plans.html">Diet & Workout Plans</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
       <a href="privacy.html">Privacy Policy</a>
@@ -273,16 +285,20 @@
       <div class="newsletter">
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
-        <form class="subscribe-form" onsubmit="return false">
-          <input type="email" placeholder="Type your e-mail here..." required />
+
+        <!-- ✅ Newsletter AJAX -->
+        <form id="newsletter-form">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="Email" placeholder="Type your e-mail here..." required />
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
+        <div id="newsletter-success" aria-live="polite">✅ Thank you for subscribing!</div>
       </div>
       <div class="social-icons">
-        <a href="#"><img src="icons/facebook.svg" alt="Facebook" width="28" /></a>
-        <a href="#"><img src="icons/twitter.svg" alt="Twitter" width="28" /></a>
-        <a href="#"><img src="icons/instagram.svg" alt="Instagram" width="28" /></a>
-        <a href="#"><img src="icons/youtube.svg" alt="YouTube" width="28" /></a>
+        <a href="https://facebook.com" target="_blank" rel="noopener"><img src="icons/facebook.svg" alt="Facebook" width="28" /></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener"><img src="icons/twitter.svg" alt="Twitter" width="28" /></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><img src="icons/instagram.svg" alt="Instagram" width="28" /></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener"><img src="icons/youtube.svg" alt="YouTube" width="28" /></a>
       </div>
     </div>
     <div>
@@ -298,6 +314,28 @@
   </div>
 </footer>
 
-<script src="menu.js"></script>
+<script src="js/menu.js"></script>
+
+<!-- ✅ Newsletter AJAX Handler -->
+<script>
+  document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById("newsletter-success").style.display = "block";
+      this.reset();
+      setTimeout(() => {
+        document.getElementById("newsletter-success").style.display = "none";
+      }, 5000);
+    })
+    .catch(() => alert("❌ Error subscribing, please try again."));
+  });
+</script>
 </body>
 </html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="About gymbmi.com - Learn more about our free BMI calculator and our mission to promote health awareness.">
   <title>About - gymbmi.com</title>
+  <link rel="canonical" href="https://gymbmi.com/about.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -36,6 +37,7 @@
       <a href="index.html">Home</a>
       <a href="index.html#calculator">BMI Calculator</a>
       <a href="articles.html">Articles</a>
+       <a href="diet-plans.html">Diet & Workout Plans</a>
       <a href="about.html" class="active">About</a>
       <a href="contact.html">Contact</a>
       <a href="privacy.html">Privacy Policy</a>
@@ -75,17 +77,15 @@
         <h2>Let’s connect!</h2>
         <p>Stay up to date with the latest health updates.</p>
 
-        <!-- ✅ Updated Newsletter Form -->
-        <form action="https://formsubmit.co/contactgymbmi@gmail.com" method="POST" class="subscribe-form">
+        <!-- ✅ Newsletter AJAX -->
+        <form id="newsletter-form">
           <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://gymbmi.com/#newsletter-success">
-
           <input type="email" name="Email" placeholder="Type your e-mail here..." required>
           <button type="submit" class="btn btn-primary">Join</button>
         </form>
 
         <!-- ✅ Success Message -->
-        <div id="newsletter-success">
+        <div id="newsletter-success" aria-live="polite">
           ✅ Thank you for subscribing! We’ll connect with you soon.
         </div>
       </div>
@@ -114,5 +114,27 @@
   <script src="js/menu.js"></script>
   <script src="js/footer.js"></script>
   <script src="js/forms.js"></script>
+
+  <!-- ✅ Newsletter AJAX Handler -->
+  <script>
+    document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(() => {
+        document.getElementById("newsletter-success").style.display = "block";
+        this.reset();
+        setTimeout(() => {
+          document.getElementById("newsletter-success").style.display = "none";
+        }, 5000);
+      })
+      .catch(() => alert("❌ Error subscribing, please try again."));
+    });
+  </script>
 </body>
 </html>
