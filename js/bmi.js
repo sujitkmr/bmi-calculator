@@ -1,5 +1,4 @@
-
-// bmi.js - BMI Calculator and Tips Toggle
+// bmi.js - BMI Calculator, Tips Toggle, and Downloads
 document.addEventListener("DOMContentLoaded", () => {
   const bmiForm = document.getElementById("bmi-form");
   if (!bmiForm) return;
@@ -13,6 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const suggestionList = document.getElementById("suggestion-list");
   const toggleBtn = document.getElementById("toggle-suggestions");
   const toggleIcon = document.getElementById("toggle-icon");
+
+  // ✅ New: download buttons
+  const downloadButtons = document.getElementById("download-buttons");
+  const downloadReport = document.getElementById("download-report");
+  const downloadTracker = document.getElementById("download-tracker");
+  const downloadDiet = document.getElementById("download-diet");
 
   const tips = {
     "Underweight": {
@@ -49,6 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  let lastBMI = null;
+  let lastCategory = null;
+
+  // ✅ BMI calculation
   bmiForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const height = parseFloat(document.getElementById("height").value);
@@ -62,6 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (bmi < 25) category = 'Normal weight';
       else if (bmi < 30) category = 'Overweight';
       else category = 'Obesity';
+
+      lastBMI = bmi;
+      lastCategory = category;
 
       resultContainer.style.display = "block";
       resultBadge.textContent = category;
@@ -79,14 +91,19 @@ document.addEventListener("DOMContentLoaded", () => {
       suggestionBox.style.color = category === "Underweight" ? "#222" : "white";
       suggestionTitle.style.color = category === "Underweight" ? "#222" : "white";
       suggestionList.innerHTML = tips[category].list.map(t => `<li>${t}</li>`).join('');
+
+      // ✅ Show download buttons after result
+      if (downloadButtons) downloadButtons.style.display = "block";
     } else {
       resultText.textContent = 'Please enter valid height and weight!';
       resultText.style.color = '#ef4444';
       resultContainer.style.display = "none";
       suggestionBox.style.display = 'none';
+      if (downloadButtons) downloadButtons.style.display = "none";
     }
   });
 
+  // ✅ Toggle suggestions
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       if (suggestionList.style.display === "none") {
@@ -96,6 +113,96 @@ document.addEventListener("DOMContentLoaded", () => {
         suggestionList.style.display = "none";
         toggleIcon.textContent = '▼';
       }
+    });
+  }
+
+  // ======================
+  // ✅ DOWNLOAD HANDLERS
+  // ======================
+
+  // 1. BMI Report PDF
+  if (downloadReport) {
+    downloadReport.addEventListener("click", () => {
+      if (!lastBMI || !lastCategory) return alert("Please calculate BMI first!");
+
+      const jsPDF = window.jspdf.jsPDF;
+      const doc = new jsPDF();
+
+      doc.setFontSize(18);
+      doc.text("BMI Report", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Your BMI: ${lastBMI}`, 20, 40);
+      doc.text(`Category: ${lastCategory}`, 20, 50);
+      doc.text("Tips:", 20, 70);
+      tips[lastCategory].list.forEach((t, i) => {
+        doc.text(`- ${t}`, 25, 80 + i * 10);
+      });
+
+      doc.save("BMI_Report.pdf");
+    });
+  }
+
+  // 2. Health Tracker Excel
+  if (downloadTracker) {
+    downloadTracker.addEventListener("click", () => {
+      const header = ["Day", "Weight", "Steps", "Calories Intake", "Water Intake", "Notes"];
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const data = [header, ...days.map(d => [d, "", "", "", "", ""])];
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Tracker");
+
+      XLSX.writeFile(wb, "Health_Tracker.xlsx");
+    });
+  }
+
+  // 3. Diet Plan PDF
+  if (downloadDiet) {
+    downloadDiet.addEventListener("click", () => {
+      if (!lastCategory) return alert("Please calculate BMI first!");
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(18);
+      doc.text("Diet Plan", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Category: ${lastCategory}`, 20, 40);
+
+      let diet = [];
+      if (lastCategory === "Underweight") {
+        diet = [
+          "Eat calorie-dense foods (nuts, dairy, rice).",
+          "Add protein shakes or smoothies.",
+          "Have frequent meals (5–6 times/day)."
+        ];
+      } else if (lastCategory === "Normal weight") {
+        diet = [
+          "Maintain a balanced plate (carbs, proteins, fats).",
+          "Stay hydrated.",
+          "Continue regular exercise."
+        ];
+      } else if (lastCategory === "Overweight") {
+        diet = [
+          "Focus on calorie deficit.",
+          "Eat more vegetables and lean protein.",
+          "Avoid sugar-sweetened drinks."
+        ];
+      } else {
+        diet = [
+          "Avoid fried and processed foods.",
+          "Eat high-fiber, low-calorie meals.",
+          "Consult a dietitian for a structured plan."
+        ];
+      }
+
+      doc.text("Diet Recommendations:", 20, 60);
+      diet.forEach((d, i) => {
+        doc.text(`- ${d}`, 25, 70 + i * 10);
+      });
+
+      doc.save("Diet_Plan.pdf");
     });
   }
 });
