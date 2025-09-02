@@ -1,4 +1,4 @@
-// bmi.js - BMI Calculator, Tips Toggle, and Downloads
+// bmi.js - BMI Calculator + PDF Report + Tracker + Diet
 document.addEventListener("DOMContentLoaded", () => {
   const bmiForm = document.getElementById("bmi-form");
   if (!bmiForm) return;
@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultBadge = document.getElementById("result-badge");
   const resultText = document.getElementById("result-text");
   const progressBar = document.getElementById("progress-bar");
-  const suggestionBox = document.getElementById("suggestion-box");
-  const suggestionTitle = document.getElementById("suggestion-title");
-  const suggestionList = document.getElementById("suggestion-list");
-  const toggleBtn = document.getElementById("toggle-suggestions");
-  const toggleIcon = document.getElementById("toggle-icon");
 
   const downloadButtons = document.getElementById("download-buttons");
   const downloadReport = document.getElementById("download-report");
@@ -20,36 +15,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tips = {
     "Underweight": {
-      color: "#fbbf24",
-      list: [
-        "Add calorie-dense, nutritious foods.",
-        "Eat small meals more frequently.",
-        "Incorporate strength training."
-      ]
+      color: "#f39c12",
+      list: ["Eat calorie-dense foods", "Add healthy snacks", "Increase protein intake"]
     },
     "Normal weight": {
-      color: "#22c55e",
-      list: [
-        "Maintain a balanced diet with whole foods.",
-        "Stay active 150+ minutes/week.",
-        "Keep tracking your progress."
-      ]
+      color: "#2ecc71",
+      list: ["Maintain balanced diet", "Stay active daily", "Keep hydrated"]
     },
     "Overweight": {
       color: "#f97316",
-      list: [
-        "Focus on portion control and whole foods.",
-        "Add regular cardio and resistance training.",
-        "Limit sugary drinks and ultra-processed foods."
-      ]
+      list: ["Increase fruits & veggies", "Add daily walks", "Cut down sugary drinks"]
     },
     "Obesity": {
-      color: "#ef4444",
-      list: [
-        "Adopt a sustainable calorie deficit.",
-        "Increase daily movement and structured exercise.",
-        "Consult a healthcare professional."
-      ]
+      color: "#e74c3c",
+      list: ["Consult a nutritionist", "Do regular physical activity", "Monitor blood pressure"]
     }
   };
 
@@ -64,70 +43,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (height > 0 && weight > 0) {
       const h = height / 100;
-      const bmi = +(weight / (h * h)).toFixed(2);
-      let category = '';
-      if (bmi < 18.5) category = 'Underweight';
-      else if (bmi < 25) category = 'Normal weight';
-      else if (bmi < 30) category = 'Overweight';
-      else category = 'Obesity';
+      const bmi = +(weight / (h * h)).toFixed(1);
+
+      let category = "";
+      if (bmi < 18.5) category = "Underweight";
+      else if (bmi < 25) category = "Normal weight";
+      else if (bmi < 30) category = "Overweight";
+      else category = "Obesity";
 
       lastBMI = bmi;
       lastCategory = category;
 
+      // UI update
       resultContainer.style.display = "block";
       resultBadge.textContent = category;
       resultBadge.style.background = tips[category].color;
-      resultBadge.style.color = "white";
       resultText.textContent = `Your BMI is ${bmi}`;
+      resultText.style.color = tips[category].color;
 
       progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
       progressBar.style.background = tips[category].color;
 
-      suggestionBox.style.display = 'block';
-      suggestionList.style.display = 'none';
-      toggleIcon.textContent = '▼';
-      suggestionBox.style.background = tips[category].color;
-      suggestionBox.style.color = category === "Underweight" ? "#222" : "white";
-      suggestionTitle.style.color = category === "Underweight" ? "#222" : "white";
-      suggestionList.innerHTML = tips[category].list.map(t => `<li>${t}</li>`).join('');
-
       if (downloadButtons) downloadButtons.style.display = "block";
-    } else {
-      resultText.textContent = 'Please enter valid height and weight!';
-      resultText.style.color = '#ef4444';
-      resultContainer.style.display = "none";
-      suggestionBox.style.display = 'none';
-      if (downloadButtons) downloadButtons.style.display = "none";
     }
   });
 
-  // ✅ Toggle suggestions
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", () => {
-      if (suggestionList.style.display === "none") {
-        suggestionList.style.display = "block";
-        toggleIcon.textContent = '▲';
-      } else {
-        suggestionList.style.display = "none";
-        toggleIcon.textContent = '▼';
-      }
-    });
-  }
-
-  // ======================
-  // ✅ PDF REPORT HANDLERS
-  // ======================
-
+  // ✅ Helper: Header & Footer
   function addHeaderFooter(doc, title) {
-    // Header
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.setTextColor(44, 62, 80);
-    doc.text("GYM‖BMI", 20, 15, { align: "left" });
+    doc.setFontSize(14);
+    doc.text("GYM‖BMI", 20, 15);
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(14);
-    doc.setTextColor(0);
+    doc.setFontSize(12);
     doc.text(title, 105, 15, { align: "center" });
 
     const now = new Date().toLocaleString();
@@ -138,111 +86,150 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.line(20, 20, 190, 20);
 
     // Footer
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(100);
-    doc.text(
-      "Confidential | Generated by BMI Calculator – GYM‖BMI",
-      105,
-      285,
-      { align: "center" }
-    );
+    doc.text("Confidential | Generated by BMI Calculator – GYM‖BMI", 105, 285, {
+      align: "center"
+    });
     doc.setTextColor(0);
   }
 
-  // 1. BMI Report PDF (with Report Table instead of Chart)
+  // ✅ Report Generator
   if (downloadReport) {
     downloadReport.addEventListener("click", () => {
-      if (!lastBMI || !lastCategory) return alert("Please calculate BMI first!");
+      if (!lastBMI || !lastCategory)
+        return alert("Please calculate BMI first!");
 
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      addHeaderFooter(doc, "BMI Health Report");
+      addHeaderFooter(doc, "BMI & Body Composition Report");
 
-      // Personal Details
+      // Default details
+      const name = "User";
+      const age = 25; // Hardcoded
+      const gender = "Male"; // Hardcoded
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+
+      // Panels
       doc.setFontSize(12);
-      const heightVal = document.getElementById("height").value;
-      const weightVal = document.getElementById("weight").value;
-      doc.text(`Height: ${heightVal} cm`, 20, 40);
-      doc.text(`Weight: ${weightVal} kg`, 20, 48);
+      doc.text(`Name: ${name}`, 20, 30);
+      doc.text(`Age: ${age}`, 20, 37);
+      doc.text(`Gender: ${gender}`, 20, 44);
 
-      // BMI Report Table
+      doc.text(`Height: ${height} cm`, 120, 30);
+      doc.text(`Weight: ${weight} kg`, 120, 37);
+      doc.setTextColor(tips[lastCategory].color);
+      doc.text(`BMI: ${lastBMI} (${lastCategory})`, 120, 44);
+      doc.setTextColor(0);
+
+      let y = 60;
+
+      // Section 1: Body Composition
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(14);
-      doc.text("BMI Report", 105, 70, { align: "center" });
-
-      let startY = 80;
-      doc.setFontSize(12);
-
-      // Table Row: BMI
-      doc.setFillColor(220, 220, 220);
-      doc.rect(20, startY, 50, 10, "F");
-      doc.setTextColor(0);
-      doc.text("Your BMI", 22, startY + 7);
-      doc.rect(70, startY, 120, 10);
-      doc.text(`${lastBMI}`, 75, startY + 7);
-
-      // Table Row: Category
-      startY += 12;
-      doc.setFillColor(220, 220, 220);
-      doc.rect(20, startY, 50, 10, "F");
-      doc.setTextColor(0);
-      doc.text("Category", 22, startY + 7);
-
-      doc.setFillColor(tips[lastCategory].color);
-      doc.rect(70, startY, 120, 10, "F");
-      doc.setTextColor(255, 255, 255);
-      doc.text(lastCategory, 75, startY + 7);
-
-      // Reset text color
-      doc.setTextColor(0);
-
-      // Suggestions
-      doc.setFont("helvetica", "bold");
-      doc.text("Health Suggestions", 20, startY + 25);
+      doc.text("1. Body Composition", 20, y);
       doc.setFont("helvetica", "normal");
+      y += 10;
+      doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+      y += 8;
+      doc.text(`Percent Body Fat: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
+      y += 8;
+      doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
+      y += 8;
+      doc.text(`Fat Free Mass: ${(weight * 0.75).toFixed(1)} kg`, 25, y);
+
+      // Section 2: Obesity Analysis
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.text("2. Obesity Analysis", 20, y);
+      doc.setFont("helvetica", "normal");
+      y += 10;
+      doc.text(`BMI: ${lastBMI} (${lastCategory})`, 25, y);
+      y += 8;
+      doc.text(`PBF: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
+      y += 8;
+      doc.text(`Visceral Fat Level: ${Math.round(lastBMI / 2)}`, 25, y);
+
+      // Section 3: Muscle-Fat Analysis
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.text("3. Muscle-Fat Analysis", 20, y);
+      doc.setFont("helvetica", "normal");
+      y += 10;
+      doc.text(`Weight: ${weight} kg`, 25, y);
+      y += 8;
+      doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
+      y += 8;
+      doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+
+      // Section 4: Segmental Analysis
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.text("4. Segmental Analysis", 20, y);
+      doc.setFont("helvetica", "normal");
+      y += 10;
+      ["Right Arm", "Left Arm", "Right Leg", "Left Leg", "Trunk"].forEach((part) => {
+        doc.text(
+          `${part}: Lean ${(weight * 0.08).toFixed(1)} kg | Fat ${(weight * 0.05).toFixed(1)} kg`,
+          25,
+          y
+        );
+        y += 8;
+      });
+
+      // Section 5: Weight Control
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.text("5. Weight Control", 20, y);
+      doc.setFont("helvetica", "normal");
+      y += 10;
+      doc.text(`Target Weight: ${(22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
+      y += 8;
+      doc.text(`Weight to Lose: ${(weight - 22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
+
+      // Section 6: Evaluation
+      y += 12;
+      doc.setFont("helvetica", "bold");
+      doc.text("6. Comprehensive Evaluation", 20, y);
+      doc.setFont("helvetica", "normal");
+      y += 10;
       tips[lastCategory].list.forEach((t, i) => {
-        doc.text(`- ${t}`, 25, startY + 35 + i * 8);
+        doc.text(`- ${t}`, 25, y + i * 8);
       });
 
       doc.save("BMI_Report.pdf");
     });
   }
 
-  // 2. Health Tracker PDF
+  // ✅ Health Tracker (Excel for 30 days)
   if (downloadTracker) {
     downloadTracker.addEventListener("click", () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+      if (!lastBMI) return alert("Please calculate BMI first!");
 
-      addHeaderFooter(doc, "Weekly Health Tracker");
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
 
-      const header = ["Day", "Weight", "Steps", "Calories", "Water", "Notes"];
-      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const ws_data = [["Date", "Weight (kg)", "BMI", "Notes"]];
+      const today = new Date();
 
-      doc.setFontSize(12);
-      doc.text("Weekly Tracker:", 20, 40);
+      for (let i = 0; i < 30; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        const dateStr = date.toISOString().split("T")[0];
 
-      let startY = 50;
-      doc.setFont("helvetica", "bold");
-      header.forEach((h, i) => {
-        doc.text(h, 20 + i * 30, startY);
-      });
+        const bmi = +(weight / ((height / 100) * (height / 100))).toFixed(1);
+        ws_data.push([dateStr, weight, bmi, ""]);
+      }
 
-      doc.setFont("helvetica", "normal");
-      days.forEach((d, row) => {
-        let y = startY + (row + 1) * 10;
-        doc.text(d, 20, y);
-        header.slice(1).forEach((_, i) => {
-          doc.text("____", 50 + i * 30, y);
-        });
-      });
-
-      doc.save("Health_Tracker.pdf");
+      const ws = XLSX.utils.aoa_to_sheet(ws_data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
+      XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
     });
   }
 
-  // 3. Diet Plan PDF
+  // ✅ Diet Plan (Simple PDF)
   if (downloadDiet) {
     downloadDiet.addEventListener("click", () => {
       if (!lastCategory) return alert("Please calculate BMI first!");
@@ -250,43 +237,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      addHeaderFooter(doc, "Diet Plan");
+      addHeaderFooter(doc, "Personalized Diet Plan");
 
       doc.setFontSize(12);
-      doc.text(`Category: ${lastCategory}`, 20, 40);
+      doc.text(`Category: ${lastCategory}`, 20, 30);
 
-      let diet = [];
-      if (lastCategory === "Underweight") {
-        diet = [
-          "Eat calorie-dense foods (nuts, dairy, rice).",
-          "Add protein shakes or smoothies.",
-          "Have frequent meals (5–6 times/day)."
-        ];
-      } else if (lastCategory === "Normal weight") {
-        diet = [
-          "Maintain a balanced plate (carbs, proteins, fats).",
-          "Stay hydrated.",
-          "Continue regular exercise."
-        ];
-      } else if (lastCategory === "Overweight") {
-        diet = [
-          "Focus on calorie deficit.",
-          "Eat more vegetables and lean protein.",
-          "Avoid sugar-sweetened drinks."
-        ];
-      } else {
-        diet = [
-          "Avoid fried and processed foods.",
-          "Eat high-fiber, low-calorie meals.",
-          "Consult a dietitian for a structured plan."
-        ];
-      }
-
+      let y = 50;
       doc.setFont("helvetica", "bold");
-      doc.text("Diet Recommendations:", 20, 60);
+      doc.text("Recommended Diet Tips:", 20, y);
+      y += 10;
       doc.setFont("helvetica", "normal");
-      diet.forEach((d, i) => {
-        doc.text(`- ${d}`, 25, 70 + i * 10);
+
+      tips[lastCategory].list.forEach((t, i) => {
+        doc.text(`- ${t}`, 25, y + i * 8);
       });
 
       doc.save("Diet_Plan.pdf");
