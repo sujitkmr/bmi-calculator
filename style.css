@@ -389,3 +389,30 @@ textarea {
     width: 100%;
   }
 }
+
+/* ✅ Name field improvement */
+#name {
+  text-transform: capitalize; /* Automatically capitalize first letters */
+}
+
+/* Name Field Styling */
+#name {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#name:focus {
+  border-color: #28a745;   /* Green border on focus */
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.3);
+  outline: none;
+}
+/* Hint text under input fields (e.g., Name max length) */
+.input-group .hint {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+

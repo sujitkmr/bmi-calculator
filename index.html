@@ -78,6 +78,21 @@
       <div class="card">
         <h2>BMI Calculator</h2>
         <form id="bmi-form">
+
+          <!-- Name Input -->
+<!-- Name Input -->
+<div class="input-group">
+  <label for="name"><i class="fa-solid fa-user"></i> Name</label>
+  <input 
+    type="text" 
+    id="name" 
+    name="name" 
+    placeholder="Enter your name (Max 25 Chars Allowed)" 
+    maxlength="25" 
+    required>
+</div>
+
+
           <div class="input-row">
             <div class="input-group">
               <label for="height"><i class="fa-solid fa-ruler"></i> Height (cm)</label>
@@ -89,29 +104,23 @@
             </div>
           </div>
 
-          <!-- ✅ Gender -->
-          <div class="input-row" style="margin-top:10px;">
-            <label style="display:block; font-weight:600; margin-bottom:6px;">
-              <i class="fa-solid fa-venus-mars"></i> Gender
-            </label>
-            <div class="gender-toggle">
-              <input type="radio" id="male" name="gender" value="Male" required>
-              <label for="male" class="gender-option">
-                <i class="fa-solid fa-mars"></i> Male
-              </label>
 
-              <input type="radio" id="female" name="gender" value="Female" required>
-              <label for="female" class="gender-option">
-                <i class="fa-solid fa-venus"></i> Female
-              </label>
-            </div>
-          </div>
+<!-- Date of Birth -->
+<div class="input-group">
+  <label for="dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
+  <input type="date" id="dob" name="dob" required>
+</div>
 
-          <!-- ✅ Date of Birth -->
-          <div class="input-group" style="margin-top:10px;">
-            <label for="dob"><i class="fa-solid fa-calendar-alt"></i> Date of Birth</label>
-            <input type="date" id="dob" required>
-          </div>
+<!-- Gender Selection (Radio Buttons) -->
+<!-- Gender Selection (Radio Buttons) -->
+<div class="input-group">
+  <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
+  <div class="gender-options">
+    <label><input type="radio" id="male" name="gender" value="Male" required> Male</label>
+    <label><input type="radio" id="female" name="gender" value="Female"> Female</label>
+  </div>
+</div>
+
 
           <div style="margin-top:14px">
             <button type="submit" class="btn btn-primary">Compute BMI</button>
