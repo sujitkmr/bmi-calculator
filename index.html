@@ -88,6 +88,31 @@
               <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
             </div>
           </div>
+
+          <!-- ✅ Gender -->
+          <div class="input-row" style="margin-top:10px;">
+            <label style="display:block; font-weight:600; margin-bottom:6px;">
+              <i class="fa-solid fa-venus-mars"></i> Gender
+            </label>
+            <div class="gender-toggle">
+              <input type="radio" id="male" name="gender" value="Male" required>
+              <label for="male" class="gender-option">
+                <i class="fa-solid fa-mars"></i> Male
+              </label>
+
+              <input type="radio" id="female" name="gender" value="Female" required>
+              <label for="female" class="gender-option">
+                <i class="fa-solid fa-venus"></i> Female
+              </label>
+            </div>
+          </div>
+
+          <!-- ✅ Date of Birth -->
+          <div class="input-group" style="margin-top:10px;">
+            <label for="dob"><i class="fa-solid fa-calendar-alt"></i> Date of Birth</label>
+            <input type="date" id="dob" required>
+          </div>
+
           <div style="margin-top:14px">
             <button type="submit" class="btn btn-primary">Compute BMI</button>
           </div>
@@ -100,7 +125,7 @@
           <p id="result-text"></p>
         </div>
 
-        <!-- ✅ New Download Buttons -->
+        <!-- ✅ Download Buttons -->
         <div id="download-buttons" style="display:none; margin-top:14px; text-align:center;">
           <a id="download-report" class="btn" style="background:#e63946; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
             <i class="fa-solid fa-file-pdf"></i> Download BMI Report
@@ -168,8 +193,6 @@
         <div class="newsletter">
           <h2>Let’s connect!</h2>
           <p>Stay up to date with the latest health updates.</p>
-
-          <!-- ✅ Newsletter AJAX -->
           <form id="newsletter-form">
             <input type="hidden" name="_captcha" value="false">
             <input type="email" name="Email" placeholder="Type your e-mail here..." required>
@@ -208,14 +231,13 @@
   <script src="js/menu.js"></script>
   <script src="js/footer.js"></script>
 
-  <!-- ✅ External Libraries (must come before bmi.js) -->
+  <!-- ✅ External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
   <!-- Your Script -->
   <script src="js/bmi.js"></script>
   <script src="js/forms.js"></script>
-
 
   <!-- ✅ Newsletter AJAX Handler -->
   <script>
@@ -244,7 +266,6 @@
     function showDownloads() {
       document.getElementById("download-buttons").style.display = "block";
     }
-    // Example: Call showDownloads() inside bmi.js once BMI is computed
   </script>
 </body>
 </html>

@@ -132,6 +132,7 @@ button:hover,
 input[type="email"],
 input[type="text"],
 input[type="number"],
+input[type="date"],
 textarea {
   padding: 10px;
   border: 1px solid #ccc;
@@ -148,6 +149,20 @@ textarea:focus {
 textarea {
   resize: vertical;
   min-height: 120px;
+}
+
+/* ✅ Input Row (side-by-side on desktop, stacked on mobile) */
+.input-row {
+  display: flex;
+  gap: 15px;
+}
+.input-row .input-group {
+  flex: 1;
+}
+
+/* ✅ Gender Radio Button Spacing */
+.input-group input[type="radio"] {
+  margin: 0 6px 0 12px;
 }
 
 /* Footer */
@@ -309,7 +324,7 @@ textarea {
     text-align: center;
   }
   .input-row {
-    display: block;
+    display: block; /* stack inputs on mobile */
   }
   .menu-toggle {
     display: block;
