@@ -34,12 +34,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastBMI = null;
   let lastCategory = null;
+  let lastGender = null;
+  let lastAge = null;
+  let lastDOB = null;
+
+  // ✅ Calculate age from DOB
+  function calculateAge(dobValue) {
+    const dob = new Date(dobValue);
+    if (isNaN(dob)) return null;
+
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+      age--;
+    }
+    return age;
+  }
 
   // ✅ BMI calculation
   bmiForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
+
+    // gender selection
+    const genderInput = document.querySelector('input[name="gender"]:checked');
+    lastGender = genderInput ? genderInput.value : "Not specified";
+
+    // DOB & age calculation
+    lastDOB = document.getElementById("dob")?.value || "N/A";
+    lastAge = calculateAge(lastDOB);
 
     if (height > 0 && weight > 0) {
       const h = height / 100;
@@ -54,11 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
       lastBMI = bmi;
       lastCategory = category;
 
-      // UI update
+      // ✅ UI update with friendly message
       resultContainer.style.display = "block";
       resultBadge.textContent = category;
       resultBadge.style.background = tips[category].color;
-      resultText.textContent = `Your BMI is ${bmi}`;
+
+      resultText.innerHTML = `
+        Hey there! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
+        your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
+        which falls under the "<strong>${category}</strong>" category.
+      `;
       resultText.style.color = tips[category].color;
 
       progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
@@ -105,18 +135,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       addHeaderFooter(doc, "BMI & Body Composition Report");
 
-      // Default details
-      const name = "User";
-      const age = 25; // Hardcoded
-      const gender = "Male"; // Hardcoded
+      // User details (dynamic)
+      const name = "User"; // optional future field
+      const age = lastAge ?? "N/A";
+      const gender = lastGender ?? "N/A";
+      const dob = lastDOB ?? "N/A";
       const height = document.getElementById("height").value;
       const weight = document.getElementById("weight").value;
 
       // Panels
       doc.setFontSize(12);
       doc.text(`Name: ${name}`, 20, 30);
-      doc.text(`Age: ${age}`, 20, 37);
-      doc.text(`Gender: ${gender}`, 20, 44);
+      doc.text(`DOB: ${dob}`, 20, 37);
+      doc.text(`Age: ${age}`, 20, 44);
+      doc.text(`Gender: ${gender}`, 20, 51);
 
       doc.text(`Height: ${height} cm`, 120, 30);
       doc.text(`Weight: ${weight} kg`, 120, 37);
@@ -124,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.text(`BMI: ${lastBMI} (${lastCategory})`, 120, 44);
       doc.setTextColor(0);
 
-      let y = 60;
+      let y = 65;
 
       // Section 1: Body Composition
       doc.setFont("helvetica", "bold");
@@ -210,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const height = parseFloat(document.getElementById("height").value);
       const weight = parseFloat(document.getElementById("weight").value);
 
-      const ws_data = [["Date", "Weight (kg)", "BMI", "Notes"]];
+      const ws_data = [["Date", "Weight (kg)", "BMI", "Gender", "DOB", "Age", "Notes"]];
       const today = new Date();
 
       for (let i = 0; i < 30; i++) {
@@ -219,7 +251,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const dateStr = date.toISOString().split("T")[0];
 
         const bmi = +(weight / ((height / 100) * (height / 100))).toFixed(1);
-        ws_data.push([dateStr, weight, bmi, ""]);
+        ws_data.push([
+          dateStr,
+          weight,
+          bmi,
+          lastGender ?? "N/A",
+          lastDOB ?? "N/A",
+          lastAge ?? "N/A",
+          ""
+        ]);
       }
 
       const ws = XLSX.utils.aoa_to_sheet(ws_data);
