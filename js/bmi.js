@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
 
+      // ✅ Capture Name
+  lastName = document.getElementById("name")?.value.trim() || "User";
+  localStorage.setItem("userName", lastName);
+
+
     // gender selection
     const genderInput = document.querySelector('input[name="gender"]:checked');
     lastGender = genderInput ? genderInput.value : "Not specified";
@@ -84,11 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
       resultBadge.textContent = category;
       resultBadge.style.background = tips[category].color;
 
-      resultText.innerHTML = `
-        Hey there! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
+const userName = lastName || "there";
+
+resultText.innerHTML = `
+        Hey <strong>${userName}</strong>! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
         your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
         which falls under the "<strong>${category}</strong>" category.
       `;
+
       resultText.style.color = tips[category].color;
 
       progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
@@ -136,7 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
       addHeaderFooter(doc, "BMI & Body Composition Report");
 
       // User details (dynamic)
-      const name = "User"; // optional future field
+const name = localStorage.getItem("userName") || lastName || "User";
+
       const age = lastAge ?? "N/A";
       const gender = lastGender ?? "N/A";
       const dob = lastDOB ?? "N/A";
