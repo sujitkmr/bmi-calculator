@@ -214,68 +214,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+// Health Tracker (Excel for 30 days)
 // Health Tracker (Excel for 30 days)
 if (downloadTracker) {
   downloadTracker.addEventListener("click", () => {
     if (!lastBMI) return alert("Please calculate BMI first!");
-
+    
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
 
-    // Headers
-    const ws_data = [[
-      "Date",
-      "Weight (kg)",
-      "Height (cm)",
-      "BMI",
-      "BMI Category",
-      "Target Weight (kg)",
-      "Weight to Lose/Gain (kg)",
-      "Age",
-      "Gender",
-      "Calories Intake (kcal)",
-      "Water Intake (L)",
-      "Steps / Activity",
-      "Sleep Hours",
-      "Mood / Energy Level",
-      "Notes"
-    ]];
+    // Calculate Target Weight for BMI 22
+    const targetWeight = +(22 * (height / 100) ** 2).toFixed(1);
+    const weightToLoseGain = +(weight - targetWeight).toFixed(1);
+    const bmi = +(weight / ((height / 100) ** 2)).toFixed(1);
+
+    // Determine BMI Category
+    let category = "";
+    if (bmi < 18.5) category = "Underweight";
+    else if (bmi < 25) category = "Normal weight";
+    else if (bmi < 30) category = "Overweight";
+    else category = "Obesity";
+
+    // Header
+    const ws_data = [
+      ["Date", "Weight (kg)", "Height (cm)", "BMI", "BMI Category", "Target Weight (kg)", "Weight to Lose/Gain (kg)", "Calories Intake (kcal)", "Water Intake (L)", "Steps / Activity", "Sleep Hours", "Mood / Energy Level", "Notes"]
+    ];
 
     const today = new Date();
-
-    // Calculate target weight (BMI = 22)
-    const targetWeight = +(22 * (height / 100) ** 2).toFixed(1);
-    const bmiCategory = (lastBMI < 18.5) ? "Underweight" :
-                        (lastBMI < 25) ? "Normal weight" :
-                        (lastBMI < 30) ? "Overweight" : "Obesity";
-    const weightDiff = +(weight - targetWeight).toFixed(1);
 
     for (let i = 0; i < 30; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       const dateStr = date.toISOString().split("T")[0];
-      const bmi = +(weight / ((height / 100) * (height / 100))).toFixed(1);
-      const age = lastAge ?? "N/A";
-      const gender = lastGender ?? "N/A";
 
-      // Auto-fill optional fields with placeholders
-      ws_data.push([
-        dateStr,            // Date
-        weight,             // Weight
-        height,             // Height
-        bmi,                // BMI
-        bmiCategory,        // BMI Category
-        targetWeight,       // Target Weight
-        weightDiff,         // Weight to Lose/Gain
-        age,                // Age
-        gender,             // Gender
-        2000,               // Calories Intake (placeholder)
-        2,                  // Water Intake (L) placeholder
-        5000,               // Steps / Activity placeholder
-        7,                  // Sleep Hours placeholder
-        "Good",             // Mood / Energy Level placeholder
-        "Keep consistent with diet & exercise" // Notes
-      ]);
+      // First row auto-filled
+      if (i === 0) {
+        ws_data.push([
+          dateStr,         // Date
+          weight,          // Weight (user input)
+          height,          // Height (auto)
+          bmi,             // BMI (auto)
+          category,        // BMI Category (auto)
+          targetWeight,    // Target Weight (kg)
+          weightToLoseGain,// Weight to Lose/Gain
+          "",              // Calories Intake
+          "",              // Water Intake
+          "",              // Steps / Activity
+          "",              // Sleep Hours
+          "",              // Mood / Energy Level
+          ""               // Notes
+        ]);
+      } else {
+        // Other 29 rows left mostly blank for user input, only Date auto-filled
+        ws_data.push([dateStr, "", height, "", "", targetWeight, "", "", "", "", "", "", ""]);
+      }
     }
 
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
@@ -284,6 +277,11 @@ if (downloadTracker) {
     XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
   });
 }
+
+
+// end of Health Tracker (Excel for 30 days)
+
+
 
 
   // Diet Plan (PDF)
