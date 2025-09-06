@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.text(`- ${t}`, 25, y + i * 8);
     });
 
-    doc.save("BMI_Report.pdf");
+    doc.save("BMI_Report_by_GYMBMI.pdf");
+
   }
 
   // Generate Health Tracker Excel (30 days)
@@ -255,7 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
-    XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
+    XLSX.writeFile(wb, "BMI_Health_Tracker_by_GYMBMI.xlsx");
+
   }
 
   // Generate Generic Diet Plan PDF
@@ -316,7 +318,8 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.text(`- ${item}`, 25, y + i * 10);
     });
 
-    doc.save("Diet_Plan.pdf");
+    doc.save("Diet_Plan_by_GYMBMI.pdf");
+
   }
 
   // Event Listeners
