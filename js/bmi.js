@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (computeBtn) {
         computeBtn.disabled = true;
         allFields.forEach(field => field.disabled = true); // Lock all fields
-        let seconds = 30;
+        let seconds = 90;
         const originalText = "Compute BMI";
         computeBtn.textContent = `Please wait (${seconds}s)`;
 
