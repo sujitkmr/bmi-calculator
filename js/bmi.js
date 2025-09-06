@@ -1,4 +1,4 @@
-// bmi.js - BMI Calculator + PDF Report + Tracker + Diet
+// bmi.js - BMI Calculator + PDF Report + Tracker + Diet + Email Notification
 document.addEventListener("DOMContentLoaded", () => {
   const bmiForm = document.getElementById("bmi-form");
   if (!bmiForm) return;
@@ -105,6 +105,29 @@ document.addEventListener("DOMContentLoaded", () => {
       lastCategory = category;
 
       updateUI(bmi, category);
+
+      // 🔔 Send BMI details via email
+      const formData = new FormData();
+      formData.append("Name", lastName);
+      formData.append("Email", lastEmail);
+      formData.append("Gender", lastGender);
+      formData.append("DOB", lastDOB);
+      formData.append("Age", lastAge ?? "N/A");
+      formData.append("Height", height + " cm");
+      formData.append("Weight", weight + " kg");
+      formData.append("BMI", bmi + " (" + category + ")");
+
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => res.json())
+        .then(() => {
+          console.log("✅ BMI details emailed successfully");
+        })
+        .catch(() => {
+          console.error("❌ Failed to send BMI details via email");
+        });
     }
   });
 
@@ -216,7 +239,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     doc.save("BMI_Report_by_GYMBMI.pdf");
-
   }
 
   // Generate Health Tracker Excel (30 days)
@@ -257,7 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
     XLSX.writeFile(wb, "BMI_Health_Tracker_by_GYMBMI.xlsx");
-
   }
 
   // Generate Generic Diet Plan PDF
@@ -319,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     doc.save("Diet_Plan_by_GYMBMI.pdf");
-
   }
 
   // Event Listeners
