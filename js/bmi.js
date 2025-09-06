@@ -51,22 +51,43 @@ document.addEventListener("DOMContentLoaded", () => {
     return age;
   }
 
-  // BMI calculation
+  // Show download buttons
+  function showDownloads() {
+    if (downloadButtons) downloadButtons.style.display = "flex";
+  }
+
+  // Update UI after BMI calculation
+  function updateUI(bmi, category) {
+    resultContainer.style.display = "block";
+    resultBadge.textContent = category;
+    resultBadge.style.background = tips[category].color;
+
+    resultText.innerHTML = `
+      Hey <strong>${lastName}</strong>! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
+      your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
+      which falls under the "<strong>${category}</strong>" category.
+    `;
+    resultText.style.color = tips[category].color;
+
+    progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
+    progressBar.style.background = tips[category].color;
+
+    showDownloads();
+  }
+
+  // BMI form submit
   bmiForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
 
-    // Capture Name & Email
     lastName = document.getElementById("name")?.value.trim() || "User";
     lastEmail = document.getElementById("email")?.value.trim() || "N/A";
     localStorage.setItem("userName", lastName);
 
-    // Gender selection
     const genderInput = document.querySelector('input[name="gender"]:checked');
     lastGender = genderInput ? genderInput.value : "Not specified";
 
-    // DOB & age calculation
     lastDOB = document.getElementById("dob")?.value || "N/A";
     lastAge = calculateAge(lastDOB);
 
@@ -83,26 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
       lastBMI = bmi;
       lastCategory = category;
 
-      // UI update
-      resultContainer.style.display = "block";
-      resultBadge.textContent = category;
-      resultBadge.style.background = tips[category].color;
-
-      resultText.innerHTML = `
-        Hey <strong>${lastName}</strong>! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
-        your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
-        which falls under the "<strong>${category}</strong>" category.
-      `;
-      resultText.style.color = tips[category].color;
-      progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
-      progressBar.style.background = tips[category].color;
-
-      if (downloadButtons) downloadButtons.style.display = "block";
-
+      updateUI(bmi, category);
     }
   });
 
-  // Helper: Header & Footer
+  // Helper: PDF Header & Footer
   function addHeaderFooter(doc, title) {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
@@ -121,122 +127,113 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.setTextColor(0);
   }
 
-  // Report Generator
-  if (downloadReport) {
-    downloadReport.addEventListener("click", () => {
-      if (!lastBMI || !lastCategory) return alert("Please calculate BMI first!");
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      addHeaderFooter(doc, "BMI & Body Composition Report");
+  // Generate BMI Report PDF
+  function generateBMIReport() {
+    if (!lastBMI || !lastCategory) return alert("Please calculate BMI first!");
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    addHeaderFooter(doc, "BMI & Body Composition Report");
 
-      const age = lastAge ?? "N/A";
-      const gender = lastGender ?? "N/A";
-      const dob = lastDOB ?? "N/A";
-      const height = document.getElementById("height").value;
-      const weight = document.getElementById("weight").value;
+    const age = lastAge ?? "N/A";
+    const gender = lastGender ?? "N/A";
+    const dob = lastDOB ?? "N/A";
+    const height = document.getElementById("height").value;
+    const weight = document.getElementById("weight").value;
 
-      doc.setFontSize(12);
-      doc.text(`Name: ${lastName}`, 20, 30);
-      doc.text(`Email: ${lastEmail}`, 20, 37);
-      doc.text(`DOB: ${dob}`, 20, 44);
-      doc.text(`Age: ${age}`, 20, 51);
-      doc.text(`Height: ${height} cm`, 120, 30);
-      doc.text(`Weight: ${weight} kg`, 120, 37);
-      doc.setTextColor(tips[lastCategory].color);
-      doc.text(`BMI: ${lastBMI} (${lastCategory})`, 120, 44);
-      doc.setTextColor(0);
+    doc.setFontSize(12);
+    doc.text(`Name: ${lastName}`, 20, 30);
+    doc.text(`Email: ${lastEmail}`, 20, 37);
+    doc.text(`DOB: ${dob}`, 20, 44);
+    doc.text(`Age: ${age}`, 20, 51);
+    doc.text(`Height: ${height} cm`, 120, 30);
+    doc.text(`Weight: ${weight} kg`, 120, 37);
+    doc.setTextColor(tips[lastCategory].color);
+    doc.text(`BMI: ${lastBMI} (${lastCategory})`, 120, 44);
+    doc.setTextColor(0);
 
-      let y = 65;
-      doc.setFont("helvetica", "bold");
-      doc.text("1. Body Composition", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+    let y = 65;
+    doc.setFont("helvetica", "bold");
+    doc.text("1. Body Composition", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+    y += 8;
+    doc.text(`Percent Body Fat: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
+    y += 8;
+    doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
+    y += 8;
+    doc.text(`Fat Free Mass: ${(weight * 0.75).toFixed(1)} kg`, 25, y);
+
+    // Sections 2–6
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("2. Obesity Analysis", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    doc.text(`BMI: ${lastBMI} (${lastCategory})`, 25, y);
+    y += 8;
+    doc.text(`PBF: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
+    y += 8;
+    doc.text(`Visceral Fat Level: ${Math.round(lastBMI / 2)}`, 25, y);
+
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("3. Muscle-Fat Analysis", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    doc.text(`Weight: ${weight} kg`, 25, y);
+    y += 8;
+    doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
+    y += 8;
+    doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("4. Segmental Analysis", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    ["Right Arm", "Left Arm", "Right Leg", "Left Leg", "Trunk"].forEach((part) => {
+      doc.text(`${part}: Lean ${(weight * 0.08).toFixed(1)} kg | Fat ${(weight * 0.05).toFixed(1)} kg`, 25, y);
       y += 8;
-      doc.text(`Percent Body Fat: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
-      y += 8;
-      doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
-      y += 8;
-      doc.text(`Fat Free Mass: ${(weight * 0.75).toFixed(1)} kg`, 25, y);
-
-      // Sections 2–6 same as before
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.text("2. Obesity Analysis", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      doc.text(`BMI: ${lastBMI} (${lastCategory})`, 25, y);
-      y += 8;
-      doc.text(`PBF: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
-      y += 8;
-      doc.text(`Visceral Fat Level: ${Math.round(lastBMI / 2)}`, 25, y);
-
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.text("3. Muscle-Fat Analysis", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      doc.text(`Weight: ${weight} kg`, 25, y);
-      y += 8;
-      doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
-      y += 8;
-      doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
-
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.text("4. Segmental Analysis", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      ["Right Arm", "Left Arm", "Right Leg", "Left Leg", "Trunk"].forEach((part) => {
-        doc.text(`${part}: Lean ${(weight * 0.08).toFixed(1)} kg | Fat ${(weight * 0.05).toFixed(1)} kg`, 25, y);
-        y += 8;
-      });
-
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.text("5. Weight Control", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      doc.text(`Target Weight: ${(22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
-      y += 8;
-      doc.text(`Weight to Lose: ${(weight - 22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
-
-      y += 12;
-      doc.setFont("helvetica", "bold");
-      doc.text("6. Comprehensive Evaluation", 20, y);
-      doc.setFont("helvetica", "normal");
-      y += 10;
-      tips[lastCategory].list.forEach((t, i) => {
-        doc.text(`- ${t}`, 25, y + i * 8);
-      });
-
-      doc.save("BMI_Report.pdf");
     });
+
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("5. Weight Control", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    doc.text(`Target Weight: ${(22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
+    y += 8;
+    doc.text(`Weight to Lose: ${(weight - 22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
+
+    y += 12;
+    doc.setFont("helvetica", "bold");
+    doc.text("6. Comprehensive Evaluation", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 10;
+    tips[lastCategory].list.forEach((t, i) => {
+      doc.text(`- ${t}`, 25, y + i * 8);
+    });
+
+    doc.save("BMI_Report.pdf");
   }
 
-
-// Health Tracker (Excel for 30 days)
-// Health Tracker (Excel for 30 days)
-if (downloadTracker) {
-  downloadTracker.addEventListener("click", () => {
+  // Generate Health Tracker Excel (30 days)
+  function generateHealthTracker() {
     if (!lastBMI) return alert("Please calculate BMI first!");
     
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
-
-    // Calculate Target Weight for BMI 22
     const targetWeight = +(22 * (height / 100) ** 2).toFixed(1);
     const weightToLoseGain = +(weight - targetWeight).toFixed(1);
     const bmi = +(weight / ((height / 100) ** 2)).toFixed(1);
 
-    // Determine BMI Category
     let category = "";
     if (bmi < 18.5) category = "Underweight";
     else if (bmi < 25) category = "Normal weight";
     else if (bmi < 30) category = "Overweight";
     else category = "Obesity";
 
-    // Header
     const ws_data = [
       ["Date", "Weight (kg)", "Height (cm)", "BMI", "BMI Category", "Target Weight (kg)", "Weight to Lose/Gain (kg)", "Calories Intake (kcal)", "Water Intake (L)", "Steps / Activity", "Sleep Hours", "Mood / Energy Level", "Notes"]
     ];
@@ -248,25 +245,9 @@ if (downloadTracker) {
       date.setDate(today.getDate() + i);
       const dateStr = date.toISOString().split("T")[0];
 
-      // First row auto-filled
       if (i === 0) {
-        ws_data.push([
-          dateStr,         // Date
-          weight,          // Weight (user input)
-          height,          // Height (auto)
-          bmi,             // BMI (auto)
-          category,        // BMI Category (auto)
-          targetWeight,    // Target Weight (kg)
-          weightToLoseGain,// Weight to Lose/Gain
-          "",              // Calories Intake
-          "",              // Water Intake
-          "",              // Steps / Activity
-          "",              // Sleep Hours
-          "",              // Mood / Energy Level
-          ""               // Notes
-        ]);
+        ws_data.push([dateStr, weight, height, bmi, category, targetWeight, weightToLoseGain, "", "", "", "", "", ""]);
       } else {
-        // Other 29 rows left mostly blank for user input, only Date auto-filled
         ws_data.push([dateStr, "", height, "", "", targetWeight, "", "", "", "", "", "", ""]);
       }
     }
@@ -275,35 +256,71 @@ if (downloadTracker) {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
     XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
-  });
-}
-
-
-// end of Health Tracker (Excel for 30 days)
-
-
-
-
-  // Diet Plan (PDF)
-  if (downloadDiet) {
-    downloadDiet.addEventListener("click", () => {
-      if (!lastCategory) return alert("Please calculate BMI first!");
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      addHeaderFooter(doc, "Personalized Diet Plan");
-      doc.setFontSize(12);
-      doc.text(`Category: ${lastCategory}`, 20, 30);
-
-      let y = 50;
-      doc.setFont("helvetica", "bold");
-      doc.text("Recommended Diet Tips:", 20, y);
-      y += 10;
-      doc.setFont("helvetica", "normal");
-      tips[lastCategory].list.forEach((t, i) => {
-        doc.text(`- ${t}`, 25, y + i * 8);
-      });
-
-      doc.save("Diet_Plan.pdf");
-    });
   }
+
+  // Generate Generic Diet Plan PDF
+  function generateDietPlan() {
+    if (!lastCategory) return alert("Please calculate BMI first!");
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    addHeaderFooter(doc, "Personalized Diet Plan");
+
+    doc.setFontSize(12);
+    doc.text(`Category: ${lastCategory}`, 20, 30);
+    doc.setFont("helvetica", "bold");
+    doc.text("Recommended Daily Diet Plan:", 20, 50);
+    doc.setFont("helvetica", "normal");
+
+    const genericDietPlans = {
+      "Underweight": [
+        "Breakfast: Oatmeal with milk, nuts, and fruits + 1 boiled egg",
+        "Mid-Morning: Smoothie with banana, peanut butter, and yogurt",
+        "Lunch: Brown rice, grilled chicken/fish, vegetables",
+        "Snack: Handful of nuts and dried fruits",
+        "Dinner: Whole wheat pasta or chapati, paneer/tofu, veggies",
+        "Before Bed: Glass of milk or protein shake"
+      ],
+      "Normal weight": [
+        "Breakfast: Whole grain toast with avocado and boiled eggs",
+        "Mid-Morning: Fresh fruits or yogurt",
+        "Lunch: Quinoa/rice, lean protein (chicken/fish/tofu), vegetables",
+        "Snack: Carrot/cucumber sticks with hummus or nuts",
+        "Dinner: Chapati with dal, salad, and grilled vegetables",
+        "Before Bed: Herbal tea or warm milk"
+      ],
+      "Overweight": [
+        "Breakfast: Oatmeal with berries or egg whites and vegetables",
+        "Mid-Morning: Green smoothie or fruits",
+        "Lunch: Brown rice/quinoa, lean protein, lots of vegetables",
+        "Snack: Nuts or sprouts salad",
+        "Dinner: Grilled fish/chicken with steamed vegetables",
+        "Before Bed: Herbal tea or warm water"
+      ],
+      "Obesity": [
+        "Breakfast: Vegetable omelette or Greek yogurt with fruits",
+        "Mid-Morning: Fresh vegetables or green tea",
+        "Lunch: Salad with lean protein and minimal carbs",
+        "Snack: Nuts, seeds, or vegetable sticks",
+        "Dinner: Light soup with grilled veggies or fish",
+        "Before Bed: Warm water or herbal tea"
+      ]
+    };
+
+    let y = 60;
+    genericDietPlans[lastCategory].forEach((item, i) => {
+      if (y + i * 10 > 270) {
+        doc.addPage();
+        addHeaderFooter(doc, "Personalized Diet Plan");
+        y = 30;
+      }
+      doc.text(`- ${item}`, 25, y + i * 10);
+    });
+
+    doc.save("Diet_Plan.pdf");
+  }
+
+  // Event Listeners
+  if (downloadReport) downloadReport.addEventListener("click", generateBMIReport);
+  if (downloadTracker) downloadTracker.addEventListener("click", generateHealthTracker);
+  if (downloadDiet) downloadDiet.addEventListener("click", generateDietPlan);
 });
