@@ -106,6 +106,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       updateUI(bmi, category);
 
+      // 🔒 Disable Compute BMI button for 30 seconds
+      const computeBtn = bmiForm.querySelector("button[type='submit']");
+      if (computeBtn) {
+        computeBtn.disabled = true;
+        let seconds = 30;
+        const originalText = "Compute BMI";
+        computeBtn.textContent = `Please wait (${seconds}s)`;
+
+        const countdown = setInterval(() => {
+          seconds--;
+          computeBtn.textContent = `Please wait (${seconds}s)`;
+          if (seconds <= 0) {
+            clearInterval(countdown);
+            computeBtn.disabled = false;
+            computeBtn.textContent = originalText;
+          }
+        }, 1000);
+      }
+
       // 🔔 Send BMI details via email
       const formData = new FormData();
       formData.append("Name", lastName);
