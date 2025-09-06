@@ -214,29 +214,77 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Health Tracker (Excel for 30 days)
-  if (downloadTracker) {
-    downloadTracker.addEventListener("click", () => {
-      if (!lastBMI) return alert("Please calculate BMI first!");
-      const height = parseFloat(document.getElementById("height").value);
-      const weight = parseFloat(document.getElementById("weight").value);
-      const ws_data = [["Date", "Weight (kg)", "BMI", "Gender", "DOB", "Age", "Notes"]];
-      const today = new Date();
+// Health Tracker (Excel for 30 days)
+if (downloadTracker) {
+  downloadTracker.addEventListener("click", () => {
+    if (!lastBMI) return alert("Please calculate BMI first!");
 
-      for (let i = 0; i < 30; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() + i);
-        const dateStr = date.toISOString().split("T")[0];
-        const bmi = +(weight / ((height / 100) * (height / 100))).toFixed(1);
-        ws_data.push([dateStr, weight, bmi, lastGender ?? "N/A", lastDOB ?? "N/A", lastAge ?? "N/A", ""]);
-      }
+    const height = parseFloat(document.getElementById("height").value);
+    const weight = parseFloat(document.getElementById("weight").value);
 
-      const ws = XLSX.utils.aoa_to_sheet(ws_data);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
-      XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
-    });
-  }
+    // Headers
+    const ws_data = [[
+      "Date",
+      "Weight (kg)",
+      "Height (cm)",
+      "BMI",
+      "BMI Category",
+      "Target Weight (kg)",
+      "Weight to Lose/Gain (kg)",
+      "Age",
+      "Gender",
+      "Calories Intake (kcal)",
+      "Water Intake (L)",
+      "Steps / Activity",
+      "Sleep Hours",
+      "Mood / Energy Level",
+      "Notes"
+    ]];
+
+    const today = new Date();
+
+    // Calculate target weight (BMI = 22)
+    const targetWeight = +(22 * (height / 100) ** 2).toFixed(1);
+    const bmiCategory = (lastBMI < 18.5) ? "Underweight" :
+                        (lastBMI < 25) ? "Normal weight" :
+                        (lastBMI < 30) ? "Overweight" : "Obesity";
+    const weightDiff = +(weight - targetWeight).toFixed(1);
+
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const dateStr = date.toISOString().split("T")[0];
+      const bmi = +(weight / ((height / 100) * (height / 100))).toFixed(1);
+      const age = lastAge ?? "N/A";
+      const gender = lastGender ?? "N/A";
+
+      // Auto-fill optional fields with placeholders
+      ws_data.push([
+        dateStr,            // Date
+        weight,             // Weight
+        height,             // Height
+        bmi,                // BMI
+        bmiCategory,        // BMI Category
+        targetWeight,       // Target Weight
+        weightDiff,         // Weight to Lose/Gain
+        age,                // Age
+        gender,             // Gender
+        2000,               // Calories Intake (placeholder)
+        2,                  // Water Intake (L) placeholder
+        5000,               // Steps / Activity placeholder
+        7,                  // Sleep Hours placeholder
+        "Good",             // Mood / Energy Level placeholder
+        "Keep consistent with diet & exercise" // Notes
+      ]);
+    }
+
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "BMI Tracker");
+    XLSX.writeFile(wb, "BMI_Health_Tracker.xlsx");
+  });
+}
+
 
   // Diet Plan (PDF)
   if (downloadDiet) {
