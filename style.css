@@ -151,7 +151,7 @@ textarea {
   min-height: 120px;
 }
 
-/* ✅ Input Row (side-by-side on desktop, stacked on mobile) */
+/* Input Row */
 .input-row {
   display: flex;
   gap: 15px;
@@ -159,8 +159,6 @@ textarea {
 .input-row .input-group {
   flex: 1;
 }
-
-/* ✅ Gender Radio Button Spacing */
 .input-group input[type="radio"] {
   margin: 0 6px 0 12px;
 }
@@ -197,7 +195,7 @@ textarea {
   filter: brightness(1.2);
 }
 
-/* === BMI Chart & Tips Section === */
+/* BMI Chart & Tips */
 .bmi-chart {
   text-align: center;
 }
@@ -221,6 +219,7 @@ textarea {
   border-radius: 10px;
   color: white;
   text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .tip-card h3 {
   font-size: 1.1rem;
@@ -233,6 +232,10 @@ textarea {
   margin-bottom: 6px;
   font-size: 0.95rem;
 }
+.tip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
 
 /* Tip Colors */
 .tip-card.underweight { background: #fbbf24; color: #222; }
@@ -240,7 +243,7 @@ textarea {
 .tip-card.overweight { background: #f97316; }
 .tip-card.obese { background: #ef4444; }
 
-/* === Article Grid === */
+/* Article Grid */
 .article-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
@@ -274,7 +277,7 @@ textarea {
   box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
-/* === Articles Listing Page === */
+/* Articles Listing */
 .article-listing {
   max-width: 950px;
   margin: 40px auto;
@@ -324,7 +327,7 @@ textarea {
     text-align: center;
   }
   .input-row {
-    display: block; /* stack inputs on mobile */
+    display: block;
   }
   .menu-toggle {
     display: block;
@@ -344,7 +347,7 @@ textarea {
   }
 }
 
-/* Tips Box (Dynamic Suggestions) */
+/* Tips Box */
 #suggestion-box {
   transition: all 0.3s ease;
   border-radius: 8px;
@@ -360,7 +363,7 @@ textarea {
   font-size: 0.95rem;
 }
 
-/* Success/Error Messages */
+/* Success/Error */
 #success-msg,
 #newsletter-success {
   display: none;
@@ -376,7 +379,7 @@ textarea {
   text-align: center;
 }
 
-/* Newsletter alignment fix for mobile */
+/* Newsletter mobile fix */
 @media (max-width: 480px) {
   .subscribe-form {
     flex-direction: column;
@@ -390,25 +393,19 @@ textarea {
   }
 }
 
-/* ✅ Name field improvement */
+/* Name Field */
 #name {
-  text-transform: capitalize; /* Automatically capitalize first letters */
-}
-
-/* Name Field Styling */
-#name {
+  text-transform: capitalize;
   border: 2px solid #ddd;
   border-radius: 8px;
   padding: 10px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 #name:focus {
-  border-color: #28a745;   /* Green border on focus */
+  border-color: #28a745;
   box-shadow: 0 0 6px rgba(40, 167, 69, 0.3);
   outline: none;
 }
-/* Hint text under input fields (e.g., Name max length) */
 .input-group .hint {
   display: block;
   font-size: 12px;
@@ -416,3 +413,17 @@ textarea {
   margin-top: 4px;
 }
 
+/* ✅ Download buttons hidden initially */
+#download-buttons {
+  display: none;
+}
+
+/* ✅ Progress Bar */
+#progress-bar {
+  height: 12px;
+  width: 0;
+  border-radius: 8px;
+  transition: width 0.5s ease, background 0.5s ease;
+  margin-top: 8px;
+  background: #28a745;
+}

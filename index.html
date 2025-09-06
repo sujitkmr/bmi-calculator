@@ -79,62 +79,58 @@
         <h2>BMI Calculator</h2>
         <form id="bmi-form">
 
-          <!-- Name Input -->
-<!-- Name Input -->
-<div class="input-group">
-  <label for="name"><i class="fa-solid fa-user"></i> Name</label>
-  <input 
-    type="text" 
-    id="name" 
-    name="name" 
-    placeholder="Enter your name (Max 25 Chars Allowed)" 
-    maxlength="25" 
-    required>
-</div>
-
-
+          <!-- Name + Email -->
           <div class="input-row">
             <div class="input-group">
-              <label for="height"><i class="fa-solid fa-ruler"></i> Height (cm)</label>
-              <input type="number" id="height" placeholder="e.g. 170" min="50" max="260" required>
+              <label for="name"><i class="fas fa-user"></i> Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your name (Max 25 chars)" maxlength="25" required>
             </div>
             <div class="input-group">
-              <label for="weight"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
-              <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required>
+              <label for="email"><i class="fas fa-envelope"></i> Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
           </div>
 
+          <!-- Height + Weight -->
+          <div class="input-row">
+            <div class="input-group">
+              <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+              <input type="number" id="height" name="height" placeholder="e.g. 170" min="50" max="260" required>
+            </div>
+            <div class="input-group">
+              <label for="weight"><i class="fas fa-weight-scale"></i> Weight (kg)</label>
+              <input type="number" id="weight" name="weight" placeholder="e.g. 65" min="10" max="300" required>
+            </div>
+          </div>
 
-<!-- Date of Birth -->
-<div class="input-group">
-  <label for="dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
-  <input type="date" id="dob" name="dob" required>
-</div>
+          <!-- Date of Birth -->
+          <div class="input-group">
+            <label for="dob"><i class="fas fa-calendar-days"></i> Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
 
-<!-- Gender Selection (Radio Buttons) -->
-<!-- Gender Selection (Radio Buttons) -->
-<div class="input-group">
-  <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
-  <div class="gender-options">
-    <label><input type="radio" id="male" name="gender" value="Male" required> Male</label>
-    <label><input type="radio" id="female" name="gender" value="Female"> Female</label>
-  </div>
-</div>
-
+          <!-- Gender -->
+          <div class="input-group">
+            <label><i class="fas fa-venus-mars"></i> Gender</label>
+            <div class="gender-options">
+              <label><input type="radio" name="gender" value="Male" required> Male</label>
+              <label><input type="radio" name="gender" value="Female"> Female</label>
+            </div>
+          </div>
 
           <div style="margin-top:14px">
             <button type="submit" class="btn btn-primary">Compute BMI</button>
           </div>
+
         </form>
 
-        <!-- Result -->
+        <!-- Result & Downloads -->
         <div id="result-container" style="display:none; margin-top:20px">
           <div id="result-badge" class="badge"></div>
           <div id="result-progress"><div id="progress-bar"></div></div>
           <p id="result-text"></p>
         </div>
 
-        <!-- ✅ Download Buttons -->
         <div id="download-buttons" style="display:none; margin-top:14px; text-align:center;">
           <a id="download-report" class="btn" style="background:#e63946; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
             <i class="fa-solid fa-file-pdf"></i> Download BMI Report
@@ -209,7 +205,6 @@
           </form>
           <div id="newsletter-success" aria-live="polite">✅ Thank you for subscribing! We’ll connect with you soon.</div>
         </div>
-
         <div class="social-icons">
           <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28" loading="lazy"></a>
           <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28" loading="lazy"></a>
@@ -240,20 +235,19 @@
   <script src="js/menu.js"></script>
   <script src="js/footer.js"></script>
 
-  <!-- ✅ External Libraries -->
+  <!-- External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-  <!-- Your Script -->
+  <!-- Scripts -->
   <script src="js/bmi.js"></script>
   <script src="js/forms.js"></script>
 
-  <!-- ✅ Newsletter AJAX Handler -->
+  <!-- Newsletter AJAX -->
   <script>
     document.getElementById("newsletter-form").addEventListener("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(this);
-
       fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
         method: "POST",
         body: formData
@@ -262,15 +256,12 @@
       .then(() => {
         document.getElementById("newsletter-success").style.display = "block";
         this.reset();
-        setTimeout(() => {
-          document.getElementById("newsletter-success").style.display = "none";
-        }, 5000);
+        setTimeout(() => { document.getElementById("newsletter-success").style.display = "none"; }, 5000);
       })
       .catch(() => alert("❌ Error subscribing, please try again."));
     });
   </script>
 
-  <!-- ✅ Show download buttons after BMI is calculated -->
   <script>
     function showDownloads() {
       document.getElementById("download-buttons").style.display = "block";
