@@ -135,7 +135,8 @@
           <input type="hidden" id="bmi-result-field" name="BMI Result" value="">
 
           <div style="margin-top:14px">
-            <button type="submit" class="btn btn-primary">Compute BMI</button>
+            <!-- ✅ Added id for JS -->
+            <button type="submit" class="btn btn-primary" id="compute-btn">Compute BMI</button>
           </div>
 
           <!-- ✅ Success / Error Messages -->
@@ -286,6 +287,19 @@
     function showDownloads() {
       document.getElementById("download-buttons").style.display = "block";
     }
+  </script>
+
+  <!-- ✅ Disable Compute button for 30 sec -->
+  <script>
+    document.getElementById("bmi-form").addEventListener("submit", function() {
+      const computeBtn = document.getElementById("compute-btn");
+      computeBtn.disabled = true;
+      computeBtn.innerText = "Please wait...";
+      setTimeout(() => {
+        computeBtn.disabled = false;
+        computeBtn.innerText = "Compute BMI";
+      }, 30000);
+    });
   </script>
 </body>
 </html>
