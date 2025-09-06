@@ -106,10 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       updateUI(bmi, category);
 
-      // 🔒 Disable Compute BMI button for 30 seconds
+      // 🔒 Disable Compute BMI button and lock form for 30 seconds
       const computeBtn = bmiForm.querySelector("button[type='submit']");
+      const allFields = bmiForm.querySelectorAll("input, select, textarea");
       if (computeBtn) {
         computeBtn.disabled = true;
+        allFields.forEach(field => field.disabled = true); // Lock all fields
         let seconds = 30;
         const originalText = "Compute BMI";
         computeBtn.textContent = `Please wait (${seconds}s)`;
@@ -121,6 +123,15 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(countdown);
             computeBtn.disabled = false;
             computeBtn.textContent = originalText;
+            // Unlock all fields
+            allFields.forEach(field => field.disabled = false);
+            // Clear all fields
+            bmiForm.reset();
+            // Reset result display
+            resultContainer.style.display = "none";
+            progressBar.style.width = "0%";
+              if (downloadButtons) downloadButtons.style.display = "none";
+            lastBMI = lastCategory = lastAge = lastName = lastEmail = lastGender = lastDOB = null;
           }
         }, 1000);
       }
@@ -141,12 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData
       })
         .then(res => res.json())
-        .then(() => {
-          console.log("✅ BMI details emailed successfully");
-        })
-        .catch(() => {
-          console.error("❌ Failed to send BMI details via email");
-        });
+        .then(() => console.log("✅ BMI details emailed successfully"))
+        .catch(() => console.error("❌ Failed to send BMI details via email"));
     }
   });
 
