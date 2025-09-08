@@ -62,11 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
     resultBadge.textContent = category;
     resultBadge.style.background = tips[category].color;
 
-    resultText.innerHTML = `
-      Hey <strong>${lastName}</strong>! Based on your height, weight, and age (<strong>${lastAge ?? "N/A"}</strong>), 
-      your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
-      which falls under the "<strong>${category}</strong>" category.
-    `;
+resultText.innerHTML = `
+  Hey <strong>${lastName}</strong>! Based on your height, weight, age (<strong>${lastAge ?? "N/A"}</strong>), 
+  and gender (<strong>${lastGender}</strong>), 
+  your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
+  which falls under the "<strong>${category}</strong>" category.
+`;
+
     resultText.style.color = tips[category].color;
 
     progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
@@ -112,13 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (computeBtn) {
         computeBtn.disabled = true;
         allFields.forEach(field => field.disabled = true); // Lock all fields
-        let seconds = 90;
+        let seconds = 100;
         const originalText = "Compute BMI";
-        computeBtn.textContent = `Please wait (${seconds}s)`;
+        computeBtn.textContent = `Report Download window is open for (${seconds}s)`;
 
         const countdown = setInterval(() => {
           seconds--;
-          computeBtn.textContent = `Please wait (${seconds}s)`;
+          computeBtn.textContent = `Report Download window is open for (${seconds}s)`;
           if (seconds <= 0) {
             clearInterval(countdown);
             computeBtn.disabled = false;
@@ -194,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.text(`Email: ${lastEmail}`, 20, 37);
     doc.text(`DOB: ${dob}`, 20, 44);
     doc.text(`Age: ${age}`, 20, 51);
+    doc.text(`Gender: ${gender}`, 20, 58);  // ✅ Added Gender line
     doc.text(`Height: ${height} cm`, 120, 30);
     doc.text(`Weight: ${weight} kg`, 120, 37);
     doc.setTextColor(tips[lastCategory].color);
