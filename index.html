@@ -66,121 +66,98 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero fade-in">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>Free Online BMI Calculator – Check Your Body Mass Index Instantly</h1>
-        <p>Simple, accurate, and free. Our BMI calculator helps you understand your weight category and take the next step toward better health with tips and diet plans.</p>
-        <div class="cta"><a class="btn btn-primary" href="#calculator">Know your BMI</a></div>
-        <div class="trust">
-          <span>✔ No login needed</span>
-          <span>✔ We don’t store your data</span>
-          <span>✔ WHO-based categories</span>
-        </div>
+<!-- Hero with BMI Calculator on Right -->
+<section class="hero fade-in" style="background:#f7a420; padding:60px 20px;">
+  <div class="hero-container" style="display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; max-width:1200px; margin:0 auto; gap:40px;">
+    
+    <!-- Left Side: Heading + CTA -->
+    <div class="hero-left" style="flex:1; min-width:300px; padding:20px;">
+      <h1 style="font-size:2.2rem; font-weight:700; color:#fff; margin-bottom:14px;">
+        GYMBMI – India’s Smart Fitness Tracker
+      </h1>
+      <p style="font-size:1.2rem; font-weight:500; color:#fff; margin-bottom:16px;">
+        Your Health. Your Journey. Your BMI.<br>
+        Measure Today. Transform Tomorrow.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#calculator" style="background:#1d3557; padding:12px 20px; border-radius:8px; text-decoration:none; color:#fff; font-weight:600;">
+          Get your BMI Report – It’s FREE
+        </a>
+      </div>
+      <div class="trust" style="margin-top:20px; color:#fff; font-size:0.95rem; font-weight:500; line-height:1.6;">
+        <span>✔ No login needed</span><br>
+        <span>✔ We don’t store your data</span><br>
+        <span>✔ WHO-based categories</span>
       </div>
     </div>
-  </section>
 
-  <!-- Calculator -->
-  <section id="calculator" class="section fade-in">
-    <div class="calculator">
-      <div class="card">
-        <h2>BMI Calculator</h2>
-        <form id="bmi-form">
-
-          <!-- Name -->
-          <div class="input-group">
-            <label for="name"><i class="fas fa-user"></i> Name</label>
-            <input type="text" id="name" name="Name" placeholder="Enter your name (Max 25 chars)" maxlength="25" required>
-          </div>
-
-          <!-- Height + Weight -->
-          <div class="input-row">
-            <div class="input-group">
-              <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
-              <input type="number" id="height" name="Height" placeholder="e.g. 170" min="50" max="260" required>
-            </div>
-            <div class="input-group">
-              <label for="weight"><i class="fas fa-weight-scale"></i> Weight (kg)</label>
-              <input type="number" id="weight" name="Weight" placeholder="e.g. 65" min="10" max="300" required>
-            </div>
-          </div>
-
-          <!-- Date of Birth -->
-          <div class="input-group">
-            <label for="dob"><i class="fas fa-calendar-days"></i> Date of Birth</label>
-            <input type="date" id="dob" name="DOB" required>
-          </div>
-
-          <!-- Gender -->
-          <div class="input-group">
-            <label><i class="fas fa-venus-mars"></i> Gender</label>
-            <div class="gender-options">
-              <label><input type="radio" name="Gender" value="Male" required> Male</label>
-              <label><input type="radio" name="Gender" value="Female"> Female</label>
-            </div>
-          </div>
-
-          <!-- ✅ Hidden fields for FormSubmit -->
-          <input type="hidden" name="_subject" value="New BMI Calculation - gymbmi.com">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_autoresponse" value="Thank you for using our BMI calculator. Your BMI result has been received.">
-          <input type="hidden" id="bmi-result-field" name="BMI Result" value="">
-
-          <div style="margin-top:14px">
-            <!-- ✅ Added id for JS -->
-            <button type="submit" class="btn btn-primary" id="compute-btn">Compute BMI</button>
-          </div>
-
-          <!-- ✅ Success / Error Messages -->
-          <div id="bmi-form-success" aria-live="polite">✅ Thank you! Your BMI result has been sent.</div>
-          <div id="bmi-form-error" aria-live="polite">❌ Oops! Something went wrong, please try again.</div>
-
-        </form>
-
-        <!-- Result & Downloads -->
-        <div id="result-container" style="display:none; margin-top:20px">
-          <div id="result-badge" class="badge"></div>
-          <div id="result-progress"><div id="progress-bar"></div></div>
-          <p id="result-text"></p>
+    <!-- Right Side: BMI Calculator Form -->
+    <div class="hero-right" style="flex:1; min-width:360px; max-width:460px; background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.12);">
+      <h2 style="margin-top:0; font-size:1.6rem; font-weight:700; color:#2a9d8f; margin-bottom:20px;">BMI Calculator</h2>
+      
+      <form id="bmi-form">
+        <div style="margin-bottom:15px;">
+          <label for="name" style="font-weight:600; display:block; margin-bottom:6px;">Name</label>
+          <input type="text" id="name" placeholder="Enter Your Name (Max 25 Chars)" maxlength="25" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
         </div>
 
-        <div id="download-buttons" style="display:none; margin-top:14px; text-align:center;">
-          <a id="download-report" class="btn" style="background:#e63946; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
-            <i class="fa-solid fa-file-pdf"></i> Download BMI Report
-          </a>
-          <a id="download-tracker" class="btn" style="background:#1d3557; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
-            <i class="fa-solid fa-file-excel"></i> Download Health Tracker
-          </a>
-          <a id="download-diet" class="btn" style="background:#2a9d8f; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
-            <i class="fa-solid fa-apple-whole"></i> Download Diet Plan
-          </a>
-        </div>
-
-        <!-- Tips -->
-        <div id="suggestion-box" class="card" style="margin-top:14px; display:none">
-          <div id="toggle-suggestions">
-            <strong id="suggestion-title">Tips</strong> <span id="toggle-icon">▼</span>
+        <div style="display:flex; gap:12px; margin-bottom:15px;">
+          <div style="flex:1;">
+            <label for="height" style="font-weight:600; display:block; margin-bottom:6px;">Height (cm)</label>
+            <input type="number" id="height" placeholder="e.g. 170" min="50" max="260" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
           </div>
-          <ul id="suggestion-list"></ul>
+          <div style="flex:1;">
+            <label for="weight" style="font-weight:600; display:block; margin-bottom:6px;">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="e.g. 65" min="10" max="300" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+          </div>
         </div>
 
-        <!-- BMI Ranges -->
-        <div class="card fade-in">
-          <h2>BMI Ranges (Adults)</h2>
-          <ul style="margin:0; padding-left:18px">
-            <li>Underweight: &lt; 18.5</li>
-            <li>Normal weight: 18.5 – 24.9</li>
-            <li>Overweight: 25 – 29.9</li>
-            <li>Obesity: ≥ 30</li>
-          </ul>
-          <hr class="sep">
-          <p style="margin:0; color:var(--muted)">Note: BMI is a general indicator and doesn’t account for muscle mass, age, or body composition. Always seek professional medical advice for personalized guidance.</p>
+        <div style="margin-bottom:15px;">
+          <label for="dob" style="font-weight:600; display:block; margin-bottom:6px;">Date of Birth</label>
+          <input type="date" id="dob" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
         </div>
+
+<div style="margin-bottom:15px;">
+  <label style="font-weight:600; display:block; margin-bottom:6px;">Gender</label>
+  <label><input type="radio" name="gender" value="Male" required> Male</label>
+  <label style="margin-left:15px;"><input type="radio" name="gender" value="Female" required> Female</label>
+</div>
+
+
+        <button id="compute-btn" type="submit" style="background:#2a9d8f; width:100%; padding:12px; border-radius:8px; color:#fff; font-weight:700; font-size:1rem; border:none; cursor:pointer;">
+          Compute BMI
+        </button>
+      </form>
+
+      <!-- ✅ Results Section (moved here from old calculator) -->
+      <div id="result-container" style="display:none; margin-top:20px">
+        <div id="result-badge" class="badge"></div>
+        <div id="result-progress"><div id="progress-bar"></div></div>
+        <p id="result-text"></p>
+      </div>
+
+      <div id="download-buttons" style="display:none; margin-top:14px; text-align:center;">
+        <a id="download-report" class="btn" style="background:#e63946; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
+          <i class="fa-solid fa-file-pdf"></i> Download BMI Report
+        </a>
+        <a id="download-tracker" class="btn" style="background:#1d3557; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
+          <i class="fa-solid fa-file-excel"></i> Download Health Tracker
+        </a>
+        <a id="download-diet" class="btn" style="background:#2a9d8f; color:#fff; margin:4px; padding:10px 16px; border-radius:8px; text-decoration:none;">
+          <i class="fa-solid fa-apple-whole"></i> Download Diet Plan
+        </a>
+      </div>
+
+      <div id="suggestion-box" class="card" style="margin-top:14px; display:none">
+        <div id="toggle-suggestions">
+          <strong id="suggestion-title">Tips</strong> <span id="toggle-icon">▼</span>
+        </div>
+        <ul id="suggestion-list"></ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- BMI Chart + Tips -->
   <section class="bmi-chart section fade-in">
@@ -230,7 +207,6 @@
       <div>
         <div class="footer-meta">
           <div>Current Time: <span id="current-time"></span></div>
-          <!-- ✅ Visitor counter removed -->
         </div>
         <hr class="sep">
         <p style="margin:0; color:var(--muted)">
@@ -274,23 +250,5 @@
     });
   </script>
 
-  <script>
-    function showDownloads() {
-      document.getElementById("download-buttons").style.display = "block";
-    }
-  </script>
-
-  <!-- ✅ Disable Compute button for 30 sec -->
-  <script>
-    document.getElementById("bmi-form").addEventListener("submit", function() {
-      const computeBtn = document.getElementById("compute-btn");
-      computeBtn.disabled = true;
-      computeBtn.innerText = "Please wait...";
-      setTimeout(() => {
-        computeBtn.disabled = false;
-        computeBtn.innerText = "Compute BMI";
-      }, 30000);
-    });
-  </script>
 </body>
 </html>
