@@ -1,4 +1,4 @@
-// bmi.js - BMI Calculator + PDF Report + Tracker + Diet + Email Notification
+// bmi.js - BMI Calculator + PDF Report + Tracker + Diet
 document.addEventListener("DOMContentLoaded", () => {
   const bmiForm = document.getElementById("bmi-form");
   if (!bmiForm) return;
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastAge = null;
   let lastDOB = null;
   let lastName = null;
-  let lastEmail = null;
 
   // Calculate age from DOB
   function calculateAge(dobValue) {
@@ -62,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
     resultBadge.textContent = category;
     resultBadge.style.background = tips[category].color;
 
-resultText.innerHTML = `
-  Hey <strong>${lastName}</strong>! Based on your height, weight, age (<strong>${lastAge ?? "N/A"}</strong>), 
-  and gender (<strong>${lastGender}</strong>), 
-  your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
-  which falls under the "<strong>${category}</strong>" category.
-`;
+    resultText.innerHTML = `
+      Hey <strong>${lastName}</strong>! Based on your height, weight, age (<strong>${lastAge ?? "N/A"}</strong>), 
+      and gender (<strong>${lastGender}</strong>), 
+      your Body Mass Index (BMI) is <strong>${bmi}</strong>, 
+      which falls under the "<strong>${category}</strong>" category.
+    `;
 
     resultText.style.color = tips[category].color;
 
@@ -84,10 +83,9 @@ resultText.innerHTML = `
     const weight = parseFloat(document.getElementById("weight").value);
 
     lastName = document.getElementById("name")?.value.trim() || "User";
-    lastEmail = document.getElementById("email")?.value.trim() || "N/A";
     localStorage.setItem("userName", lastName);
 
-    const genderInput = document.querySelector('input[name="gender"]:checked');
+    const genderInput = document.querySelector('input[name="Gender"]:checked');
     lastGender = genderInput ? genderInput.value : "Not specified";
 
     lastDOB = document.getElementById("dob")?.value || "N/A";
@@ -113,8 +111,8 @@ resultText.innerHTML = `
       const allFields = bmiForm.querySelectorAll("input, select, textarea");
       if (computeBtn) {
         computeBtn.disabled = true;
-        allFields.forEach(field => field.disabled = true); // Lock all fields
-        let seconds = 100;
+        allFields.forEach(field => field.disabled = true);
+        let seconds = 30;
         const originalText = "Compute BMI";
         computeBtn.textContent = `Report Download window is open for (${seconds}s)`;
 
@@ -125,37 +123,15 @@ resultText.innerHTML = `
             clearInterval(countdown);
             computeBtn.disabled = false;
             computeBtn.textContent = originalText;
-            // Unlock all fields
             allFields.forEach(field => field.disabled = false);
-            // Clear all fields
             bmiForm.reset();
-            // Reset result display
             resultContainer.style.display = "none";
             progressBar.style.width = "0%";
-              if (downloadButtons) downloadButtons.style.display = "none";
-            lastBMI = lastCategory = lastAge = lastName = lastEmail = lastGender = lastDOB = null;
+            if (downloadButtons) downloadButtons.style.display = "none";
+            lastBMI = lastCategory = lastAge = lastName = lastGender = lastDOB = null;
           }
         }, 1000);
       }
-
-      // 🔔 Send BMI details via email
-      const formData = new FormData();
-      formData.append("Name", lastName);
-      formData.append("Email", lastEmail);
-      formData.append("Gender", lastGender);
-      formData.append("DOB", lastDOB);
-      formData.append("Age", lastAge ?? "N/A");
-      formData.append("Height", height + " cm");
-      formData.append("Weight", weight + " kg");
-      formData.append("BMI", bmi + " (" + category + ")");
-
-      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
-        method: "POST",
-        body: formData
-      })
-        .then(res => res.json())
-        .then(() => console.log("✅ BMI details emailed successfully"))
-        .catch(() => console.error("❌ Failed to send BMI details via email"));
     }
   });
 
@@ -193,10 +169,9 @@ resultText.innerHTML = `
 
     doc.setFontSize(12);
     doc.text(`Name: ${lastName}`, 20, 30);
-    doc.text(`Email: ${lastEmail}`, 20, 37);
-    doc.text(`DOB: ${dob}`, 20, 44);
-    doc.text(`Age: ${age}`, 20, 51);
-    doc.text(`Gender: ${gender}`, 20, 58);  // ✅ Added Gender line
+    doc.text(`DOB: ${dob}`, 20, 37);
+    doc.text(`Age: ${age}`, 20, 44);
+    doc.text(`Gender: ${gender}`, 20, 51);
     doc.text(`Height: ${height} cm`, 120, 30);
     doc.text(`Weight: ${weight} kg`, 120, 37);
     doc.setTextColor(tips[lastCategory].color);
