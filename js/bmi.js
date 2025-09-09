@@ -85,8 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     lastName = document.getElementById("name")?.value.trim() || "User";
     localStorage.setItem("userName", lastName);
 
-    const genderInput = document.querySelector('input[name="Gender"]:checked');
-    lastGender = genderInput ? genderInput.value : "Not specified";
+const genderInput = document.querySelector('input[name="gender"]:checked');
+
+    lastGender = genderInput.value;
+
 
     lastDOB = document.getElementById("dob")?.value || "N/A";
     lastAge = calculateAge(lastDOB);
