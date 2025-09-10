@@ -1,17 +1,50 @@
-// bmi.js - BMI Calculator + PDF Report + Tracker + Diet
+// bmi.js - BMI Calculator + PDF Report + Tracker + Diet (with Popup Modal, No Lock Timer)
 document.addEventListener("DOMContentLoaded", () => {
   const bmiForm = document.getElementById("bmi-form");
   if (!bmiForm) return;
 
-  const resultContainer = document.getElementById("result-container");
-  const resultBadge = document.getElementById("result-badge");
-  const resultText = document.getElementById("result-text");
-  const progressBar = document.getElementById("progress-bar");
+  // Create popup modal dynamically
+  const popup = document.createElement("div");
+  popup.id = "bmi-popup";
+  popup.style.display = "none";
+  popup.style.position = "fixed";
+  popup.style.top = "0";
+  popup.style.left = "0";
+  popup.style.width = "100%";
+  popup.style.height = "100%";
+  popup.style.background = "rgba(0,0,0,0.6)";
+  popup.style.zIndex = "9999";
+  popup.style.justifyContent = "center";
+  popup.style.alignItems = "center";
+  popup.innerHTML = `
+    <div id="popup-content" style="background:#fff; border-radius:12px; padding:20px; max-width:600px; width:90%; position:relative; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+      <button id="popup-close" style="position:absolute;top:10px;right:15px;font-size:22px;font-weight:bold;color:#e74c3c;border:none;background:none;cursor:pointer;">✖</button>
+      <h2 style="margin-bottom:10px; text-align:center;">Your BMI Results</h2>
+      <div id="result-badge" style="padding:8px 15px; color:#fff; font-weight:bold; text-align:center; border-radius:8px; margin-bottom:10px;"></div>
+      <p id="result-text" style="font-size:16px; margin-bottom:15px;"></p>
+      <div style="background:#eee; border-radius:8px; overflow:hidden; height:20px; margin-bottom:15px;">
+        <div id="progress-bar" style="height:100%; width:0%; background:#2ecc71; transition:width 0.5s;"></div>
+      </div>
+      <h3 style="margin-bottom:8px;">Recommended Tips:</h3>
+      <ul id="tips-list" style="margin-bottom:15px; padding-left:20px;"></ul>
+      <div id="download-buttons" style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+        <button id="download-report" style="padding:8px 12px; border:none; border-radius:6px; background:#3498db; color:#fff; cursor:pointer;">📄 Download Report</button>
+        <button id="download-tracker" style="padding:8px 12px; border:none; border-radius:6px; background:#27ae60; color:#fff; cursor:pointer;">📊 Download Tracker</button>
+        <button id="download-diet" style="padding:8px 12px; border:none; border-radius:6px; background:#e67e22; color:#fff; cursor:pointer;">🥗 Download Diet</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
 
-  const downloadButtons = document.getElementById("download-buttons");
-  const downloadReport = document.getElementById("download-report");
-  const downloadTracker = document.getElementById("download-tracker");
-  const downloadDiet = document.getElementById("download-diet");
+  const resultBadge = popup.querySelector("#result-badge");
+  const resultText = popup.querySelector("#result-text");
+  const progressBar = popup.querySelector("#progress-bar");
+  const tipsList = popup.querySelector("#tips-list");
+  const downloadButtons = popup.querySelector("#download-buttons");
+  const downloadReport = popup.querySelector("#download-report");
+  const downloadTracker = popup.querySelector("#download-tracker");
+  const downloadDiet = popup.querySelector("#download-diet");
+  const closeBtn = popup.querySelector("#popup-close");
 
   const tips = {
     "Underweight": {
@@ -50,14 +83,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return age;
   }
 
-  // Show download buttons
-  function showDownloads() {
-    if (downloadButtons) downloadButtons.style.display = "flex";
+  // Show popup
+  function showPopup() {
+    popup.style.display = "flex";
   }
+
+  // Hide popup
+  function hidePopup() {
+    popup.style.display = "none";
+  }
+  closeBtn.addEventListener("click", hidePopup);
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) hidePopup();
+  });
 
   // Update UI after BMI calculation
   function updateUI(bmi, category) {
-    resultContainer.style.display = "block";
     resultBadge.textContent = category;
     resultBadge.style.background = tips[category].color;
 
@@ -73,7 +114,17 @@ document.addEventListener("DOMContentLoaded", () => {
     progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
     progressBar.style.background = tips[category].color;
 
-    showDownloads();
+    // Show tips
+    tipsList.innerHTML = "";
+    tips[category].list.forEach((tip) => {
+      const li = document.createElement("li");
+      li.textContent = tip;
+      tipsList.appendChild(li);
+    });
+
+    downloadButtons.style.display = "flex";
+
+    showPopup();
   }
 
   // BMI form submit
@@ -85,10 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     lastName = document.getElementById("name")?.value.trim() || "User";
     localStorage.setItem("userName", lastName);
 
-const genderInput = document.querySelector('input[name="gender"]:checked');
-
-    lastGender = genderInput.value;
-
+    const genderInput = document.querySelector('input[name="gender"]:checked');
+    lastGender = genderInput ? genderInput.value : "N/A";
 
     lastDOB = document.getElementById("dob")?.value || "N/A";
     lastAge = calculateAge(lastDOB);
@@ -107,33 +156,6 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
       lastCategory = category;
 
       updateUI(bmi, category);
-
-      // 🔒 Disable Compute BMI button and lock form for 30 seconds
-      const computeBtn = bmiForm.querySelector("button[type='submit']");
-      const allFields = bmiForm.querySelectorAll("input, select, textarea");
-      if (computeBtn) {
-        computeBtn.disabled = true;
-        allFields.forEach(field => field.disabled = true);
-        let seconds = 30;
-        const originalText = "Compute BMI";
-        computeBtn.textContent = `Report Download window is open for (${seconds}s)`;
-
-        const countdown = setInterval(() => {
-          seconds--;
-          computeBtn.textContent = `Report Download window is open for (${seconds}s)`;
-          if (seconds <= 0) {
-            clearInterval(countdown);
-            computeBtn.disabled = false;
-            computeBtn.textContent = originalText;
-            allFields.forEach(field => field.disabled = false);
-            bmiForm.reset();
-            resultContainer.style.display = "none";
-            progressBar.style.width = "0%";
-            if (downloadButtons) downloadButtons.style.display = "none";
-            lastBMI = lastCategory = lastAge = lastName = lastGender = lastDOB = null;
-          }
-        }, 1000);
-      }
     }
   });
 
@@ -169,6 +191,7 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
 
+    // User details
     doc.setFontSize(12);
     doc.text(`Name: ${lastName}`, 20, 30);
     doc.text(`DOB: ${dob}`, 20, 37);
@@ -180,81 +203,47 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
     doc.text(`BMI: ${lastBMI} (${lastCategory})`, 120, 44);
     doc.setTextColor(0);
 
-    let y = 65;
-    doc.setFont("helvetica", "bold");
-    doc.text("1. Body Composition", 20, y);
-    doc.setFont("helvetica", "normal");
-    y += 10;
-    doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
-    y += 8;
-    doc.text(`Percent Body Fat: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
-    y += 8;
-    doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
-    y += 8;
-    doc.text(`Fat Free Mass: ${(weight * 0.75).toFixed(1)} kg`, 25, y);
+    // Body composition estimates
+    const bodyFat = (1.2 * lastBMI + 0.23 * age - 16.2).toFixed(1);
+    const muscleMass = (weight * 0.4).toFixed(1);
+    const waterPercentage = (weight * 0.6).toFixed(1);
 
-    // Sections 2–6
-    y += 12;
     doc.setFont("helvetica", "bold");
-    doc.text("2. Obesity Analysis", 20, y);
+    doc.text("Estimated Body Composition:", 20, 70);
     doc.setFont("helvetica", "normal");
-    y += 10;
-    doc.text(`BMI: ${lastBMI} (${lastCategory})`, 25, y);
-    y += 8;
-    doc.text(`PBF: ${(lastBMI / 30 * 25).toFixed(1)} %`, 25, y);
-    y += 8;
-    doc.text(`Visceral Fat Level: ${Math.round(lastBMI / 2)}`, 25, y);
+    doc.text(`Body Fat %: ${bodyFat}%`, 20, 80);
+    doc.text(`Muscle Mass: ${muscleMass} kg`, 20, 87);
+    doc.text(`Water Weight: ${waterPercentage} kg`, 20, 94);
 
-    y += 12;
+    // Analysis
     doc.setFont("helvetica", "bold");
-    doc.text("3. Muscle-Fat Analysis", 20, y);
+    doc.text("Health Analysis:", 20, 110);
     doc.setFont("helvetica", "normal");
-    y += 10;
-    doc.text(`Weight: ${weight} kg`, 25, y);
-    y += 8;
-    doc.text(`Skeletal Muscle Mass: ${(weight * 0.35).toFixed(1)} kg`, 25, y);
-    y += 8;
-    doc.text(`Body Fat Mass: ${(weight * 0.25).toFixed(1)} kg`, 25, y);
+    const analysis = {
+      "Underweight": "You are below the healthy range. Focus on nutrient-rich and calorie-dense foods.",
+      "Normal weight": "You are in the healthy range. Maintain balanced diet and regular exercise.",
+      "Overweight": "You are above the healthy range. Start mild exercise and control calorie intake.",
+      "Obesity": "You are in the high-risk category. Consult a healthcare provider for a structured plan."
+    };
+    doc.text(analysis[lastCategory], 20, 120, { maxWidth: 170 });
 
-    y += 12;
+    // Tips
     doc.setFont("helvetica", "bold");
-    doc.text("4. Segmental Analysis", 20, y);
+    doc.text("Recommended Tips:", 20, 150);
     doc.setFont("helvetica", "normal");
-    y += 10;
-    ["Right Arm", "Left Arm", "Right Leg", "Left Leg", "Trunk"].forEach((part) => {
-      doc.text(`${part}: Lean ${(weight * 0.08).toFixed(1)} kg | Fat ${(weight * 0.05).toFixed(1)} kg`, 25, y);
-      y += 8;
-    });
-
-    y += 12;
-    doc.setFont("helvetica", "bold");
-    doc.text("5. Weight Control", 20, y);
-    doc.setFont("helvetica", "normal");
-    y += 10;
-    doc.text(`Target Weight: ${(22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
-    y += 8;
-    doc.text(`Weight to Lose: ${(weight - 22 * (height / 100) ** 2).toFixed(1)} kg`, 25, y);
-
-    y += 12;
-    doc.setFont("helvetica", "bold");
-    doc.text("6. Comprehensive Evaluation", 20, y);
-    doc.setFont("helvetica", "normal");
-    y += 10;
-    tips[lastCategory].list.forEach((t, i) => {
-      doc.text(`- ${t}`, 25, y + i * 8);
+    tips[lastCategory].list.forEach((tip, i) => {
+      doc.text(`- ${tip}`, 20, 160 + i * 7);
     });
 
     doc.save("BMI_Report_by_GYMBMI.pdf");
   }
 
-  // Generate Health Tracker Excel (30 days)
+  // Generate Health Tracker Excel
   function generateHealthTracker() {
     if (!lastBMI) return alert("Please calculate BMI first!");
-    
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
     const targetWeight = +(22 * (height / 100) ** 2).toFixed(1);
-    const weightToLoseGain = +(weight - targetWeight).toFixed(1);
     const bmi = +(weight / ((height / 100) ** 2)).toFixed(1);
 
     let category = "";
@@ -264,22 +253,10 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
     else category = "Obesity";
 
     const ws_data = [
-      ["Date", "Weight (kg)", "Height (cm)", "BMI", "BMI Category", "Target Weight (kg)", "Weight to Lose/Gain (kg)", "Calories Intake (kcal)", "Water Intake (L)", "Steps / Activity", "Sleep Hours", "Mood / Energy Level", "Notes"]
+      ["Date", "Weight (kg)", "Height (cm)", "BMI", "BMI Category", "Target Weight (kg)"],
     ];
-
     const today = new Date();
-
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      const dateStr = date.toISOString().split("T")[0];
-
-      if (i === 0) {
-        ws_data.push([dateStr, weight, height, bmi, category, targetWeight, weightToLoseGain, "", "", "", "", "", ""]);
-      } else {
-        ws_data.push([dateStr, "", height, "", "", targetWeight, "", "", "", "", "", "", ""]);
-      }
-    }
+    ws_data.push([today.toISOString().split("T")[0], weight, height, bmi, category, targetWeight]);
 
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
     const wb = XLSX.utils.book_new();
@@ -287,7 +264,7 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
     XLSX.writeFile(wb, "BMI_Health_Tracker_by_GYMBMI.xlsx");
   }
 
-  // Generate Generic Diet Plan PDF
+  // Generate Diet Plan PDF
   function generateDietPlan() {
     if (!lastCategory) return alert("Please calculate BMI first!");
     const { jsPDF } = window.jspdf;
@@ -300,56 +277,52 @@ const genderInput = document.querySelector('input[name="gender"]:checked');
     doc.text("Recommended Daily Diet Plan:", 20, 50);
     doc.setFont("helvetica", "normal");
 
-    const genericDietPlans = {
+    const plans = {
       "Underweight": [
-        "Breakfast: Oatmeal with milk, nuts, and fruits + 1 boiled egg",
-        "Mid-Morning: Smoothie with banana, peanut butter, and yogurt",
-        "Lunch: Brown rice, grilled chicken/fish, vegetables",
-        "Snack: Handful of nuts and dried fruits",
-        "Dinner: Whole wheat pasta or chapati, paneer/tofu, veggies",
-        "Before Bed: Glass of milk or protein shake"
+        "Breakfast: Oats with milk, nuts, banana",
+        "Mid-Morning: Peanut butter sandwich / smoothie",
+        "Lunch: Rice, chicken/fish, veggies",
+        "Snack: Dry fruits / protein shake",
+        "Dinner: Pasta/chapati with paneer/veg curry",
+        "Before Bed: Warm milk with honey"
       ],
       "Normal weight": [
-        "Breakfast: Whole grain toast with avocado and boiled eggs",
-        "Mid-Morning: Fresh fruits or yogurt",
-        "Lunch: Quinoa/rice, lean protein (chicken/fish/tofu), vegetables",
-        "Snack: Carrot/cucumber sticks with hummus or nuts",
-        "Dinner: Chapati with dal, salad, and grilled vegetables",
-        "Before Bed: Herbal tea or warm milk"
+        "Breakfast: Eggs, toast, fruits",
+        "Mid-Morning: Seasonal fruit",
+        "Lunch: Quinoa/brown rice + dal + salad",
+        "Snack: Handful of nuts",
+        "Dinner: Chapati + dal + veggies",
+        "Before Bed: Herbal tea"
       ],
       "Overweight": [
-        "Breakfast: Oatmeal with berries or egg whites and vegetables",
-        "Mid-Morning: Green smoothie or fruits",
-        "Lunch: Brown rice/quinoa, lean protein, lots of vegetables",
-        "Snack: Nuts or sprouts salad",
-        "Dinner: Grilled fish/chicken with steamed vegetables",
-        "Before Bed: Herbal tea or warm water"
+        "Breakfast: Oatmeal + apple",
+        "Mid-Morning: Buttermilk / fruit",
+        "Lunch: Salad bowl with lean protein",
+        "Snack: Roasted chana, sprouts",
+        "Dinner: Soup + grilled veggies + chapati",
+        "Before Bed: Green tea"
       ],
       "Obesity": [
-        "Breakfast: Vegetable omelette or Greek yogurt with fruits",
-        "Mid-Morning: Fresh vegetables or green tea",
-        "Lunch: Salad with lean protein and minimal carbs",
-        "Snack: Nuts, seeds, or vegetable sticks",
-        "Dinner: Light soup with grilled veggies or fish",
-        "Before Bed: Warm water or herbal tea"
+        "Breakfast: Veg omelet / smoothie",
+        "Mid-Morning: Apple / pear",
+        "Lunch: Steamed veggies + dal/soup",
+        "Snack: Nuts in small portions",
+        "Dinner: Veg soup + chapati",
+        "Before Bed: Herbal tea (no sugar)"
       ]
     };
 
-    let y = 60;
-    genericDietPlans[lastCategory].forEach((item, i) => {
-      if (y + i * 10 > 270) {
-        doc.addPage();
-        addHeaderFooter(doc, "Personalized Diet Plan");
-        y = 30;
-      }
-      doc.text(`- ${item}`, 25, y + i * 10);
+    let y = 65;
+    plans[lastCategory].forEach((meal, i) => {
+      doc.text(`${i + 1}. ${meal}`, 20, y);
+      y += 10;
     });
 
     doc.save("Diet_Plan_by_GYMBMI.pdf");
   }
 
-  // Event Listeners
-  if (downloadReport) downloadReport.addEventListener("click", generateBMIReport);
-  if (downloadTracker) downloadTracker.addEventListener("click", generateHealthTracker);
-  if (downloadDiet) downloadDiet.addEventListener("click", generateDietPlan);
+  // Attach download events
+  downloadReport.addEventListener("click", generateBMIReport);
+  downloadTracker.addEventListener("click", generateHealthTracker);
+  downloadDiet.addEventListener("click", generateDietPlan);
 });
