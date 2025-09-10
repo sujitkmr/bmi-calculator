@@ -88,10 +88,17 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.style.display = "flex";
   }
 
-  // Hide popup
+  // Hide popup + reset form
   function hidePopup() {
     popup.style.display = "none";
+    bmiForm.reset();              // ✅ reset form fields
+    progressBar.style.width = "0"; // ✅ reset progress bar
+    tipsList.innerHTML = "";       // ✅ clear tips
+    resultBadge.textContent = "";  // ✅ clear badge
+    resultText.textContent = "";   // ✅ clear text
+    downloadButtons.style.display = "none"; // ✅ hide download buttons
   }
+
   closeBtn.addEventListener("click", hidePopup);
   popup.addEventListener("click", (e) => {
     if (e.target === popup) hidePopup();
