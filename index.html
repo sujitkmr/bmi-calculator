@@ -250,5 +250,23 @@
     });
   </script>
 
+<!-- ✅ BMI Result Popup -->
+<div id="bmi-popup" class="popup-overlay" style="display:none;">
+  <div class="popup-content">
+    <span id="popup-close">&times;</span>
+    <h2>Your BMI Result</h2>
+    <div id="popup-result-badge"></div>
+    <div id="popup-result-progress"><div id="popup-progress-bar"></div></div>
+    <p id="popup-result-text"></p>
+
+    <div id="popup-download-buttons" style="margin-top:14px; text-align:center;">
+      <a id="popup-download-report" class="btn"><i class="fa-solid fa-file-pdf"></i> Download BMI Report</a>
+      <a id="popup-download-tracker" class="btn"><i class="fa-solid fa-file-excel"></i> Download Tracker</a>
+      <a id="popup-download-diet" class="btn"><i class="fa-solid fa-apple-whole"></i> Download Diet Plan</a>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
