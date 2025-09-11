@@ -480,3 +480,47 @@ textarea {
 #popup-download-buttons .btn:hover {
   background: #1d3557;
 }
+/* === TIGHTEN BMI CALCULATOR FORM SPACING === */
+
+/* Reduce heading margin */
+.hero-right h2 {
+  margin-bottom: 10px !important;
+  font-size: 1.4rem !important; /* slightly smaller heading */
+}
+
+/* Reduce label spacing */
+.hero-right form#bmi-form label {
+  margin-bottom: 2px !important;
+  font-size: 0.95rem !important;
+}
+
+/* Reduce input padding and bottom margin */
+.hero-right form#bmi-form input[type="text"],
+.hero-right form#bmi-form input[type="number"],
+.hero-right form#bmi-form input[type="date"] {
+  padding: 6px 8px !important;
+  margin-bottom: 6px !important;
+  font-size: 0.95rem !important;
+}
+
+/* Tighter flex row for Height/Weight */
+.hero-right form#bmi-form > div[style*="display:flex"] {
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Reduce Date of Birth field spacing */
+.hero-right form#bmi-form input[type="date"] {
+  font-size: 0.95rem !important;
+}
+
+/* Reduce Gender section spacing */
+.hero-right form#bmi-form div {
+  margin-bottom: 8px !important;
+}
+
+/* Tighter Compute Button */
+.hero-right form#bmi-form button#compute-btn {
+  padding: 10px !important;
+  font-size: 0.95rem !important;
+}
