@@ -12,13 +12,21 @@ function generateDietPlan() {
   const gender = window.lastGender || "N/A";
   const height = parseFloat(document.getElementById("height").value);
   const weight = parseFloat(document.getElementById("weight").value);
-  const bmi = window.lastBMI || (weight / ((height / 100) ** 2)).toFixed(1);
-  const category = window.lastCategory || "N/A";
+  const bmi = window.lastBMI || parseFloat((weight / ((height / 100) ** 2)).toFixed(1));
+  let category = window.lastCategory || "N/A";
   const testDate = new Date().toLocaleString();
 
   if (!height || !weight || gender === "N/A") {
     alert("Please enter valid height, weight, and gender before generating the diet plan.");
     return;
+  }
+
+  // ====== CATEGORY DETECTION (safe fallback) ======
+  if (category === "N/A") {
+    if (bmi < 18.5) category = "Underweight";
+    else if (bmi < 24.9) category = "Normal";
+    else if (bmi < 29.9) category = "Overweight";
+    else category = "Obese";
   }
 
   // ====== CALCULATIONS ======
@@ -154,14 +162,19 @@ function generateDietPlan() {
   y += 25;
 
   doc.setFont("helvetica", "normal");
-  mealPlans[category].forEach((meal) => {
-    doc.rect(40, y - 10, pageWidth - 80, 20);
-    doc.text(meal[0], 50, y + 4);
-    doc.text(meal[1], 180, y + 4);
-    doc.text(meal[2], 460, y + 4, { align: "right" });
-    y += 20;
-  });
-  y += 15;
+  if (mealPlans[category]) {
+    mealPlans[category].forEach((meal) => {
+      doc.rect(40, y - 10, pageWidth - 80, 20);
+      doc.text(meal[0], 50, y + 4);
+      doc.text(meal[1], 180, y + 4);
+      doc.text(meal[2], 460, y + 4, { align: "right" });
+      y += 20;
+    });
+    y += 15;
+  } else {
+    doc.text("⚠ No meal plan available for this BMI category.", 50, y);
+    y += 25;
+  }
 
   // ====== EXPECTED PROGRESS ======
   if (y > pageHeight - 150) newPage();
@@ -171,7 +184,8 @@ function generateDietPlan() {
   y += lineGap;
   doc.setFont("helvetica", "normal");
 
-  const weeksRequired = Math.abs(weight - targetWeight) / Math.abs(weeklyWeightChange || 0.45);
+  const safeChange = weeklyWeightChange !== 0 ? weeklyWeightChange : 0.45;
+  const weeksRequired = Math.abs(weight - targetWeight) / Math.abs(safeChange);
 
   doc.text(`Expected Weekly Change: ${weeklyWeightChange.toFixed(2)} kg`, 50, y);
   y += lineGap;
@@ -208,10 +222,12 @@ function generateDietPlan() {
     ],
   };
 
-  tips[category].forEach((tip, index) => {
-    doc.text(`• ${tip}`, 50, y + index * lineGap);
-  });
-  y += tips[category].length * lineGap + 20;
+  if (tips[category]) {
+    tips[category].forEach((tip, index) => {
+      doc.text(`• ${tip}`, 50, y + index * lineGap);
+    });
+    y += tips[category].length * lineGap + 20;
+  }
 
   // ====== ACTIVITY CALORIE GUIDE ======
   if (y > pageHeight - 150) newPage();
@@ -233,7 +249,7 @@ function generateDietPlan() {
     y += lineGap;
   });
 
-// ======  FOOTER ======
+  // ======  FOOTER ======
   doc.setDrawColor(180);
   doc.line(40, pageHeight - 40, pageWidth - 40, pageHeight - 40);
   doc.setFontSize(7);
