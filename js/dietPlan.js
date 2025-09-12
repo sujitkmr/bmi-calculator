@@ -13,7 +13,13 @@ function generateDietPlan() {
   const height = parseFloat(document.getElementById("height").value);
   const weight = parseFloat(document.getElementById("weight").value);
   const bmi = window.lastBMI || parseFloat((weight / ((height / 100) ** 2)).toFixed(1));
-  let category = window.lastCategory || "N/A";
+// ====== CATEGORY DETECTION (safe fallback) ======
+let category;
+if (bmi < 18.5) category = "Underweight";
+else if (bmi < 24.9) category = "Normal";
+else if (bmi < 29.9) category = "Overweight";
+else category = "Obese";
+
   const testDate = new Date().toLocaleString();
 
   if (!height || !weight || gender === "N/A") {
