@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Experts - GymBMI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .experts-container { max-width:1200px; margin:50px auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; }
+    .expert-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); position:relative; }
+    .expert-card h3 { margin-top:0; color:#2a9d8f; }
+    .expert-card p { margin:4px 0; font-size:0.95rem; }
+    .toggle-btn { margin-top:10px; cursor:pointer; color:#e63946; font-weight:600; font-size:0.9rem; background:none; border:none; padding:0; }
+    .contact-info { display:none; margin-top:5px; }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ COMMON HEADER -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="logo-blue">GYM</span><span class="logo-red">‖</span><span class="logo-blue">BMI</span>
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="bmi-health-fitness-articles.html">Articles</a>
+        <a href="healthy-diet-plans-bmi.html" class="active">Diet & Workout Plans</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Experts Section -->
+  <section class="experts-container">
+
+    <!-- Expert 1 -->
+    <div class="expert-card">
+      <h3>John Doe</h3>
+      <p><strong>Role:</strong> Trainer</p>
+      <p><strong>Specialization:</strong> Strength Training</p>
+      <p><strong>Experience:</strong> 5 Years</p>
+              <p><strong>Pin Code:</strong> 560001</p>
+      <button class="toggle-btn">Show Contact Info</button>
+      <div class="contact-info">
+        <p><strong>Email:</strong> johndoe@example.com</p>
+        <p><strong>Phone:</strong> 9876543210</p>
+      </div>
+    </div>
+
+    <!-- Expert 2 -->
+    <div class="expert-card">
+      <h3>Jane Smith</h3>
+      <p><strong>Role:</strong> Nutritionist</p>
+      <p><strong>Specialization:</strong> Weight Management</p>
+      <p><strong>Experience:</strong> 4 Years</p>
+                 <p><strong>Pin Code:</strong> 110001</p>
+      <button class="toggle-btn">Show Contact Info</button>
+      <div class="contact-info">
+        <p><strong>Email:</strong> janesmith@example.com</p>
+        <p><strong>Phone:</strong> 9123456780</p>
+      </div>
+    </div>
+
+    <!-- Expert 3 -->
+    <div class="expert-card">
+      <h3>Ravi Kumar</h3>
+      <p><strong>Role:</strong> Yoga Teacher</p>
+      <p><strong>Specialization:</strong> Hatha Yoga</p>
+      <p><strong>Experience:</strong> 6 Years</p>
+              <p><strong>Pin Code:</strong> 400001</p>
+      <button class="toggle-btn">Show Contact Info</button>
+      <div class="contact-info">
+        <p><strong>Email:</strong> ravikumar@example.com</p>
+        <p><strong>Phone:</strong> 9988776655</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ✅ COMMON FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <a href="index.html" style="text-decoration:none;">
+            <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+          </a>
+        </div>
+        <p class="footer-slogan">India’s Smart Fitness Tracker</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="bmi-health-fitness-articles.html">Articles</a></li>
+          <li><a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a></li>
+                        <li><a href="trainer-onboarding.html">Trainer Onboarding</a></li>
+               <li><a href="experts.html">Our Experts</a></li> 
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="about-bmi-gymbmi-fitness.html">About</a></li>
+          <li><a href="contact-bmi-gymbmi-team.html">Contact</a></li>
+          <li><a href="privacy-policy-gymbmi.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions-gymbmi.html">Terms</a></li>
+          <li><a href="website-disclaimer-gymbmi.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="footer-sep">
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>© 2025 gymbmi.com. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle show/hide contact info
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    toggleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const contactDiv = btn.nextElementSibling;
+        if (contactDiv.style.display === "block") {
+          contactDiv.style.display = "none";
+          btn.textContent = "Show Contact Info";
+        } else {
+          contactDiv.style.display = "block";
+          btn.textContent = "Hide Contact Info";
+        }
+      });
+    });
+  </script>
+
+  <script src="js/menu.js"></script>
+</body>
+</html>
