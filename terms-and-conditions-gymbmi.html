@@ -20,28 +20,21 @@
 </head>
 <body>
 
+<!-- ✅ Header same as index.html -->
 <header>
   <div class="navbar">
-    <div class="logo">
-      <a href="index.html" style="text-decoration:none; color:inherit;">
-        <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
-      </a>
-    </div>
+ <div class="logo">
+  <a href="index.html" style="text-decoration:none;">
+    <span class="logo-blue">GYM</span><span class="logo-red">‖</span><span class="logo-blue">BMI</span>
+  </a>
+</div>
 
-    <!-- ✅ Mobile hamburger -->
     <button class="menu-toggle" id="menu-toggle">☰</button>
 
-    <!-- ✅ Unified nav -->
     <nav class="nav-links" id="nav-links">
       <a href="index.html">Home</a>
-      <a href="index.html#calculator">BMI Calculator</a>
       <a href="bmi-health-fitness-articles.html">Articles</a>
-       <a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a>
-      <a href="about-bmi-gymbmi-fitness.html">About</a>
-      <a href="contact-bmi-gymbmi-team.html">Contact</a>
-      <a href="privacy-policy-gymbmi.html">Privacy Policy</a>
-      <a href="terms-and-conditions-gymbmi.html" class="active">Terms</a>
-      <a href="website-disclaimer-gymbmi.html">Disclaimer</a>
+      <a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a>
     </nav>
   </div>
 </header>
@@ -78,40 +71,53 @@
   </div>
 </section>
 
-<footer class="modern-footer">
-  <div class="inner">
-    <div>
-      <div class="newsletter">
-        <h2>Let’s connect!</h2>
-        <p>Stay up to date with the latest health updates.</p>
+<!-- ✅ Footer copied from index.html -->
+<footer class="site-footer">
+  <div class="footer-container">
 
-        <!-- ✅ Newsletter form with AJAX -->
-        <form id="newsletter-form">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="email" name="Email" placeholder="Type your e-mail here..." required>
-          <button type="submit" class="btn btn-primary">Join</button>
-        </form>
-        <div id="newsletter-success">✅ Thank you for subscribing!</div>
+    <div class="footer-col">
+      <div class="footer-logo">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+        </a>
       </div>
-      <div class="social-icons">
-        <a href="https://facebook.com" target="_blank"><img src="icons/facebook.svg" alt="Facebook" width="28" height="28"></a>
-        <a href="https://twitter.com" target="_blank"><img src="icons/twitter.svg" alt="Twitter" width="28" height="28"></a>
-        <a href="https://instagram.com" target="_blank"><img src="icons/instagram.svg" alt="Instagram" width="28" height="28"></a>
-        <a href="https://youtube.com" target="_blank"><img src="icons/youtube.svg" alt="YouTube" width="28" height="28"></a>
-      </div>
+      <p class="footer-slogan">India’s Smart Fitness Tracker</p>
     </div>
-    <div>
-      <div class="footer-meta">
-        <div>Current Time: <span id="current-time"></span></div>
-        <div>Visitors:
-          <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=9&type=ip&initCount=1000000" alt="visitor counter" />
-        </div>
-      </div>
-      <hr class="sep">
-      <p style="margin:0; color:var(--muted)">© 2025 gymbmi.com. All rights reserved.</p>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bmi-health-fitness-articles.html">Articles</a></li>
+        <li><a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a></li>
+      </ul>
     </div>
+
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="about-bmi-gymbmi-fitness.html">About</a></li>
+        <li><a href="contact-bmi-gymbmi-team.html">Contact</a></li>
+        <li><a href="privacy-policy-gymbmi.html">Privacy Policy</a></li>
+        <li><a href="terms-and-conditions-gymbmi.html">Terms</a></li>
+        <li><a href="website-disclaimer-gymbmi.html">Disclaimer</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <hr class="footer-sep">
+
+  <div class="footer-bottom">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p>© 2025 gymbmi.com. All rights reserved.</p>
   </div>
 </footer>
+
 
 <script>
   // ✅ Newsletter AJAX
