@@ -582,3 +582,35 @@ textarea {
 .social-icons a:hover {
   color: #fff;
 }
+
+.footer-logo a {
+  text-decoration: none;
+  color: inherit; /* fallback */
+}
+
+.footer-logo span.blue-text {
+  color: #ffffff; /* white text for visibility on dark footer */
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.footer-logo span.red-bars {
+  color: #e63946; /* red bar */
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0 4px;
+}
+
+/* Header Logo */
+.logo span.logo-blue {
+  color: #ffffff; /* white text */
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.logo span.logo-red {
+  color: #e63946; /* red bar */
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0 4px;
+}
