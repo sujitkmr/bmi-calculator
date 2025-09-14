@@ -6,39 +6,36 @@
   <title>Trainer Onboarding - GymBMI</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-  body { font-family: Poppins, sans-serif; background:#f4f4f4; margin:0; padding:0; }
-  header, footer { background:#1d3557; color:#fff; padding:12px 24px; }
-  .logo span.logo-blue { color:#fff; font-weight:700; font-size:1.5rem; }
-  .logo span.logo-red { color:#e63946; font-weight:700; font-size:1.5rem; margin:0 4px; }
+  <style>
+    body { font-family: Poppins, sans-serif; background:#f4f4f4; margin:0; padding:0; }
+    header, footer { background:#1d3557; color:#fff; padding:12px 24px; }
+    .logo span.logo-blue { color:#fff; font-weight:700; font-size:1.5rem; }
+    .logo span.logo-red { color:#e63946; font-weight:700; font-size:1.5rem; margin:0 4px; }
 
-  .onboarding-form { max-width:900px; margin:40px auto; padding:25px 20px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
-  .onboarding-form h2 { text-align:center; color:#2a9d8f; margin-bottom:20px; }
+    .onboarding-form { max-width:900px; margin:40px auto; padding:25px 20px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    .onboarding-form h2 { text-align:center; color:#2a9d8f; margin-bottom:20px; }
 
-  /* Two-pane layout */
-  .onboarding-form form { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 12px 20px; /* tighter gap: row-gap 12px, column-gap 20px */
-  }
-  .onboarding-form .full-width { grid-column: 1 / -1; }
+    .onboarding-form form { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 12px 20px; 
+    }
+    .onboarding-form .full-width { grid-column: 1 / -1; }
 
-  .onboarding-form label { display:block; margin-bottom:4px; font-weight:600; font-size:0.95rem; }
-  .onboarding-form input, .onboarding-form select { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #ddd; font-size:0.95rem; }
-  .onboarding-form button { background:#2a9d8f; color:#fff; font-weight:700; padding:10px; width:100%; border:none; border-radius:8px; cursor:pointer; font-size:1rem; }
+    .onboarding-form label { display:block; margin-bottom:4px; font-weight:600; font-size:0.95rem; }
+    .onboarding-form input, .onboarding-form select { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #ddd; font-size:0.95rem; }
+    .onboarding-form button { background:#2a9d8f; color:#fff; font-weight:700; padding:10px; width:100%; border:none; border-radius:8px; cursor:pointer; font-size:1rem; }
 
-  #success-message { display:none; color:green; text-align:center; margin-top:10px; font-weight:600; font-size:0.95rem; }
+    #form-success, #form-error { display:none; margin-top:10px; font-weight:600; text-align:center; }
+    #form-success { color:lightgreen; }
+    #form-error { color:red; }
 
-  /* Responsive */
-  @media (max-width:768px){
-    .onboarding-form form { grid-template-columns: 1fr; }
-  }
-</style>
-
+    @media (max-width:768px){ .onboarding-form form { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
-<!-- ✅ HEADER (same as index.html) -->
+<!-- HEADER -->
 <header>
   <div class="navbar">
     <div class="logo">
@@ -59,46 +56,39 @@
 <section class="onboarding-form">
   <h2>Onboard Yourself</h2>
 
-  <form id="trainer-form" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+  <form id="trainer-form">
     <div>
       <label for="name">Full Name</label>
-     <input type="text" id="name" name="name" placeholder="Enter Full Name" maxlength="25" required>
+      <input type="text" id="name" name="Name" placeholder="Enter Full Name" maxlength="25" required>
     </div>
-
     <div>
       <label for="email">Email Address</label>
-     <input type="email" id="email" name="email" placeholder="Enter Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address">
+      <input type="email" id="email" name="Email" placeholder="Enter Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address">
     </div>
-
     <div>
       <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit Phone Number" required pattern="\d{10}" maxlength="10" title="Enter 10-digit phone number">required>
+      <input type="tel" id="phone" name="Phone" placeholder="10-digit Phone Number" required pattern="\d{10}" maxlength="10">
     </div>
-
     <div>
       <label for="role">Role</label>
-      <select id="role" name="role" required>
+      <select id="role" name="Role" required>
         <option value="">Select Role</option>
         <option value="Trainer">Trainer</option>
         <option value="Nutritionist">Nutritionist</option>
         <option value="Yoga Teacher">Yoga Teacher</option>
       </select>
     </div>
-
     <div>
       <label for="experience">Experience (Years)</label>
-      <input type="number" id="experience" name="experience" min="0" placeholder="Enter Years of Experience" required>
+      <input type="number" id="experience" name="Experience" min="0" max="60" placeholder="Enter Years of Experience" required>
     </div>
-
-
-<div>
-  <label for="pincode">Pincode</label>
-  <input type="text" id="pincode" name="pincode" pattern="\d{6}" maxlength="6" placeholder="Enter 6-digit Pincode" required>
-</div>
-
+    <div>
+      <label for="pincode">Pincode</label>
+      <input type="text" id="pincode" name="Pincode" placeholder="6-digit Pincode" required pattern="\d{6}" maxlength="6">
+    </div>
     <div class="full-width">
       <label for="specialization">Specialization</label>
-      <select id="specialization" name="specialization" required>
+      <select id="specialization" name="Specialization" required>
         <option value="">Select Specialization</option>
         <optgroup label="Trainers">
           <option value="Strength Training">Strength Training</option>
@@ -130,19 +120,19 @@
         </optgroup>
       </select>
     </div>
-
     <div class="full-width">
       <button type="submit">Submit</button>
     </div>
-  </form>
 
-  <p id="success-message">✅ Your details have been submitted successfully!</p>
+    <!-- Success / Error Messages -->
+    <div id="form-success">✅ Trainer onboarded successfully!</div>
+    <div id="form-error">❌ Submission failed, please try again.</div>
+  </form>
 </section>
 
-<!-- ✅ FOOTER (same as index.html) -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-container">
-
     <div class="footer-col">
       <div class="footer-logo">
         <a href="index.html" style="text-decoration:none;">
@@ -151,18 +141,16 @@
       </div>
       <p class="footer-slogan">India’s Smart Fitness Tracker</p>
     </div>
-
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="bmi-health-fitness-articles.html">Articles</a></li>
         <li><a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a></li>
-                <li><a href="trainer-onboarding.html">Trainer Onboarding</a></li> 
-                 <li><a href="experts.html">Our Experts</a></li> 
+        <li><a href="trainer-onboarding.html">Trainer Onboarding</a></li>
+        <li><a href="experts.html">Our Experts</a></li>
       </ul>
     </div>
-
     <div class="footer-col">
       <h4>Support</h4>
       <ul>
@@ -173,43 +161,43 @@
         <li><a href="website-disclaimer-gymbmi.html">Disclaimer</a></li>
       </ul>
     </div>
-
   </div>
-
   <hr class="footer-sep">
-
   <div class="footer-bottom">
     <div class="social-icons">
-      <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>
     <p>© 2025 gymbmi.com. All rights reserved.</p>
   </div>
 </footer>
 
-<!-- JS for AJAX form submit -->
+<script src="js/menu.js"></script>
+<script src="js/footer.js"></script>
+
+<!-- AJAX Submission -->
 <script>
-  const form = document.getElementById("trainer-form");
-  const successMessage = document.getElementById("success-message");
+document.getElementById("trainer-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
 
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    const formData = new FormData(this);
-
-    fetch(this.action, {
-      method: "POST",
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if (response.ok) {
-        successMessage.style.display = "block";
-        form.reset();
-      } else {
-        alert("❌ Submission failed, please try again.");
-      }
-    }).catch(() => alert("❌ Submission failed, please try again."));
+  fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(() => {
+    document.getElementById("form-success").style.display = "block";
+    document.getElementById("form-error").style.display = "none";
+    this.reset();
+    setTimeout(() => { document.getElementById("form-success").style.display = "none"; }, 5000);
+  })
+  .catch(() => {
+    document.getElementById("form-error").style.display = "block";
+    document.getElementById("form-success").style.display = "none";
   });
+});
 </script>
 
 </body>
