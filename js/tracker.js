@@ -36,14 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Function to refresh chart (reloads from localStorage)
-  const refreshChart = () => {
-    bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
-    const sortedData = sortDataByDate(bmiData);
-    chart.data.labels = sortedData.map(entry => entry.date);
-    chart.data.datasets[0].data = sortedData.map(entry => entry.bmi);
-    chart.update();
-  };
+// When refreshing chart
+const refreshChart = () => {
+  bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
+  const sortedData = sortDataByDate(bmiData);
+
+  chart.data.labels = sortedData.map(entry => entry.date);
+  chart.data.datasets[0].data = sortedData.map(entry => entry.bmi);
+  chart.update();
+};
 
   // ✅ Make it accessible to bmi.js
   window.refreshBMIChart = refreshChart;
@@ -54,6 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("No data to export!");
       return;
     }
+
+    // Export to Excel
+exportBtn.addEventListener("click", () => {
+  // ... export logic
+});
+
+// Clear/Delete All Data
+const clearBtn = document.getElementById("clear-btn");
+if (clearBtn) {
+  clearBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear all BMI data? This cannot be undone.")) {
+      localStorage.removeItem("bmiData");
+      bmiData = [];
+      if (window.refreshBMIChart) window.refreshBMIChart();
+      alert("All BMI data cleared successfully.");
+    }
+  });
+}
+
 
     const wsData = [
       ["Date", "BMI"], // headers
