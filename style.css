@@ -679,3 +679,8 @@ textarea {
   width: 100% !important;
   max-height: 320px;
 }
+/* Tracker Section Background */
+.tracker-section {
+  background: #eef4fa; /* soft theme color instead of plain white */
+  padding: 60px 20px;
+}
