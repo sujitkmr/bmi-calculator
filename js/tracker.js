@@ -1,8 +1,5 @@
 // tracker.js - BMI Progress Tracker with Excel Export Only
 
-// Make sure to include SheetJS library in your HTML:
-// <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-
 document.addEventListener("DOMContentLoaded", () => {
   // Elements
   const bmiInput = document.getElementById("bmi-input");
@@ -27,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load from localStorage
   let bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
 
+  // Sort function by date
+  const sortDataByDate = (data) => {
+    return data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  };
+
   // Chart.js setup
   let chart = new Chart(ctx, {
     type: "line",
@@ -48,6 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Function to refresh chart
+  const refreshChart = () => {
+    const sortedData = sortDataByDate(bmiData);
+    chart.data.labels = sortedData.map(entry => entry.date);
+    chart.data.datasets[0].data = sortedData.map(entry => entry.bmi);
+    chart.update();
+  };
+
   // Save new entry
   saveBtn.addEventListener("click", () => {
     const bmi = parseFloat(bmiInput.value);
@@ -58,13 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Check for duplicate BMI for the same date
+    const duplicate = bmiData.some(entry => entry.date === date);
+    if (duplicate) {
+      alert("A BMI entry for this date already exists. Please choose a different date.");
+      return;
+    }
+
     bmiData.push({ bmi, date });
     localStorage.setItem("bmiData", JSON.stringify(bmiData));
 
-    // Update chart
-    chart.data.labels.push(date);
-    chart.data.datasets[0].data.push(bmi);
-    chart.update();
+    refreshChart(); // Ensure chart is updated in date order
 
     bmiInput.value = "";
     dateInput.value = getToday();
@@ -79,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wsData = [
       ["Date", "BMI"], // headers
-      ...bmiData.map(entry => [entry.date, entry.bmi])
+      ...sortDataByDate(bmiData).map(entry => [entry.date, entry.bmi])
     ];
     const ws = XLSX.utils.aoa_to_sheet(wsData);
     const wb = XLSX.utils.book_new();
@@ -101,4 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Initial sort and refresh
+  bmiData = sortDataByDate(bmiData);
+  refreshChart();
 });
