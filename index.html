@@ -154,48 +154,38 @@
   </section>
 
 <!-- Progress Tracker Section -->
-<section id="progress-tracker" style="background:#fff; padding:50px 20px;">
-  <div style="max-width:900px; margin:0 auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
 
+<section class="tracker-section">
+  <div class="tracker-card">
     <!-- Heading + Buttons in Flex -->
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
       <h2 style="font-size:1.8rem; font-weight:700; margin:0; color:#1d3557;">
         📊 BMI Tracker : See Your Progress
       </h2>
 
-  <!-- Buttons on the right side, icon-only, stacked -->
-<div style="display:flex; justify-content:flex-end; gap:12px;">
-<button id="export-btn" 
-    title="Export Data to Excel"
-    style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#1d3557; padding:4px;">
-    💾
-</button>
+      <!-- Buttons on the right side -->
+      <div style="display:flex; justify-content:flex-end; gap:12px;">
+        <button id="export-btn" title="Export Data to Excel"
+          style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#1d3557; padding:4px;">💾</button>
 
-<button id="connect-sheets-btn" 
-    title="Connect to Google Sheets"
-    style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#6c757d; padding:4px;">
-    ☁
-</button>
-<button id="clear-btn" 
-    title="Clear All BMI Data"
-    style="background:none; border:none; cursor:pointer; font-size:1.4rem; color:#e74c3c; padding:4px;">
-    🗑
-</button>
+        <button id="connect-sheets-btn" title="Connect to Google Sheets"
+          style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#6c757d; padding:4px;">☁</button>
 
-</div>
-
+        <button id="clear-btn" title="Clear All BMI Data"
+          style="background:none; border:none; cursor:pointer; font-size:1.4rem; color:#e74c3c; padding:4px;">🗑</button>
+      </div>
     </div>
 
     <!-- Chart -->
     <canvas id="bmiChart" style="max-height:350px; margin-bottom:20px;"></canvas>
-
   </div>
 </section>
 
+
+
+
 <!--closing  Progress Tracker Section -->
 
-
- <!--closing  Progress Tracker Section -->
 
 
   <!-- ✅ INLINE FOOTER (copied from footer.html) -->
