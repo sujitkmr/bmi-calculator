@@ -93,12 +93,6 @@ popup.innerHTML = `
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
     return age;
   }
-// Show the "See Your Progress" text link
-if (addToTrackerText) {
-  addToTrackerText.style.display = "block";
-  addToTrackerText.textContent = "BMI Tracker : See Your Progress »";
-  addToTrackerText.style.pointerEvents = "auto";
-}
 
   // Popup show/hide
   function showPopup() { popup.style.display = "flex"; }
@@ -122,16 +116,24 @@ if (addToTrackerText) {
       alert("No BMI result found to add.");
       return;
     }
+   // Get today's local date
+    const todayDate = new Date();
+    const today = todayDate.getFullYear() + "-" +
+                  String(todayDate.getMonth() + 1).padStart(2, "0") + "-" +
+                  String(todayDate.getDate()).padStart(2, "0");
 
-    const today = new Date().toISOString().split("T")[0];
     let bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
 
-    if (bmiData.some(entry => entry.date === today)) {
-      alert("Today's BMI is already added to your tracker.");
-      return;
+    // Check if entry for today exists
+    const existingIndex = bmiData.findIndex(entry => entry.date === today);
+    if (existingIndex !== -1) {
+      // Overwrite BMI value
+      bmiData[existingIndex].bmi = window.lastBMI;
+    } else {
+      // Add new entry
+      bmiData.push({ bmi: window.lastBMI, date: today });
     }
 
-    bmiData.push({ bmi: window.lastBMI, date: today });
     localStorage.setItem("bmiData", JSON.stringify(bmiData));
 
     addToTrackerText.textContent = "✔ Added to Tracker";
@@ -176,6 +178,7 @@ function updateUI(bmi, category) {
 
   showPopup();
 }
+
 
 
   // BMI form submit
