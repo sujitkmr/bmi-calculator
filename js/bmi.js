@@ -26,7 +26,7 @@ popup.innerHTML = `
     <!-- CLICKABLE TEXT LINK (hidden by default; shown after updateUI) -->
     <p id="add-to-tracker" 
        style="display:none; color:#1d3557; text-decoration:underline; cursor:pointer; text-align:center; font-weight:600; margin-bottom:12px;">
-       BMI Tracker : See Your Progress » 
+         BMI Tracker : See Your Progress » 
     </p>
 
     <div style="background:#eee; border-radius:8px; overflow:hidden; height:20px; margin-bottom:15px;">
@@ -116,7 +116,7 @@ if (addToTrackerText) {
       alert("No BMI result found to add.");
       return;
     }
-   // Get today's local date
+    // Get today's local date
     const todayDate = new Date();
     const today = todayDate.getFullYear() + "-" +
                   String(todayDate.getMonth() + 1).padStart(2, "0") + "-" +
@@ -172,7 +172,7 @@ function updateUI(bmi, category) {
   // ✅ Show tracker link **only after BMI calculation**
   if (addToTrackerText) {
     addToTrackerText.style.display = "block";
-    addToTrackerText.textContent = "BMI Tracker : See Your Progress »";
+    addToTrackerText.textContent = "Add this BMI to your Progress Tracker »";
     addToTrackerText.style.pointerEvents = "auto";
   }
 
