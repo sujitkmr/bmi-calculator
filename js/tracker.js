@@ -29,44 +29,55 @@ document.addEventListener("DOMContentLoaded", () => {
     return data.sort((a, b) => new Date(a.date) - new Date(b.date));
   };
 
-  // Chart.js setup
-  let chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: bmiData.map(entry => entry.date),
-      datasets: [{
-        label: "BMI Progress",
-        data: bmiData.map(entry => entry.bmi),
-        borderColor: "#4CAF50",
-        backgroundColor: "rgba(76, 175, 80, 0.2)",
-        fill: true,
-        tension: 0.3,
-        pointRadius: 5
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: { y: { beginAtZero: true } }
-    }
-  });
+// Sort data before chart initialization
+const sortedData = sortDataByDate(bmiData);
 
-  // Function to refresh chart
-  const refreshChart = () => {
-    const sortedData = sortDataByDate(bmiData);
-    chart.data.labels = sortedData.map(entry => entry.date);
-    chart.data.datasets[0].data = sortedData.map(entry => entry.bmi);
-    chart.update();
-  };
+let chart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: sortedData.map(entry => entry.date),
+    datasets: [{
+      label: "BMI Progress",
+      data: sortedData.map(entry => entry.bmi),
+      borderColor: "#4CAF50",
+      backgroundColor: "rgba(76, 175, 80, 0.2)",
+      fill: true,
+      tension: 0.3,
+      pointRadius: 5
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true } }
+  }
+});
+
+
+
+// Function to refresh chart (reloads from localStorage)
+const refreshChart = () => {
+  bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
+  const sortedData = sortDataByDate(bmiData);
+  chart.data.labels = sortedData.map(entry => entry.date);
+  chart.data.datasets[0].data = sortedData.map(entry => entry.bmi);
+  chart.update();
+};
+
+
+// ✅ Make it accessible to bmi.js
+window.refreshBMIChart = refreshChart;
+
 
   // Save new entry
   saveBtn.addEventListener("click", () => {
     const bmi = parseFloat(bmiInput.value);
     const date = dateInput.value || getToday();
 
-    if (!bmi || isNaN(bmi)) {
-      alert("Please enter a valid BMI value.");
-      return;
-    }
+if (isNaN(bmi) || bmi <= 0) {
+  alert("Please enter a valid BMI value greater than 0.");
+  return;
+}
+
 
     // Check for duplicate BMI for the same date
     const duplicate = bmiData.some(entry => entry.date === date);
@@ -116,7 +127,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initial sort and refresh
-  bmiData = sortDataByDate(bmiData);
-  refreshChart();
 });

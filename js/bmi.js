@@ -16,24 +16,32 @@ document.addEventListener("DOMContentLoaded", () => {
   popup.style.zIndex = "9999";
   popup.style.justifyContent = "center";
   popup.style.alignItems = "center";
-  popup.innerHTML = `
-    <div id="popup-content" style="background:#fff; border-radius:12px; padding:20px; max-width:600px; width:90%; position:relative; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-      <button id="popup-close" style="position:absolute;top:10px;right:15px;font-size:22px;font-weight:bold;color:#e74c3c;border:none;background:none;cursor:pointer;">✖</button>
-      <h2 style="margin-bottom:10px; text-align:center;">Your BMI Results</h2>
-      <div id="result-badge" style="padding:8px 15px; color:#fff; font-weight:bold; text-align:center; border-radius:8px; margin-bottom:10px;"></div>
-      <p id="result-text" style="font-size:16px; margin-bottom:15px;"></p>
-      <div style="background:#eee; border-radius:8px; overflow:hidden; height:20px; margin-bottom:15px;">
-        <div id="progress-bar" style="height:100%; width:0%; background:#2ecc71; transition:width 0.5s;"></div>
-      </div>
-      <h3 style="margin-bottom:8px;">Recommended Tips:</h3>
-      <ul id="tips-list" style="margin-bottom:15px; padding-left:20px;"></ul>
-      <div id="download-buttons" style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
-        <button id="download-report" style="padding:8px 12px; border:none; border-radius:6px; background:#3498db; color:#fff; cursor:pointer;">📄 Download Report</button>
-        <button id="download-tracker" style="padding:8px 12px; border:none; border-radius:6px; background:#27ae60; color:#fff; cursor:pointer;">📊 Download Tracker</button>
-        <button id="download-diet" style="padding:8px 12px; border:none; border-radius:6px; background:#e67e22; color:#fff; cursor:pointer;">🥗 Download Diet</button>
-      </div>
+popup.innerHTML = `
+  <div id="popup-content" style="background:#fff; border-radius:12px; padding:20px; max-width:600px; width:90%; position:relative; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <button id="popup-close" style="position:absolute;top:10px;right:15px;font-size:22px;font-weight:bold;color:#e74c3c;border:none;background:none;cursor:pointer;">✖</button>
+    <h2 style="margin-bottom:10px; text-align:center;">Your BMI Results</h2>
+    <div id="result-badge" style="padding:8px 15px; color:#fff; font-weight:bold; text-align:center; border-radius:8px; margin-bottom:10px;"></div>
+    <p id="result-text" style="font-size:16px; margin-bottom:10px;"></p>
+
+    <!-- CLICKABLE TEXT LINK (hidden by default; shown after updateUI) -->
+    <p id="add-to-tracker" 
+       style="display:none; color:#1d3557; text-decoration:underline; cursor:pointer; text-align:center; font-weight:600; margin-bottom:12px;">
+       BMI Tracker : See Your Progress » 
+    </p>
+
+    <div style="background:#eee; border-radius:8px; overflow:hidden; height:20px; margin-bottom:15px;">
+      <div id="progress-bar" style="height:100%; width:0%; background:#2ecc71; transition:width 0.5s;"></div>
     </div>
-  `;
+    <h3 style="margin-bottom:8px;">Recommended Tips:</h3>
+    <ul id="tips-list" style="margin-bottom:15px; padding-left:20px;"></ul>
+    <div id="download-buttons" style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+      <button id="download-report" style="padding:8px 12px; border:none; border-radius:6px; background:#3498db; color:#fff; cursor:pointer;">📄 Download Report</button>
+      <button id="download-tracker" style="padding:8px 12px; border:none; border-radius:6px; background:#27ae60; color:#fff; cursor:pointer;">📊 Download Tracker</button>
+      <button id="download-diet" style="padding:8px 12px; border:none; border-radius:6px; background:#e67e22; color:#fff; cursor:pointer;">🥗 Download Diet</button>
+    </div>
+  </div>
+`;
+
   document.body.appendChild(popup);
 
   // DOM refs
@@ -43,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const tipsList = popup.querySelector("#tips-list");
   const downloadButtons = popup.querySelector("#download-buttons");
   const closeBtn = popup.querySelector("#popup-close");
+  const addToTrackerText = popup.querySelector("#add-to-tracker");
+
 
   // Tips/colors
   const tips = {
@@ -83,47 +93,90 @@ document.addEventListener("DOMContentLoaded", () => {
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
     return age;
   }
+// Show the "See Your Progress" text link
+if (addToTrackerText) {
+  addToTrackerText.style.display = "block";
+  addToTrackerText.textContent = "BMI Tracker : See Your Progress »";
+  addToTrackerText.style.pointerEvents = "auto";
+}
 
   // Popup show/hide
   function showPopup() { popup.style.display = "flex"; }
-  function hidePopup() {
-    popup.style.display = "none";
-    bmiForm.reset();
-    progressBar.style.width = "0";
-    tipsList.innerHTML = "";
-    resultBadge.textContent = "";
-    resultText.textContent = "";
-    downloadButtons.style.display = "none";
+function hidePopup() {
+  popup.style.display = "none";
+  bmiForm.reset();
+  progressBar.style.width = "0";
+  tipsList.innerHTML = "";
+  resultBadge.textContent = "";
+  resultText.textContent = "";
+  downloadButtons.style.display = "none";
+  if (addToTrackerText) addToTrackerText.style.display = "none"; // ✅ hide the link again
+}
+
+closeBtn.addEventListener("click", hidePopup);
+
+// ⬇️ Add this new block here
+if (addToTrackerText) {
+  addToTrackerText.addEventListener("click", () => {
+    if (!window.lastBMI && window.lastBMI !== 0) {
+      alert("No BMI result found to add.");
+      return;
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    let bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
+
+    if (bmiData.some(entry => entry.date === today)) {
+      alert("Today's BMI is already added to your tracker.");
+      return;
+    }
+
+    bmiData.push({ bmi: window.lastBMI, date: today });
+    localStorage.setItem("bmiData", JSON.stringify(bmiData));
+
+    addToTrackerText.textContent = "✔ Added to Tracker";
+    addToTrackerText.style.pointerEvents = "none";
+
+    if (window.refreshBMIChart) window.refreshBMIChart();
+    document.querySelector("#progress-tracker")?.scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+
+function updateUI(bmi, category) {
+  resultBadge.textContent = category;
+  resultBadge.style.background = tips[category].color;
+
+  resultText.innerHTML = `
+    Hey <strong>${lastName}</strong>! Based on your height, weight, age (<strong>${lastAge ?? "N/A"}</strong>),
+    and gender (<strong>${lastGender}</strong>),
+    your Body Mass Index (BMI) is <strong>${bmi}</strong>,
+    which falls under the "<strong>${category}</strong>" category.
+  `;
+  resultText.style.color = tips[category].color;
+
+  progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
+  progressBar.style.background = tips[category].color;
+
+  tipsList.innerHTML = "";
+  tips[category].list.forEach((tip) => {
+    const li = document.createElement("li");
+    li.textContent = tip;
+    tipsList.appendChild(li);
+  });
+
+  downloadButtons.style.display = "flex";
+
+  // ✅ Show tracker link **only after BMI calculation**
+  if (addToTrackerText) {
+    addToTrackerText.style.display = "block";
+    addToTrackerText.textContent = "BMI Tracker : See Your Progress »";
+    addToTrackerText.style.pointerEvents = "auto";
   }
 
-  closeBtn.addEventListener("click", hidePopup);
+  showPopup();
+}
 
-  // Update UI
-  function updateUI(bmi, category) {
-    resultBadge.textContent = category;
-    resultBadge.style.background = tips[category].color;
-
-    resultText.innerHTML = `
-      Hey <strong>${lastName}</strong>! Based on your height, weight, age (<strong>${lastAge ?? "N/A"}</strong>),
-      and gender (<strong>${lastGender}</strong>),
-      your Body Mass Index (BMI) is <strong>${bmi}</strong>,
-      which falls under the "<strong>${category}</strong>" category.
-    `;
-    resultText.style.color = tips[category].color;
-
-    progressBar.style.width = Math.min((bmi / 40) * 100, 100) + "%";
-    progressBar.style.background = tips[category].color;
-
-    tipsList.innerHTML = "";
-    tips[category].list.forEach((tip) => {
-      const li = document.createElement("li");
-      li.textContent = tip;
-      tipsList.appendChild(li);
-    });
-
-    downloadButtons.style.display = "flex";
-    showPopup();
-  }
 
   // BMI form submit
   bmiForm.addEventListener("submit", (e) => {
