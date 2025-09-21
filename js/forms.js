@@ -41,5 +41,27 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(() => alert("❌ Error subscribing, please try again."));
     });
+
+  }
+
+  // ✅ NEW: Call Me Back Form
+  const callBackForm = document.getElementById("callBackForm");
+  const callBackSuccess = document.getElementById("callBackSuccess");
+  if (callBackForm) {
+    callBackForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch("https://formsubmit.co/ajax/contactgymbmi@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(() => {
+        if (callBackSuccess) callBackSuccess.style.display = "block";
+        this.reset();
+        setTimeout(() => { if (callBackSuccess) callBackSuccess.style.display = "none"; }, 5000);
+      })
+      .catch(() => alert("❌ Error sending message, please try again."));
+    });
   }
 });
