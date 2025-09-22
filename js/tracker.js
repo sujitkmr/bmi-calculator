@@ -98,3 +98,21 @@ if (clearBtn) {
     });
   }
 });
+// Dropdown menu toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const trackerMenuBtn = document.getElementById("trackerMenuBtn");
+  const trackerMenu = document.getElementById("trackerMenu");
+
+  trackerMenuBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent the click from closing immediately
+    trackerMenu.style.display =
+      trackerMenu.style.display === "block" ? "none" : "block";
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!trackerMenu.contains(e.target) && e.target !== trackerMenuBtn) {
+      trackerMenu.style.display = "none";
+    }
+  });
+});
