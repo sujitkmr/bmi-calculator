@@ -855,3 +855,75 @@ textarea {
 .menu-dropdown .danger i {
   color: #e74c3c;
 }
+.treatments-section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.treatments-section h2 {
+  font-size: 1.8rem;
+  color: #2a9d8f;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Make cards consistent */
+.treatment-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: none; /* remove popup shadow */
+  transition: transform 0.3s ease;
+  text-align: center; /* center align everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.treatment-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.treatment-card h3 {
+  font-size: 1.2rem;
+  color: #2a9d8f;
+  margin-bottom: 8px;
+}
+
+.treatment-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.treatment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .treatments-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.treatment-card .icon {
+  font-size: 80px;           /* big and visually impactful */
+  color: #2a9d8f;
+  margin-bottom: 12px;
+  width: 100%;
+  height: 150px;             /* same as previous image height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e6f2f8;       /* subtle background for icon area */
+  border-radius: 12px 12px 0 0; /* round top corners */
+}
