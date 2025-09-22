@@ -802,3 +802,56 @@ textarea {
 .testimonial-nav:hover {
   background: #21867a;
 }
+/* Dropdown menu toggle button */
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #1d3557; /* dark color so it's visible */
+  padding: 6px;
+}
+
+/* Dropdown container */
+.menu-dropdown {
+  display: none;          /* initially hidden */
+  position: absolute;     
+  right: 0;               
+  top: 40px;              /* below the button */
+  background: #fff;       /* white background */
+  border: 1px solid #ddd; 
+  border-radius: 8px;     
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 200px;       /* enough width for text */
+  z-index: 1000;          /* on top of other elements */
+}
+
+/* Dropdown items */
+.menu-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;            /* space between icon and text */
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-align: left;
+  color: #1d3557;        /* dark text for visibility */
+  border-radius: 6px;     /* round corners */
+  transition: background 0.2s ease; /* smooth hover transition */
+}
+
+/* Hover effect */
+.menu-dropdown button:hover {
+  background: #f0f0f0;   /* light grey highlight */
+}
+/* Danger button styling */
+.menu-dropdown .danger {
+  color: #e74c3c;
+}
+
+.menu-dropdown .danger i {
+  color: #e74c3c;
+}
