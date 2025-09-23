@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI Insights & Reports | GymBMI</title>
+  <meta name="description" content="Explore BMI trends, category distributions, and health insights from GymBMI." />
+
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ✅ HEADER copied from index.html -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="logo-blue">GYM</span><span class="logo-red">‖</span><span class="logo-blue">BMI</span>
+        </a>
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="bmi-health-fitness-articles.html">Articles</a>
+        <a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a>
+        <a href="insights.html" class="active">Insights</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✅ HERO SECTION -->
+  <section class="insights-hero" style="padding:60px 20px; background:#f7a420;">
+    <div style="max-width:1200px; margin:auto; text-align:center; color:#fff;">
+      <h1 style="font-size:2.4rem; font-weight:700;">BMI Insights & Reports</h1>
+      <p style="font-size:1.2rem; margin-top:10px;">Explore BMI trends, category distributions, and user progress over time.</p>
+    </div>
+  </section>
+
+<!-- ✅ METRICS CARDS -->
+<section class="insights-metrics" style="padding:40px 20px;">
+  <div class="metrics-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; max-width:1200px; margin:auto;">
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Total Entries</h3>
+      <p id="totalEntries" style="font-size:1.8rem; font-weight:700;">0</p>
+    </div>
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Average BMI</h3>
+      <p id="averageBMI" style="font-size:1.8rem; font-weight:700;">0</p>
+    </div>
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Normal BMI %</h3>
+      <p id="normalPercent" style="font-size:1.8rem; font-weight:700;">0%</p>
+    </div>
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Overweight %</h3>
+      <p id="overweightPercent" style="font-size:1.8rem; font-weight:700;">0%</p>
+    </div>
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Lowest BMI</h3>
+      <p id="lowestBMI" style="font-size:1.8rem; font-weight:700;">0</p>
+    </div>
+    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+      <h3>Highest BMI</h3>
+      <p id="highestBMI" style="font-size:1.8rem; font-weight:700;">0</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ✅ CHARTS -->
+  <section class="insights-charts" style="padding:40px 20px;">
+    <div style="max-width:800px; margin:auto;">
+      <h2 style="text-align:center; margin-bottom:20px;">BMI Categories Distribution</h2>
+      <canvas id="bmiCategoryChart" style="max-height:350px;"></canvas>
+    </div>
+    <div style="max-width:800px; margin:auto; margin-top:60px;">
+      <h2 style="text-align:center; margin-bottom:20px;">BMI Trend Over Time</h2>
+      <canvas id="bmiTrendChart" style="max-height:350px;"></canvas>
+    </div>
+    <!-- New Charts -->
+    <div style="max-width:800px; margin:auto; margin-top:60px;">
+      <h2 style="text-align:center; margin-bottom:20px;">Weight Trend Over Time</h2>
+      <canvas id="weightTrendChart" style="max-height:350px;"></canvas>
+    </div>
+    <div style="max-width:800px; margin:auto; margin-top:60px;">
+      <h2 style="text-align:center; margin-bottom:20px;">Body Fat % Trend</h2>
+      <canvas id="bodyFatTrendChart" style="max-height:350px;"></canvas>
+    </div>
+  </section>
+
+  <!-- ✅ FOOTER copied from index.html -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <a href="index.html" style="text-decoration:none;">
+            <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+          </a>
+        </div>
+        <p class="footer-slogan">India’s Smart Fitness Tracker</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="bmi-health-fitness-articles.html">Articles</a></li>
+          <li><a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a></li>
+          <li><a href="trainer-onboarding.html">Trainer Onboarding</a></li>
+          <li><a href="experts.html">Our Experts</a></li> 
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="about-bmi-gymbmi-fitness.html">About</a></li>
+          <li><a href="contact-bmi-gymbmi-team.html">Contact</a></li>
+          <li><a href="privacy-policy-gymbmi.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions-gymbmi.html">Terms</a></li>
+          <li><a href="website-disclaimer-gymbmi.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-sep">
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>© 2025 gymbmi.com. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ✅ JS -->
+  <script src="js/menu.js"></script>
+  <script src="js/insights.js"></script>
+
+</body>
+</html>
