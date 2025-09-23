@@ -74,26 +74,37 @@
 </section>
 
 
-  <!-- ✅ CHARTS -->
-  <section class="insights-charts" style="padding:40px 20px;">
-    <div style="max-width:800px; margin:auto;">
-      <h2 style="text-align:center; margin-bottom:20px;">BMI Categories Distribution</h2>
-      <canvas id="bmiCategoryChart" style="max-height:350px;"></canvas>
+<section class="insights-charts" style="padding:40px 20px;">
+  <div class="charts-container" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1200px; margin:auto;">
+    
+    <!-- Left Pane -->
+    <div class="left-pane">
+      <div style="margin-bottom:40px;">
+        <h2 style="text-align:center;">BMI Trend Over Time</h2>
+        <canvas id="bmiTrendChart" style="max-height:300px;"></canvas>
+      </div>
+      <div>
+        <h2 style="text-align:center;">Body Fat % Trend</h2>
+        <canvas id="bodyFatTrendChart" style="max-height:300px;"></canvas>
+      </div>
     </div>
-    <div style="max-width:800px; margin:auto; margin-top:60px;">
-      <h2 style="text-align:center; margin-bottom:20px;">BMI Trend Over Time</h2>
-      <canvas id="bmiTrendChart" style="max-height:350px;"></canvas>
+
+    <!-- Right Pane -->
+    <div class="right-pane">
+      <div style="margin-bottom:40px;">
+        <h2 style="text-align:center;">Weight Trend Over Time</h2>
+        <canvas id="weightTrendChart" style="max-height:300px;"></canvas>
+      </div>
+      <!-- Optional additional metric -->
+      <div>
+        <h2 style="text-align:center;">BMI vs Weight Correlation</h2>
+        <canvas id="bmiWeightCorrelationChart" style="max-height:300px;"></canvas>
+      </div>
     </div>
-    <!-- New Charts -->
-    <div style="max-width:800px; margin:auto; margin-top:60px;">
-      <h2 style="text-align:center; margin-bottom:20px;">Weight Trend Over Time</h2>
-      <canvas id="weightTrendChart" style="max-height:350px;"></canvas>
-    </div>
-    <div style="max-width:800px; margin:auto; margin-top:60px;">
-      <h2 style="text-align:center; margin-bottom:20px;">Body Fat % Trend</h2>
-      <canvas id="bodyFatTrendChart" style="max-height:350px;"></canvas>
-    </div>
-  </section>
+
+  </div>
+</section>
+
 
   <!-- ✅ FOOTER copied from index.html -->
   <footer class="site-footer">

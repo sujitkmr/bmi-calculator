@@ -97,3 +97,35 @@ new Chart(document.getElementById('bodyFatTrendChart'), {
   },
   options: { responsive: true, scales: { y: { beginAtZero: true } } }
 });
+
+// ===== BMI vs Weight Correlation =====
+const weights = bmiData.map(d => d.weight || Math.round(d.bmi * 2)); // Use sample weight if available
+const bmis = bmiData.map(d => d.bmi);
+
+const correlationChart = new Chart(document.getElementById('bmiWeightCorrelationChart'), {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'BMI vs Weight',
+      data: bmiData.map(d => ({ x: d.weight || Math.round(d.bmi * 2), y: d.bmi })),
+      backgroundColor: '#1d3557'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `Weight: ${context.raw.x} kg, BMI: ${context.raw.y}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { title: { display: true, text: 'Weight (kg)' } },
+      y: { title: { display: true, text: 'BMI' } }
+    }
+  }
+});

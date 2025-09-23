@@ -927,3 +927,35 @@ textarea {
   background: #e6f2f8;       /* subtle background for icon area */
   border-radius: 12px 12px 0 0; /* round top corners */
 }
+
+/*insights*/
+.metric-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.progress-bar div {
+  height: 100%;
+  background: #2a9d8f;
+  border-radius: 3px;
+}
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.left-pane, .right-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
