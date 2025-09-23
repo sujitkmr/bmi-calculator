@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <!-- ✅ HEADER copied from index.html -->
+  <!-- HEADER -->
   <header>
     <div class="navbar">
       <div class="logo">
@@ -24,7 +24,6 @@
           <span class="logo-blue">GYM</span><span class="logo-red">‖</span><span class="logo-blue">BMI</span>
         </a>
       </div>
-
       <button class="menu-toggle" id="menu-toggle">☰</button>
       <nav class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
@@ -35,78 +34,66 @@
     </div>
   </header>
 
-  <!-- ✅ HERO SECTION -->
-  <section class="insights-hero" style="padding:60px 20px; background:#f7a420;">
-    <div style="max-width:1200px; margin:auto; text-align:center; color:#fff;">
-      <h1 style="font-size:2.4rem; font-weight:700;">BMI Insights & Reports</h1>
-      <p style="font-size:1.2rem; margin-top:10px;">Explore BMI trends, category distributions, and user progress over time.</p>
+  <!-- HERO SECTION -->
+<!-- HERO SECTION -->
+<section class="insights-hero" style="padding:60px 20px; background:#f7a420;">
+  <div style="max-width:1200px; margin:auto; text-align:center; color:#fff;">
+    <h1 id="insights-title" style="font-size:2.4rem; font-weight:700;">
+      BMI Insights & Reports
+    </h1>
+    <p style="font-size:1.2rem; margin-top:10px;">Explore BMI trends, category distributions, and user progress over time.</p>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lastBMIData = JSON.parse(localStorage.getItem("lastBMIData")) || null;
+    const userName = lastBMIData?.name || localStorage.getItem("userName") || "User";
+    const titleEl = document.getElementById("insights-title");
+    titleEl.textContent = `${userName}'s BMI Insights & Reports`;
+  });
+</script>
+
+
+  <!-- METRICS CARDS -->
+  <section class="insights-metrics" style="padding:40px 20px;">
+    <div class="metrics-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; max-width:1200px; margin:auto;">
+      <div class="metric-card"><h3>Total Entries</h3><p id="totalEntries">0</p></div>
+      <div class="metric-card"><h3>Average BMI</h3><p id="averageBMI">0</p></div>
+      <div class="metric-card"><h3>Normal BMI %</h3><p id="normalPercent">0%</p></div>
+      <div class="metric-card"><h3>Overweight %</h3><p id="overweightPercent">0%</p></div>
+      <div class="metric-card"><h3>Lowest BMI</h3><p id="lowestBMI">0</p></div>
+      <div class="metric-card"><h3>Highest BMI</h3><p id="highestBMI">0</p></div>
     </div>
   </section>
 
-<!-- ✅ METRICS CARDS -->
-<section class="insights-metrics" style="padding:40px 20px;">
-  <div class="metrics-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; max-width:1200px; margin:auto;">
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Total Entries</h3>
-      <p id="totalEntries" style="font-size:1.8rem; font-weight:700;">0</p>
-    </div>
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Average BMI</h3>
-      <p id="averageBMI" style="font-size:1.8rem; font-weight:700;">0</p>
-    </div>
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Normal BMI %</h3>
-      <p id="normalPercent" style="font-size:1.8rem; font-weight:700;">0%</p>
-    </div>
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Overweight %</h3>
-      <p id="overweightPercent" style="font-size:1.8rem; font-weight:700;">0%</p>
-    </div>
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Lowest BMI</h3>
-      <p id="lowestBMI" style="font-size:1.8rem; font-weight:700;">0</p>
-    </div>
-    <div class="metric-card" style="background:#fff; padding:20px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-      <h3>Highest BMI</h3>
-      <p id="highestBMI" style="font-size:1.8rem; font-weight:700;">0</p>
-    </div>
-  </div>
-</section>
-
-
-<section class="insights-charts" style="padding:40px 20px;">
-  <div class="charts-container" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1200px; margin:auto;">
-    
-    <!-- Left Pane -->
-    <div class="left-pane">
-      <div style="margin-bottom:40px;">
-        <h2 style="text-align:center;">BMI Trend Over Time</h2>
-        <canvas id="bmiTrendChart" style="max-height:300px;"></canvas>
+  <!-- CHARTS -->
+  <section class="insights-charts" style="padding:40px 20px;">
+    <div class="charts-container" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1200px; margin:auto;">
+      <div class="left-pane">
+        <div style="margin-bottom:40px;">
+          <h2 style="text-align:center;">BMI Trend Over Time</h2>
+          <canvas id="bmiTrendChart" style="max-height:300px;"></canvas>
+        </div>
+        <div>
+          <h2 style="text-align:center;">Body Fat % Trend</h2>
+          <canvas id="bodyFatTrendChart" style="max-height:300px;"></canvas>
+        </div>
       </div>
-      <div>
-        <h2 style="text-align:center;">Body Fat % Trend</h2>
-        <canvas id="bodyFatTrendChart" style="max-height:300px;"></canvas>
+      <div class="right-pane">
+        <div style="margin-bottom:40px;">
+          <h2 style="text-align:center;">Weight Trend Over Time</h2>
+          <canvas id="weightTrendChart" style="max-height:300px;"></canvas>
+        </div>
+        <div>
+          <h2 style="text-align:center;">BMI vs Weight Correlation</h2>
+          <canvas id="bmiWeightCorrelationChart" style="max-height:300px;"></canvas>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Right Pane -->
-    <div class="right-pane">
-      <div style="margin-bottom:40px;">
-        <h2 style="text-align:center;">Weight Trend Over Time</h2>
-        <canvas id="weightTrendChart" style="max-height:300px;"></canvas>
-      </div>
-      <!-- Optional additional metric -->
-      <div>
-        <h2 style="text-align:center;">BMI vs Weight Correlation</h2>
-        <canvas id="bmiWeightCorrelationChart" style="max-height:300px;"></canvas>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- ✅ FOOTER copied from index.html -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-col">
@@ -117,7 +104,6 @@
         </div>
         <p class="footer-slogan">India’s Smart Fitness Tracker</p>
       </div>
-
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
@@ -128,7 +114,6 @@
           <li><a href="experts.html">Our Experts</a></li> 
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
@@ -151,9 +136,51 @@
     </div>
   </footer>
 
-  <!-- ✅ JS -->
+  <!-- JS -->
   <script src="js/menu.js"></script>
   <script src="js/insights.js"></script>
+  <script>
+    // ✅ Load lastBMIData and bmiData for dynamic metrics & charts
+    document.addEventListener("DOMContentLoaded", () => {
+      const bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
+      const lastBMIData = JSON.parse(localStorage.getItem("lastBMIData")) || null;
 
+      const totalEntries = bmiData.length;
+      const averageBMI = totalEntries ? (bmiData.reduce((sum, entry) => sum + entry.bmi, 0) / totalEntries).toFixed(1) : 0;
+
+      const normalCount = bmiData.filter(entry => entry.bmi >= 18.5 && entry.bmi < 25).length;
+      const overweightCount = bmiData.filter(entry => entry.bmi >= 25 && entry.bmi < 30).length;
+
+      const lowestBMI = bmiData.length ? Math.min(...bmiData.map(e => e.bmi)) : 0;
+      const highestBMI = bmiData.length ? Math.max(...bmiData.map(e => e.bmi)) : 0;
+
+      document.getElementById("totalEntries").textContent = totalEntries;
+      document.getElementById("averageBMI").textContent = averageBMI;
+      document.getElementById("normalPercent").textContent = totalEntries ? Math.round((normalCount / totalEntries) * 100) + "%" : "0%";
+      document.getElementById("overweightPercent").textContent = totalEntries ? Math.round((overweightCount / totalEntries) * 100) + "%" : "0%";
+      document.getElementById("lowestBMI").textContent = lowestBMI;
+      document.getElementById("highestBMI").textContent = highestBMI;
+
+      // ✅ Prepare chart data
+      const labels = bmiData.map(e => new Date(e.date).toLocaleDateString());
+      const bmiValues = bmiData.map(e => e.bmi);
+      const weightValues = bmiData.map(e => e.weight || 0); // if weight stored
+      const bodyFatValues = bmiData.map(e => e.bodyFat || 0);
+
+      function renderChart(id, label, data, color) {
+        const ctx = document.getElementById(id).getContext("2d");
+        new Chart(ctx, {
+          type: "line",
+          data: { labels, datasets: [{ label, data, borderColor: color, backgroundColor: "transparent", tension:0.2 }] },
+          options: { responsive: true, plugins: { legend: { display: true } } }
+        });
+      }
+
+      renderChart("bmiTrendChart", "BMI", bmiValues, "#2ecc71");
+      renderChart("weightTrendChart", "Weight", weightValues, "#3498db");
+      renderChart("bodyFatTrendChart", "Body Fat %", bodyFatValues, "#f39c12");
+      renderChart("bmiWeightCorrelationChart", "BMI vs Weight", bmiValues.map((b,i)=>({x:weightValues[i], y:b})), "#e74c3c", "scatter");
+    });
+  </script>
 </body>
 </html>

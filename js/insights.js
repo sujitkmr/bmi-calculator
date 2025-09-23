@@ -129,3 +129,15 @@ const correlationChart = new Chart(document.getElementById('bmiWeightCorrelation
     }
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const data = JSON.parse(localStorage.getItem("lastBMIData"));
+    if (!data) return;
+
+    // Example: populate chart or text
+    document.getElementById("insights-bmi").textContent = data.bmi;
+    document.getElementById("insights-category").textContent = data.category;
+
+    // Then call your chart rendering function
+    renderInsightsChart(data);
+});
