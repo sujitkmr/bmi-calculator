@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GymBMI Plans | Premium & Free Subscriptions</title>
+  <meta name="description" content="Explore GymBMI subscription plans: Free, Go, Plus, Pro. Get premium access to advanced fitness insights and tools." />
+
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; background:#f9f9f9; }
+    .plans-hero { padding:60px 20px; text-align:center; background: linear-gradient(135deg,#f7a420,#f97316); color:#fff; }
+    .plans-hero h1 { font-size:2.4rem; font-weight:700; margin-bottom:10px; }
+    .plans-hero p { font-size:1.2rem; }
+    .plans-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; max-width:1200px; margin:50px auto; }
+    .plan-card { background:#fff; border-radius:15px; padding:30px 20px; box-shadow:0 8px 30px rgba(0,0,0,0.08); transition:transform 0.3s, box-shadow 0.3s; display:flex; flex-direction:column; justify-content:space-between; }
+    .plan-card:hover { transform:translateY(-5px); box-shadow:0 12px 40px rgba(0,0,0,0.12); }
+    .plan-type { font-size:1.2rem; font-weight:700; color:#1e3a8a; margin-bottom:10px; text-align:center; }
+    .plan-price { font-size:2rem; font-weight:700; text-align:center; margin-bottom:5px; color:#10b981; }
+    .plan-subtext { font-size:0.9rem; text-align:center; color:#555; margin-bottom:20px; }
+    .plan-features { list-style:none; padding:0; margin:0 0 20px 0; }
+    .plan-features li { padding:8px 0; border-bottom:1px solid #eee; color:#555; font-size:0.95rem; display:flex; align-items:center; }
+    .plan-features li i { color:#10b981; margin-right:10px; }
+    .plan-cta { display:block; text-align:center; background:#f97316; color:#fff; font-weight:600; padding:12px 20px; border-radius:8px; text-decoration:none; transition:background 0.3s; }
+    .plan-cta:hover { background:#ef4444; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="logo-blue">GYM</span><span class="logo-red">‖</span><span class="logo-blue">BMI</span>
+        </a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="bmi-health-fitness-articles.html">Articles</a>
+        <a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a>
+        <a href="plans.html" class="active">Plans</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="plans-hero">
+    <h1>Your GymBMI Subscription Plans</h1>
+    <p>Choose the plan that fits your fitness journey. Free or Premium — all designed to help you stay healthy.</p>
+  </section>
+
+<!-- PLANS CARDS -->
+<!-- PLANS CARDS -->
+<section class="plans-container" style="padding:50px 20px;">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px; max-width:1200px; margin:auto;">
+    
+    <!-- Free Plan -->
+<div class="plan-card">
+  <div>
+    <div class="plan-type">Free</div>
+    <div class="plan-price">₹0 <span style="font-size:0.9rem;">/ month</span></div>
+    <div class="plan-subtext">Access to basic fitness tools</div>
+    <ul class="plan-features">
+      <li><i class="fas fa-check-circle"></i>Access to BMI calculator</li>
+      <li style="text-decoration: line-through; color: #aaa;"><i class="fas fa-times-circle"></i>Basic workout plans</li>
+      <li style="text-decoration: line-through; color: #aaa;"><i class="fas fa-times-circle"></i>Limited diet insights</li>
+    </ul>
+  </div>
+  <a href="#" class="plan-cta">Get Free</a>
+</div>
+
+
+<!-- Go Plan -->
+<div class="plan-card">
+  <div>
+    <div class="plan-type">Go</div>
+    <div class="plan-price">₹49 <span style="font-size:0.9rem;">/ month</span></div>
+    <div class="plan-subtext">More access to popular features</div>
+    <ul class="plan-features">
+      <li><i class="fas fa-check-circle"></i>Download Diet plan report</li>
+      <li><i class="fas fa-check-circle"></i>Basic workout plans</li>
+      <li><i class="fas fa-check-circle"></i>Limited diet insights</li>
+      <li style="text-decoration: line-through; color: #aaa;"><i class="fas fa-times-circle"></i>Download BMI report</li>
+    </ul>
+  </div>
+  <a href="#" class="plan-cta">Upgrade to Go</a>
+</div>
+
+
+<!-- Plus Plan -->
+<div class="plan-card">
+  <div>
+    <div class="plan-type">Plus</div>
+    <div class="plan-price">₹199 <span style="font-size:0.9rem;">/ month</span></div>
+    <div class="plan-subtext">More access to advanced intelligence Reports</div>
+    <ul class="plan-features">
+      <li><i class="fas fa-check-circle"></i>Limited BMI reports</li>
+      <li><i class="fas fa-check-circle"></i>Download BMI tracker for a month</li>
+      <li><i class="fas fa-check-circle"></i>Download Diet Plan</li>
+      <li><i class="fas fa-check-circle"></i>Access to connect with expert</li>
+      <li style="text-decoration: line-through; color: #aaa;"><i class="fas fa-times-circle"></i>View your BMI insights</li>
+    </ul>
+  </div>
+  <a href="#" class="plan-cta">Get Plus</a>
+</div>
+
+
+    <!-- Pro Plan -->
+    <div class="plan-card">
+      <div>
+        <div class="plan-type">Pro</div>
+        <div class="plan-price">₹299 <span style="font-size:0.9rem;">/ month</span></div>
+        <div class="plan-subtext">Full access to the best of GymBMI</div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check-circle"></i>Download BMI reports</li>
+          <li><i class="fas fa-check-circle"></i>Download BMI tracker for a month</li>
+          <li><i class="fas fa-check-circle"></i>Download Diet Plan</li>
+          <li><i class="fas fa-check-circle"></i>Connect with expert</li>
+          <li><i class="fas fa-check-circle"></i>View your BMI insights</li>
+        </ul>
+      </div>
+      <a href="#" class="plan-cta">Get Pro</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- close PLANS CARDS -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <a href="index.html" style="text-decoration:none;">
+            <span class="blue-text">GYM</span><span class="red-bars">‖</span><span class="blue-text">BMI</span>
+          </a>
+        </div>
+        <p class="footer-slogan">India’s Smart Fitness Tracker</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="bmi-health-fitness-articles.html">Articles</a></li>
+          <li><a href="healthy-diet-plans-bmi.html">Diet & Workout Plans</a></li>
+          <li><a href="trainer-onboarding.html">Trainer Onboarding</a></li>
+          <li><a href="experts.html">Our Experts</a></li> 
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="about-bmi-gymbmi-fitness.html">About</a></li>
+          <li><a href="contact-bmi-gymbmi-team.html">Contact</a></li>
+          <li><a href="privacy-policy-gymbmi.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions-gymbmi.html">Terms</a></li>
+          <li><a href="website-disclaimer-gymbmi.html">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-sep">
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61580551642067" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>© 2025 gymbmi.com. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
