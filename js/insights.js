@@ -1,143 +1,179 @@
-// js/insights.js
-// Sample data for demo — replace with live data later
-const bmiData = [
-  { date: '2025-09-01', bmi: 21.5, weight: 65, bodyFat: 18, category: 'Normal' },
-  { date: '2025-09-05', bmi: 27.3, weight: 75, bodyFat: 25, category: 'Overweight' },
-  { date: '2025-09-10', bmi: 23.1, weight: 68, bodyFat: 20, category: 'Normal' },
-  { date: '2025-09-15', bmi: 19.2, weight: 60, bodyFat: 15, category: 'Underweight' },
-  { date: '2025-09-20', bmi: 30.4, weight: 80, bodyFat: 30, category: 'Obese' }
-];
+// insights.js - Dynamic BMI Insights and Charts
 
-// Calculate metrics
-const totalEntries = bmiData.length;
-const averageBMI = (bmiData.reduce((sum, d) => sum + d.bmi, 0) / totalEntries).toFixed(1);
-const lowestBMI = Math.min(...bmiData.map(d => d.bmi)).toFixed(1);
-const highestBMI = Math.max(...bmiData.map(d => d.bmi)).toFixed(1);
+// ===== Global chart variables =====
+let bmiCategoryChart, bmiTrendChart, weightTrendChart, bodyFatTrendChart, correlationChart;
 
-// Count categories
-const categoriesCount = { Underweight:0, Normal:0, Overweight:0, Obese:0 };
-bmiData.forEach(d => { categoriesCount[d.category]++; });
+// ===== Fetch BMI data dynamically from localStorage =====
+let bmiData = JSON.parse(localStorage.getItem("bmiInsightsData")) || [];
 
-// Percentages
-const normalPercent = ((categoriesCount.Normal / totalEntries) * 100).toFixed(0);
-const overweightPercent = ((categoriesCount.Overweight / totalEntries) * 100).toFixed(0);
+// ===== Function to calculate metrics =====
+function calculateMetrics(data) {
+    const totalEntries = data.length;
+    const averageBMI = totalEntries ? (data.reduce((sum, d) => sum + d.bmi, 0) / totalEntries).toFixed(1) : 0;
+    const lowestBMI = totalEntries ? Math.min(...data.map(d => d.bmi)).toFixed(1) : 0;
+    const highestBMI = totalEntries ? Math.max(...data.map(d => d.bmi)).toFixed(1) : 0;
 
-// Populate cards
-document.getElementById('totalEntries').textContent = totalEntries;
-document.getElementById('averageBMI').textContent = averageBMI;
-document.getElementById('normalPercent').textContent = normalPercent + '%';
-document.getElementById('overweightPercent').textContent = overweightPercent + '%';
-document.getElementById('lowestBMI').textContent = lowestBMI;
-document.getElementById('highestBMI').textContent = highestBMI;
+    const categoriesCount = { Underweight: 0, Normal: 0, Overweight: 0, Obese: 0 };
+    data.forEach(d => {
+        if (d.category === "Underweight") categoriesCount.Underweight++;
+        else if (d.category === "Normal weight" || d.category === "Normal") categoriesCount.Normal++;
+        else if (d.category === "Overweight") categoriesCount.Overweight++;
+        else if (d.category === "Obesity" || d.category === "Obese") categoriesCount.Obese++;
+    });
 
-// ===== Charts =====
+    const normalPercent = totalEntries ? ((categoriesCount.Normal / totalEntries) * 100).toFixed(0) : 0;
+    const overweightPercent = totalEntries ? ((categoriesCount.Overweight / totalEntries) * 100).toFixed(0) : 0;
 
-// 1. Pie Chart for BMI Categories
-new Chart(document.getElementById('bmiCategoryChart'), {
-  type: 'pie',
-  data: {
-    labels: ['Underweight','Normal','Overweight','Obese'],
-    datasets: [{
-      data: [
-        categoriesCount.Underweight,
-        categoriesCount.Normal,
-        categoriesCount.Overweight,
-        categoriesCount.Obese
-      ],
-      backgroundColor: ['#1d3557','#2a9d8f','#f7a420','#e63946']
-    }]
-  },
-  options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-});
+    return { totalEntries, averageBMI, lowestBMI, highestBMI, categoriesCount, normalPercent, overweightPercent };
+}
 
-// 2. Line Chart for BMI Trend
-new Chart(document.getElementById('bmiTrendChart'), {
-  type: 'line',
-  data: {
-    labels: bmiData.map(d => d.date),
-    datasets: [{
-      label: 'BMI Over Time',
-      data: bmiData.map(d => d.bmi),
-      fill: false,
-      borderColor: '#1d3557',
-      tension: 0.3
-    }]
-  },
-  options: { responsive: true, scales: { y: { beginAtZero: false } } }
-});
+// ===== Function to populate metric cards =====
+function populateMetrics(metrics) {
+    document.getElementById('totalEntries').textContent = metrics.totalEntries;
+    document.getElementById('averageBMI').textContent = metrics.averageBMI;
+    document.getElementById('lowestBMI').textContent = metrics.lowestBMI;
+    document.getElementById('highestBMI').textContent = metrics.highestBMI;
+    document.getElementById('normalPercent').textContent = metrics.normalPercent + '%';
+    document.getElementById('overweightPercent').textContent = metrics.overweightPercent + '%';
+}
 
-// 3. Line Chart for Weight Trend
-new Chart(document.getElementById('weightTrendChart'), {
-  type: 'line',
-  data: {
-    labels: bmiData.map(d => d.date),
-    datasets: [{
-      label: 'Weight Over Time (kg)',
-      data: bmiData.map(d => d.weight),
-      fill: false,
-      borderColor: '#2a9d8f',
-      tension: 0.3
-    }]
-  },
-  options: { responsive: true, scales: { y: { beginAtZero: false } } }
-});
+// ===== Initialize Charts =====
+function initCharts(data) {
+    const metrics = calculateMetrics(data);
+    populateMetrics(metrics);
 
-// 4. Line Chart for Body Fat % Trend
-new Chart(document.getElementById('bodyFatTrendChart'), {
-  type: 'line',
-  data: {
-    labels: bmiData.map(d => d.date),
-    datasets: [{
-      label: 'Body Fat % Over Time',
-      data: bmiData.map(d => d.bodyFat),
-      fill: false,
-      borderColor: '#f7a420',
-      tension: 0.3
-    }]
-  },
-  options: { responsive: true, scales: { y: { beginAtZero: true } } }
-});
+    // ===== Pie Chart - BMI Category Distribution =====
+    bmiCategoryChart = new Chart(document.getElementById('bmiCategoryChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Underweight','Normal','Overweight','Obese'],
+            datasets: [{
+                data: [
+                    metrics.categoriesCount.Underweight,
+                    metrics.categoriesCount.Normal,
+                    metrics.categoriesCount.Overweight,
+                    metrics.categoriesCount.Obese
+                ],
+                backgroundColor: ['#1d3557','#2a9d8f','#f7a420','#e63946']
+            }]
+        },
+        options: { responsive:true, plugins:{ legend:{ position:'bottom' } } }
+    });
 
-// ===== BMI vs Weight Correlation =====
-const weights = bmiData.map(d => d.weight || Math.round(d.bmi * 2)); // Use sample weight if available
-const bmis = bmiData.map(d => d.bmi);
+    // ===== Line Chart - BMI Trend =====
+    bmiTrendChart = new Chart(document.getElementById('bmiTrendChart'), {
+        type: 'line',
+        data: {
+            labels: data.map(d => d.date),
+            datasets: [{
+                label: 'BMI Over Time',
+                data: data.map(d => d.bmi),
+                fill: false,
+                borderColor: '#1d3557',
+                tension: 0.3
+            }]
+        },
+        options: { responsive:true, scales:{ y:{ beginAtZero:false } } }
+    });
 
-const correlationChart = new Chart(document.getElementById('bmiWeightCorrelationChart'), {
-  type: 'scatter',
-  data: {
-    datasets: [{
-      label: 'BMI vs Weight',
-      data: bmiData.map(d => ({ x: d.weight || Math.round(d.bmi * 2), y: d.bmi })),
-      backgroundColor: '#1d3557'
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            return `Weight: ${context.raw.x} kg, BMI: ${context.raw.y}`;
-          }
+    // ===== Line Chart - Weight Trend =====
+    weightTrendChart = new Chart(document.getElementById('weightTrendChart'), {
+        type: 'line',
+        data: {
+            labels: data.map(d => d.date),
+            datasets: [{
+                label: 'Weight Over Time (kg)',
+                data: data.map(d => d.weight || Math.round(d.bmi*2)),
+                fill: false,
+                borderColor: '#2a9d8f',
+                tension: 0.3
+            }]
+        },
+        options: { responsive:true, scales:{ y:{ beginAtZero:false } } }
+    });
+
+    // ===== Line Chart - Body Fat % Trend =====
+    bodyFatTrendChart = new Chart(document.getElementById('bodyFatTrendChart'), {
+        type: 'line',
+        data: {
+            labels: data.map(d => d.date),
+            datasets: [{
+                label: 'Body Fat % Over Time',
+                data: data.map(d => d.bodyFat || 0),
+                fill: false,
+                borderColor: '#f7a420',
+                tension: 0.3
+            }]
+        },
+        options: { responsive:true, scales:{ y:{ beginAtZero:true } } }
+    });
+
+    // ===== Scatter Chart - BMI vs Weight =====
+    correlationChart = new Chart(document.getElementById('bmiWeightCorrelationChart'), {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'BMI vs Weight',
+                data: data.map(d => ({x:d.weight || Math.round(d.bmi*2), y:d.bmi})),
+                backgroundColor: '#1d3557'
+            }]
+        },
+        options: {
+            responsive:true,
+            plugins:{
+                legend:{ display:false },
+                tooltip:{
+                    callbacks:{
+                        label:function(ctx){ return `Weight: ${ctx.raw.x} kg, BMI: ${ctx.raw.y}`; }
+                    }
+                }
+            },
+            scales:{
+                x:{ title:{ display:true, text:'Weight (kg)' } },
+                y:{ title:{ display:true, text:'BMI' } }
+            }
         }
-      }
-    },
-    scales: {
-      x: { title: { display: true, text: 'Weight (kg)' } },
-      y: { title: { display: true, text: 'BMI' } }
-    }
-  }
-});
+    });
+}
 
+// ===== Update Charts dynamically =====
+function updateInsightsCharts() {
+    bmiData = JSON.parse(localStorage.getItem("bmiInsightsData")) || [];
+    const metrics = calculateMetrics(bmiData);
+    populateMetrics(metrics);
+
+    if (!bmiCategoryChart) return; // charts not initialized yet
+
+    // Update pie chart
+    bmiCategoryChart.data.datasets[0].data = [
+        metrics.categoriesCount.Underweight,
+        metrics.categoriesCount.Normal,
+        metrics.categoriesCount.Overweight,
+        metrics.categoriesCount.Obese
+    ];
+    bmiCategoryChart.update();
+
+    // Update BMI trend
+    bmiTrendChart.data.labels = bmiData.map(d => d.date);
+    bmiTrendChart.data.datasets[0].data = bmiData.map(d => d.bmi);
+    bmiTrendChart.update();
+
+    // Update weight trend
+    weightTrendChart.data.labels = bmiData.map(d => d.date);
+    weightTrendChart.data.datasets[0].data = bmiData.map(d => d.weight || Math.round(d.bmi*2));
+    weightTrendChart.update();
+
+    // Update body fat trend
+    bodyFatTrendChart.data.labels = bmiData.map(d => d.date);
+    bodyFatTrendChart.data.datasets[0].data = bmiData.map(d => d.bodyFat || 0);
+    bodyFatTrendChart.update();
+
+    // Update correlation chart
+    correlationChart.data.datasets[0].data = bmiData.map(d => ({x:d.weight || Math.round(d.bmi*2), y:d.bmi}));
+    correlationChart.update();
+}
+
+// ===== Initialize everything on DOM load =====
 document.addEventListener("DOMContentLoaded", () => {
-    const data = JSON.parse(localStorage.getItem("lastBMIData"));
-    if (!data) return;
-
-    // Example: populate chart or text
-    document.getElementById("insights-bmi").textContent = data.bmi;
-    document.getElementById("insights-category").textContent = data.category;
-
-    // Then call your chart rendering function
-    renderInsightsChart(data);
+    initCharts(bmiData);
 });
