@@ -181,9 +181,10 @@ function updateUI(bmi, category) {
 
 
 
-  // BMI form submit
-  bmiForm.addEventListener("submit", (e) => {
+// BMI form submit
+bmiForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
     const height = parseFloat(document.getElementById("height").value);
     const weight = parseFloat(document.getElementById("weight").value);
 
@@ -197,21 +198,58 @@ function updateUI(bmi, category) {
     lastAge = calculateAge(lastDOB);
 
     if (height > 0 && weight > 0) {
-      const h = height / 100;
-      const bmi = +(weight / (h * h)).toFixed(1);
+        const h = height / 100;
+        const bmi = +(weight / (h * h)).toFixed(1);
 
-      let category = "";
-      if (bmi < 18.5) category = "Underweight";
-      else if (bmi < 25) category = "Normal weight";
-      else if (bmi < 30) category = "Overweight";
-      else category = "Obesity";
+        let category = "";
+        if (bmi < 18.5) category = "Underweight";
+        else if (bmi < 25) category = "Normal weight";
+        else if (bmi < 30) category = "Overweight";
+        else category = "Obesity";
 
-      lastBMI = bmi;
-      lastCategory = category;
+        lastBMI = bmi;
+        lastCategory = category;
 
-      updateUI(bmi, category);
+        // ===== Update UI Popup =====
+        updateUI(bmi, category);
+
+        // ===== Save to main BMI data =====
+        const todayDate = new Date();
+        const today = todayDate.getFullYear() + "-" +
+                      String(todayDate.getMonth() + 1).padStart(2, "0") + "-" +
+                      String(todayDate.getDate()).padStart(2, "0");
+
+        let bmiData = JSON.parse(localStorage.getItem("bmiData")) || [];
+        bmiData.push({
+            bmi: lastBMI,
+            category: lastCategory,
+            age: lastAge,
+            gender: lastGender,
+            name: lastName,
+            date: today,
+            weight: parseFloat(weight),
+            bodyFat: null
+        });
+        localStorage.setItem("bmiData", JSON.stringify(bmiData));
+
+        // ===== Save for Insights Charts =====
+        let insightsData = JSON.parse(localStorage.getItem("bmiInsightsData")) || [];
+        insightsData.push({
+            date: today,
+            bmi: lastBMI,
+            weight: parseFloat(weight),
+            bodyFat: null,   // can calculate body fat if needed
+            category: lastCategory
+        });
+        localStorage.setItem("bmiInsightsData", JSON.stringify(insightsData));
+
+        // ===== Update Charts dynamically =====
+        if (typeof updateInsightsCharts === "function") {
+            updateInsightsCharts();
+        }
     }
-  });
+});
+
 // Attach download events to both main and popup buttons
 ["report", "tracker", "diet"].forEach(type => {
   document.querySelectorAll(`#download-${type}, #popup-download-${type}`).forEach(btn => {
