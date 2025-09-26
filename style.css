@@ -995,6 +995,7 @@ textarea {
   background: #1d3557;
 }
 
+
 /* ----- Right Pane ----- */
 .right-pane {
   flex: 2;
@@ -1064,4 +1065,118 @@ textarea {
 #bmiChart {
   max-height: 400px;
   width: 100%;
+}
+
+/* BMI Basic Report Card */
+.bmi-basic-report {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.bmi-basic-report .report-header {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1d3557;
+  margin-bottom: 24px;
+}
+
+.bmi-basic-report .report-body {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.bmi-section .bmi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1d3557;
+}
+
+.bmi-section .bmi-status {
+  background: #e6f4ec;
+  color: #2c7a4c;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.bmi-section .bmi-range {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-circle {
+  border: 6px solid #2563eb;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d3557;
+  margin-bottom: 6px;
+}
+
+.score-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d3557;
+}
+
+.weight-section .weight-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1d3557;
+}
+
+.weight-section .weight-bar {
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 6px;
+  margin: 8px 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.weight-section .weight-bar .progress {
+  background: #22c55e;
+  height: 100%;
+}
+
+.weight-section .weight-change {
+  font-size: 0.9rem;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.bmi-basic-report .report-footer {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1d3557;
+  margin-top: 24px;
 }
