@@ -175,38 +175,43 @@
 
 
 <!-- Progress Tracker Section -->
+<!-- BMI Tracker Section: Two-Pane Layout -->
 <section class="tracker-section">
-  <div class="tracker-card">
-    <!-- Heading + Buttons in Flex -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
-      <h2 style="font-size:1.8rem; font-weight:700; margin:0; color:#1d3557;">
-        📊 BMI Tracker : See Your Progress
-      </h2>
+  <div class="tracker-wrapper">
 
-      <!-- 🔹 New three-dot menu -->
-      <div class="menu-wrapper" style="position:relative;">
-        <button id="trackerMenuBtn" class="menu-btn" aria-label="More options">
-          &#8942; <!-- vertical ellipsis ⋮ -->
-        </button>
-
-        <div id="trackerMenu" class="menu-dropdown">
-          <button id="export-btn">
-            <i class="fa-solid fa-file-excel"></i> Export to Excel
-          </button>
-          <button id="connect-sheets-btn">
-            <i class="fa-solid fa-cloud"></i> Connect to Google Sheets
-          </button>
-          <button id="clear-btn" class="danger">
-            <i class="fa-solid fa-trash"></i> Clear All BMI Data
-          </button>
-        </div>
+    <!-- Left Pane: Quick Info / Teaser -->
+    <div class="left-pane">
+      <h3>Your Quick Stats</h3>
+      <div class="stats">
+        <p>BMI Status: <span id="quick-bmi-status">-</span></p>
+        <p>Last BMI: <span id="quick-bmi-value">-</span></p>
       </div>
+      <p class="info-text">Track your BMI easily and stay on top of your health journey! Get insights instantly.</p>
+      <button id="open-dashboard">View Advanced Dashboard</button>
     </div>
 
-    <!-- Chart -->
-    <canvas id="bmiChart" style="max-height:350px; margin-bottom:20px;"></canvas>
+    <!-- Right Pane: BMI Tracker Chart -->
+    <div class="right-pane">
+      <div class="tracker-header">
+        <h2>📊 BMI Tracker : See Your Progress</h2>
+        <div class="menu-wrapper">
+          <button id="trackerMenuBtn" class="menu-btn">&#8942;</button>
+          <div id="trackerMenu" class="menu-dropdown">
+            <button id="export-btn"><i class="fa-solid fa-file-excel"></i> Export to Excel</button>
+            <button id="connect-sheets-btn"><i class="fa-solid fa-cloud"></i> Connect to Google Sheets</button>
+            <button id="clear-btn" class="danger"><i class="fa-solid fa-trash"></i> Clear All BMI Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Canvas -->
+      <canvas id="bmiChart"></canvas>
+    </div>
+
   </div>
 </section>
+
+
 <!--closing  Progress Tracker Section -->
 
 <!-- Our Products Section -->
