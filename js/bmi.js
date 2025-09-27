@@ -168,48 +168,64 @@ function updateBasicReport() {
 
 
   // BMI form submit
-  bmiForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const height = parseFloat(document.getElementById("height").value);
-    const weight = parseFloat(document.getElementById("weight").value);
+ bmiForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    lastName = document.getElementById("name")?.value.trim() || "User";
-    localStorage.setItem("userName", lastName);
+  const name = document.getElementById("name")?.value.trim() || "User";
+  const dob = document.getElementById("dob")?.value || "N/A";
+  const age = calculateAge(dob);
 
-    const genderInput = document.querySelector('input[name="gender"]:checked');
-    lastGender = genderInput ? genderInput.value : "N/A";
+  const height = parseFloat(document.getElementById("height").value);
+  const weight = parseFloat(document.getElementById("weight").value);
 
-    lastDOB = document.getElementById("dob")?.value || "N/A";
-    lastAge = calculateAge(lastDOB);
+  const genderInput = document.querySelector('input[name="gender"]:checked');
+  const gender = genderInput ? genderInput.value : "N/A";
 
-    if (height > 0 && weight > 0) {
-      const h = height / 100;
-      const bmi = +(weight / (h * h)).toFixed(1);
+  if (height > 0 && weight > 0) {
+    const h = height / 100;
+    const bmi = +(weight / (h * h)).toFixed(1);
 
-      let category = "";
-      if (bmi < 18.5) category = "Underweight";
-      else if (bmi < 25) category = "Normal weight";
-      else if (bmi < 30) category = "Overweight";
-      else category = "Obesity";
+    let category = "";
+    if (bmi < 18.5) category = "Underweight";
+    else if (bmi < 25) category = "Normal weight";
+    else if (bmi < 30) category = "Overweight";
+    else category = "Obesity";
 
-      lastBMI = bmi;
-      lastCategory = category;
-      lastWeight = weight;
+    // Save globals
+    window.lastBMI = bmi;
+    window.lastCategory = category;
+    window.lastName = name;
+    window.lastAge = age;
+    window.lastDOB = dob;
+    window.lastGender = gender;
+    window.lastWeight = weight;
 
-      // Store latest BMI in localStorage
-localStorage.setItem("latestBMIData", JSON.stringify({
-  bmi: lastBMI,
-  category: lastCategory,
-  weight: lastWeight,
-  name: lastName,
-  age: lastAge,
-  gender: lastGender
-}));
+    // ✅ Store all relevant info in localStorage
+    const currentDate = new Date();
+    const formattedDate = currentDate.getFullYear() + "-" +
+                          String(currentDate.getMonth() + 1).padStart(2, "0") + "-" +
+                          String(currentDate.getDate()).padStart(2, "0");
 
-      updateUI(bmi, category);
-      updateBasicReport();
-    }
-  });
+    const bmiDataToStore = {
+      name,
+      age,
+      currentDate: formattedDate,
+      dob,
+      height,
+      weight,
+      gender,
+      bmi,
+      category
+    };
+
+    localStorage.setItem("latestBMIData", JSON.stringify(bmiDataToStore));
+
+    // Update UI
+    updateUI(bmi, category);
+    updateBasicReport();
+  }
+});
+
 
   // Add to Tracker functionality
   if (addToTrackerText) {

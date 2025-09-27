@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GymBMI Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+<script src="js/dashboard.js"></script>
+</head>
+<body>
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">GB</div>
+      <div class="title">GymBMI</div>
+      <div class="subtitle">Fitness Analytics</div>
+    </div>
+    <ul class="menu">
+      <li>Overview</li>
+      <li>Reports</li>
+      <li>Users</li>
+      <li>Settings</li>
+    </ul>
+    <div class="sidebar-footer">
+      © GymBMI • Confidential
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-dashboard">
+    <div class="dashboard-header">
+      <div class="page-title">
+        <h1>BMI Advanced Report</h1>
+<div class="sub-info">
+  Name: <strong id="user-name">-</strong> • 
+  Age: <strong id="user-age">-</strong> • 
+  <span id="user-gender">-</span> • 
+  Generated: <strong id="generated-date">-</strong>
+</div>
+
+      </div>
+      <div class="header-actions">
+        <button class="export-btn">Export PDF</button>
+        <div class="user-avatar">A</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+      <!-- Chart / Dynamic Data goes here -->
+      <canvas id="bmiChart"></canvas>
+    </div>
+  </main>
+
+</body>
+</html>

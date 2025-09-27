@@ -1,0 +1,61 @@
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins', sans-serif; display:flex; min-height:100vh; }
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+  width: 240px;
+  background:#fff;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  border-right:1px solid #e0e0e0;
+}
+.sidebar-header { text-align:center; margin-bottom:30px; }
+.sidebar-header .logo { font-size:2rem; font-weight:700; color:#4f46e5; }
+.sidebar-header .title { font-weight:600; font-size:1rem; margin-top:5px; }
+.sidebar-header .subtitle { font-size:0.85rem; color:#6b7280; }
+.menu { list-style:none; margin-bottom:30px; }
+.menu li { padding:10px 15px; cursor:pointer; border-radius:6px; transition:0.2s; }
+.menu li:hover { background:#f0f0f0; color:#4f46e5; }
+.investor-card { border:1px solid #e0e0e0; padding:15px; border-radius:8px; font-size:0.85rem; }
+.investor-card .label { font-weight:600; margin-bottom:8px; color:#6b7280; }
+.investor-card .kpi .score { font-size:1.2rem; font-weight:700; margin-bottom:4px; }
+.investor-card .kpi .desc { font-size:0.8rem; color:#6b7280; }
+.investor-card .kpi .ratio { font-size:0.75rem; color:#6b7280; margin-top:4px; }
+.sidebar-footer { margin-top:auto; font-size:0.75rem; color:#9ca3af; text-align:center; }
+
+/* =========================
+   MAIN DASHBOARD
+========================= */
+.main-dashboard {
+  flex:1;
+  background:#f9fafb;
+  display:flex;
+  flex-direction:column;
+}
+.dashboard-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 30px;
+  border-bottom:1px solid #e5e7eb;
+  background:#fff;
+}
+.dashboard-header h1 { font-size:1.5rem; font-weight:700; }
+.dashboard-header .sub-info { font-size:0.85rem; color:#6b7280; margin-top:4px; }
+.header-actions { display:flex; align-items:center; gap:15px; }
+.export-btn { background:#4f46e5; color:#fff; border:none; padding:8px 14px; border-radius:6px; cursor:pointer; }
+.user-avatar { width:36px; height:36px; border-radius:50%; background:#c7d2fe; display:flex; align-items:center; justify-content:center; font-weight:700; color:#1e40af; }
+
+/* CONTENT */
+.dashboard-content { flex:1; padding:30px; }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  body { flex-direction:column; }
+  .sidebar { width:100%; flex-direction:row; overflow-x:auto; padding:10px; }
+  .main-dashboard { padding:0; }
+}
