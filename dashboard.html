@@ -6,7 +6,7 @@
   <title>GymBMI Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dashboard.css">
-<script src="js/dashboard.js"></script>
+  <script src="js/dashboard.js" defer></script>
 </head>
 <body>
 
@@ -33,13 +33,12 @@
     <div class="dashboard-header">
       <div class="page-title">
         <h1>BMI Advanced Report</h1>
-<div class="sub-info">
-  Name: <strong id="user-name">-</strong> • 
-  Age: <strong id="user-age">-</strong> • 
-  <span id="user-gender">-</span> • 
-  Generated: <strong id="generated-date">-</strong>
-</div>
-
+        <div class="sub-info">
+          Name: <strong id="user-name">-</strong> • 
+          Age: <strong id="user-age">-</strong> • 
+          <span id="user-gender">-</span> • 
+          Generated: <strong id="generated-date">-</strong>
+        </div>
       </div>
       <div class="header-actions">
         <button class="export-btn">Export PDF</button>
@@ -47,9 +46,46 @@
       </div>
     </div>
 
+    <!-- DASHBOARD CONTENT -->
     <div class="dashboard-content">
-      <!-- Chart / Dynamic Data goes here -->
-      <canvas id="bmiChart"></canvas>
+      <div class="cards">
+
+        <!-- BMI Card -->
+        <div class="card">
+          <h2>BMI</h2>
+          <div class="value" id="bmi-value">-</div>
+          <div class="status" id="bmi-status">-</div>
+          <p id="bmi-insight">-</p>
+        </div>
+
+<!-- BODY COMPOSITION CARD -->
+<div class="info-card">
+  <div class="label">Body Composition Score</div>
+  <div class="circle-score">
+    <svg viewBox="0 0 100 100">
+      <circle class="bg" cx="50" cy="50" r="45"></circle>
+      <circle class="progress" cx="50" cy="50" r="45"></circle>
+    </svg>
+    <div class="circle-text" id="body-score">0</div>
+  </div>
+  <div class="desc" id="body-status">-</div>
+</div>
+
+
+        <!-- Weight Card -->
+        <div class="card">
+          <h2>Weight</h2>
+          <div class="value" id="weight-value">-</div>
+          <p>
+            Target: <span id="weight-target">-</span> <br>
+            To reach: <span id="weight-diff">-</span>
+          </p>
+          <div class="progress">
+            <div id="progress-bar"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </main>
 

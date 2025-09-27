@@ -1,14 +1,65 @@
+// dashboard.js - BMI Advanced Report UI
 document.addEventListener("DOMContentLoaded", () => {
-  // Load latest BMI data from localStorage
   const latestData = JSON.parse(localStorage.getItem("latestBMIData"));
 
   if (latestData) {
+    // Fill header details
     document.getElementById("user-name").textContent = latestData.name;
     document.getElementById("user-age").textContent = latestData.age;
     document.getElementById("user-gender").textContent = latestData.gender;
     document.getElementById("generated-date").textContent = latestData.currentDate;
 
+    // Use stored BMI & category (already calculated in bmi.js)
+    const bmi = latestData.bmi;
+    const bmiStatus = latestData.category;
+
+    // Calculate target weight & difference
+    const heightM = latestData.height / 100;
+    const targetWeight = (22 * heightM * heightM).toFixed(1); // Ideal BMI = 22
+    const weightDiff = (targetWeight - latestData.weight).toFixed(1);
+
+    // Body composition score (closer BMI to 22 → higher score)
+    let score = Math.max(50, 100 - Math.abs(22 - bmi) * 2);
+    score = Math.min(100, Math.round(score));
+
+    // --- Update UI ---
+    // BMI Card
+    const bmiValueEl = document.getElementById("bmi-value");
+    const bmiStatusEl = document.getElementById("bmi-status");
+    document.getElementById("bmi-value").textContent = bmi;
+    bmiStatusEl.textContent = bmiStatus;
+
+    // Color coding
+    if (bmiStatus === "Normal weight") {
+      bmiStatusEl.style.color = "#10b981"; // green
+    } else if (bmiStatus === "Underweight") {
+      bmiStatusEl.style.color = "#f59e0b"; // orange
+    } else if (bmiStatus === "Overweight") {
+      bmiStatusEl.style.color = "#f97316"; // orange-red
+    } else if (bmiStatus === "Obesity") {
+      bmiStatusEl.style.color = "#ef4444"; // red
+    }
+
+    document.getElementById("bmi-insight").textContent =
+      `Your BMI is classified as ${bmiStatus}. Target: ${weightDiff > 0 ? "+" : ""}${weightDiff} kg to reach ${targetWeight} kg.`;
+
+    // Body Composition Card
+    document.getElementById("body-score").textContent = score;
+    document.getElementById("body-status").textContent =
+      score > 85 ? "Excellent" : score > 70 ? "Good" : "Needs Improvement";
+
+    // Weight Card
+    document.getElementById("weight-value").textContent = latestData.weight + " kg";
+    document.getElementById("weight-target").textContent = targetWeight + " kg";
+    document.getElementById("weight-diff").textContent =
+      (weightDiff > 0 ? "+" : "") + weightDiff + " kg";
+
+    // Progress bar
+    let progress = (latestData.weight / targetWeight) * 100;
+    progress = Math.min(100, Math.max(0, progress));
+    document.getElementById("progress-bar").style.width = progress + "%";
+
   } else {
-    console.warn("No BMI data found in localStorage!");
+    console.warn("⚠️ No BMI data found in localStorage! Please calculate BMI first.");
   }
 });
