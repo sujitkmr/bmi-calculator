@@ -197,3 +197,31 @@ circle.progress {
     font-size: 1.2rem;
   }
 }
+.dashboard-footer {
+  width: 100%;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 0.85rem;
+  color: #6b7280;          /* muted text color */
+  background: #f9fafb;      /* matches dashboard background */
+  border-top: 1px solid #e5e7eb;
+  margin-top: auto;          /* pushes footer to bottom if content is short */
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row; /* keep sidebar + main side by side */
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* takes remaining space next to sidebar */
+}
+
+.main-dashboard {
+  flex: 1; /* fill vertical space */
+  display: flex;
+  flex-direction: column;
+}
+
