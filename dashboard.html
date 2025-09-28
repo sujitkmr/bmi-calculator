@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dashboard.css">
   <script src="js/dashboard.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -83,6 +84,68 @@
             </div>
           </div>
         </div>
+<!-- BODY COMPOSITION ANALYSIS WITH CHART -->
+<div class="charts-section">
+  <!-- Body Composition -->
+  <div class="body-composition-card info-card">
+    <h2>Body Composition Analysis</h2>
+    <p class="composition-desc">Distribution of water, protein, minerals, fat</p>
+    <p class="units">Units: kg</p>
+    <canvas id="bodyCompositionChart" width="250" height="250"></canvas>
+    <div class="composition-details">
+      <p>Total Body Water: <strong id="tbw">--</strong> kg</p>
+      <p>Protein: <strong id="protein">--</strong> kg</p>
+      <p>Minerals: <strong id="minerals">--</strong> kg</p>
+      <p>Body Fat Mass: <strong id="body-fat">--</strong> kg</p>
+    </div>
+  </div>
+
+  <!-- Muscle vs Fat -->
+  <div class="muscle-fat-card info-card">
+    <h2>Muscle vs Fat</h2>
+    <p class="composition-desc">Compare skeletal muscle and fat mass</p>
+    <canvas id="muscleFatChart" width="300" height="250"></canvas>
+    <div class="composition-summary">
+      Weight: <strong id="total-weight">--</strong> kg • 
+      Skeletal Muscle Mass: <strong id="skeletal-muscle">--</strong> kg • 
+      Body Fat Mass: <strong id="body-fat-mass">--</strong> kg
+    </div>
+  </div>
+</div>
+
+<!-- OBESITY & GOALS SECTION -->
+<div class="analysis-section">
+  <!-- Obesity Analysis -->
+  <div class="analysis-card">
+    <h3>Obesity Analysis</h3>
+    <p>PBF: <strong id="pbf">--</strong> <span class="small-text">(Normal 10–20%)</span></p>
+    <p>Waist-Hip Ratio: <strong id="waistHipRatio">--</strong></p>
+    <p>Visceral Fat Level: <strong id="visceralFatLevel">--</strong></p>
+    <p>BMI Category: <strong id="bmiCategory">--</strong> <span id="bmiValue">--</span></p>
+  </div>
+
+  <!-- Weight Control Goals -->
+  <div class="analysis-card">
+    <h3>Weight Control Goals</h3>
+    <p>Target Weight: <strong id="targetWeight">--</strong> kg</p>
+    <p>Weight to Reduce: <strong id="weightToReduce">--</strong> kg</p>
+    <p>Fat to Reduce: <strong id="fatToReduce">--</strong> kg</p>
+    <p class="recommendation" id="recommendationText">
+      Recommended: Combine mild calorie surplus with lean-mass program.
+    </p>
+  </div>
+
+  <!-- Research Parameters -->
+  <div class="analysis-card">
+    <h3>Research Parameters</h3>
+    <p>BMR: <strong id="bmr">--</strong> kcal/day</p>
+    <p>TDEE: <strong id="tdee">--</strong> kcal/day</p>
+    <p>Obesity Degree: <strong id="obesityDegree">--</strong>%</p>
+  </div>
+</div>
+
+
+
       </div>
     </main>
 

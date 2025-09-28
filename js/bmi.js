@@ -200,6 +200,40 @@ function updateBasicReport() {
     window.lastGender = gender;
     window.lastWeight = weight;
 
+      // === Health Metrics Calculations ===
+  // Estimate % body fat
+// ===== Dynamic Metrics =====
+const defaultWaist = gender === "male" ? 90 : 80;   // default waist cm
+const defaultHip = gender === "male" ? 100 : 95;    // default hip cm
+
+const waist = parseFloat(document.getElementById("waist")?.value) || defaultWaist;
+const hip = parseFloat(document.getElementById("hip")?.value) || defaultHip;
+const waistHipRatio = +(waist / hip).toFixed(2);
+
+// Percent Body Fat
+let pbf;
+if (gender === "male") pbf = +(1.20 * bmi + 0.23 * age - 16.2).toFixed(1);
+else pbf = +(1.20 * bmi + 0.23 * age - 5.4).toFixed(1);
+
+// Visceral Fat Level (approx)
+const visceralFatLevel = +(pbf / 2).toFixed(1);
+
+// Fat to Reduce (20% of fat mass)
+const fatMass = +(weight * (pbf / 100)).toFixed(1);
+const fatToReduce = +(fatMass * 0.2).toFixed(1);
+
+// BMR (Mifflin-St Jeor)
+const bmr = +(gender === "male"
+  ? 10 * weight + 6.25 * height - 5 * age + 5
+  : 10 * weight + 6.25 * height - 5 * age - 161).toFixed(0);
+
+// TDEE assuming sedentary activity
+const tdee = +(bmr * 1.2).toFixed(0);
+
+// Obesity Degree (BMI vs ideal BMI=22)
+const obesityDegree = +((bmi / 22) * 100).toFixed(1);
+//++++++++++++++++++++++++++++
+
     // ✅ Store all relevant info in localStorage
     const currentDate = new Date();
     const formattedDate = currentDate.getFullYear() + "-" +
@@ -215,7 +249,14 @@ function updateBasicReport() {
       weight,
       gender,
       bmi,
-      category
+      category,
+  pbf,
+  waistHipRatio,
+  visceralFatLevel,
+  fatToReduce,
+  bmr,
+  tdee,
+  obesityDegree
     };
 
     localStorage.setItem("latestBMIData", JSON.stringify(bmiDataToStore));
