@@ -995,7 +995,6 @@ textarea {
   background: #1d3557;
 }
 
-
 /* ----- Right Pane ----- */
 .right-pane {
   flex: 2;
@@ -1003,7 +1002,7 @@ textarea {
   background: #fff;
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   display: flex;
   flex-direction: column;
 }
@@ -1179,4 +1178,78 @@ textarea {
   font-weight: 500;
   color: #1d3557;
   margin-top: 24px;
+}
+
+/* ===== Insights & Metrics Section ===== */
+.metric-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.progress-bar div {
+  height: 100%;
+  background: #2a9d8f;
+  border-radius: 3px;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.left-pane, .right-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Plan Category Title — Free / Go / Plus / Pro */
+.plan-type {
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* Optional: give each category its own color */
+.plan-card:nth-child(1) .plan-type {
+  color: #f7a420; /* Free plan */
+}
+.plan-card:nth-child(2) .plan-type {
+  color: #2b7bff; /* Go plan */
+}
+.plan-card:nth-child(3) .plan-type {
+  color: #9c27b0; /* Plus plan */
+}
+.plan-card:nth-child(4) .plan-type {
+  color: #00c853; /* Pro plan */
+}
+
+/* Price Text */
+.plan-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+/* Subtext under price */
+.plan-subtext {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
 }
