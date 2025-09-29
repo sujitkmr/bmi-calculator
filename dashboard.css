@@ -365,3 +365,38 @@ circle.progress {
 .info-card {
   background: linear-gradient(135deg, #ffffff, #f5f5ff);
 }
+.menu li a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;   /* removes underline */
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu li a:hover,
+.menu li a.active {
+  background: #f0f0f0;
+  color: #000;
+  text-decoration: none;   /* make sure underline never comes back */
+}
+.logo-link {
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none; /* no underline */
+}
+
+.logo-blue {
+  color: #1d3557;
+}
+
+.logo-red {
+  color: #e63946;
+}
+
+.sidebar-header .subtitle {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
