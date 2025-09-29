@@ -946,7 +946,6 @@ textarea {
   flex: 1;
   min-width: 300px;
   max-width: 380px;
-  background: linear-gradient(135deg, #f7a420, #fcca46);
   color: #fff;
   padding: 30px 25px;
   border-radius: 15px;
