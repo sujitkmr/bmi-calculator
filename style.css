@@ -928,7 +928,259 @@ textarea {
   border-radius: 12px 12px 0 0; /* round top corners */
 }
 
-/*insights*/
+/* ===== BMI Tracker Section ===== */
+.tracker-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.tracker-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ----- Left Pane ----- */
+.left-pane {
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  background: linear-gradient(135deg, #f7a420, #fcca46);
+  color: #fff;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.left-pane h3 {
+  margin-top: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.left-pane .stats {
+  margin: 15px 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+.left-pane .info-text {
+  margin: 10px 0 20px 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.left-pane button {
+  margin-top: auto;
+  padding: 14px 25px;
+  background: #2a9d8f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.left-pane button:hover {
+  background: #1d3557;
+}
+
+/* ----- Right Pane ----- */
+.right-pane {
+  flex: 2;
+  min-width: 320px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tracker-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1d3557;
+  letter-spacing: 0.5px;
+}
+
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1d3557;
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.menu-dropdown button {
+  padding: 10px 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-dropdown button.danger {
+  color: #e63946;
+}
+
+/* ----- Chart ----- */
+#bmiChart {
+  max-height: 400px;
+  width: 100%;
+}
+
+/* BMI Basic Report Card */
+.bmi-basic-report {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.bmi-basic-report .report-header {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1d3557;
+  margin-bottom: 24px;
+}
+
+.bmi-basic-report .report-body {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.bmi-section .bmi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1d3557;
+}
+
+.bmi-section .bmi-status {
+  background: #e6f4ec;
+  color: #2c7a4c;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.bmi-section .bmi-range {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-circle {
+  border: 6px solid #2563eb;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d3557;
+  margin-bottom: 6px;
+}
+
+.score-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d3557;
+}
+
+.weight-section .weight-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1d3557;
+}
+
+.weight-section .weight-bar {
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 6px;
+  margin: 8px 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.weight-section .weight-bar .progress {
+  background: #22c55e;
+  height: 100%;
+}
+
+.weight-section .weight-change {
+  font-size: 0.9rem;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.bmi-basic-report .report-footer {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1d3557;
+  margin-top: 24px;
+}
+
+/* ===== Insights & Metrics Section ===== */
 .metric-card {
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -948,6 +1200,7 @@ textarea {
   background: #2a9d8f;
   border-radius: 3px;
 }
+
 .charts-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -959,12 +1212,13 @@ textarea {
   flex-direction: column;
   gap: 40px;
 }
+
 /* Plan Category Title — Free / Go / Plus / Pro */
 .plan-type {
-  font-size: 2.4rem;          /* Bigger title (≈38px) */
-  font-weight: 800;           /* Extra bold */
+  font-size: 2.4rem;
+  font-weight: 800;
   text-align: center;
-  text-transform: uppercase;  /* Gives a premium look */
+  text-transform: uppercase;
   margin-bottom: 10px;
   letter-spacing: 1px;
 }
@@ -985,7 +1239,7 @@ textarea {
 
 /* Price Text */
 .plan-price {
-  font-size: 1.8rem;         /* Bigger price text (≈28px) */
+  font-size: 1.8rem;
   font-weight: 700;
   text-align: center;
   color: #222;

@@ -173,40 +173,78 @@
 
 </section>
 
-
+<!-- BMI Tracker Section: Two-Pane Layout -->
 <!-- Progress Tracker Section -->
-<section class="tracker-section">
-  <div class="tracker-card">
-    <!-- Heading + Buttons in Flex -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
-      <h2 style="font-size:1.8rem; font-weight:700; margin:0; color:#1d3557;">
-        📊 BMI Tracker : See Your Progress
-      </h2>
+<section class="tracker-section" style="background:#fff;">
 
-      <!-- 🔹 New three-dot menu -->
-      <div class="menu-wrapper" style="position:relative;">
-        <button id="trackerMenuBtn" class="menu-btn" aria-label="More options">
-          &#8942; <!-- vertical ellipsis ⋮ -->
-        </button>
+  <div class="tracker-wrapper">
 
-        <div id="trackerMenu" class="menu-dropdown">
-          <button id="export-btn">
-            <i class="fa-solid fa-file-excel"></i> Export to Excel
-          </button>
-          <button id="connect-sheets-btn">
-            <i class="fa-solid fa-cloud"></i> Connect to Google Sheets
-          </button>
-          <button id="clear-btn" class="danger">
-            <i class="fa-solid fa-trash"></i> Clear All BMI Data
-          </button>
-        </div>
-      </div>
+    <!-- Left Pane: Quick Info / Teaser -->
+<!-- Left Pane: BMI Advanced Report -->
+<div class="left-pane">
+<div class="bmi-basic-report" onclick="window.location.href='dashboard.html'">
+  <div class="report-header">
+    BMI Basic Report
+  </div>
+
+  <div class="report-body">
+    <!-- BMI Section -->
+    <div class="bmi-section">
+      <div class="bmi-value">0</div>
+      <div class="bmi-status normal-weight">Normal</div>
+      <div class="bmi-range">18.5 – 24.9</div>
     </div>
 
-    <!-- Chart -->
-    <canvas id="bmiChart" style="max-height:350px; margin-bottom:20px;"></canvas>
+    <!-- Score Section -->
+    <div class="score-section">
+      <div class="score-circle">
+        <span>0</span>
+      </div>
+      <div class="score-label">Excellent</div>
+    </div>
+
+    <!-- Weight Section -->
+    <div class="weight-section">
+      <div class="weight-value">0 <span>kg</span></div>
+      <div class="weight-bar">
+        <div class="progress" style="width:0%;"></div>
+      </div>
+      <div class="weight-change">+0 kg</div>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    Click anywhere to view full dashboard →
+  </div>
+</div>
+
+</div>
+
+
+    <!-- Right Pane: BMI Tracker Chart -->
+    <div class="right-pane">
+      <div class="tracker-header">
+        <h2>📊 BMI Tracker : See Your Progress</h2>
+        <div class="menu-wrapper">
+          <button id="trackerMenuBtn" class="menu-btn">&#8942;</button>
+          <div id="trackerMenu" class="menu-dropdown">
+            <button id="export-btn"><i class="fa-solid fa-file-excel"></i> Export to Excel</button>
+            <button id="connect-sheets-btn"><i class="fa-solid fa-cloud"></i> Connect to Google Sheets</button>
+            <button id="clear-btn" class="danger"><i class="fa-solid fa-trash"></i> Clear All BMI Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Canvas -->
+      <canvas id="bmiChart"></canvas>
+    </div>
+
   </div>
 </section>
+<!-- /Progress Tracker Section -->
+
+
+
 <!--closing  Progress Tracker Section -->
 
 <!-- Our Products Section -->
