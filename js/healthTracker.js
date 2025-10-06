@@ -30,4 +30,3 @@ function generateHealthTracker() {
 }
 
 window.generateHealthTracker = generateHealthTracker;
-
