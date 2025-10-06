@@ -262,3 +262,4 @@ function generateDietPlan() {
 }
 
 window.generateDietPlan = generateDietPlan;
+
