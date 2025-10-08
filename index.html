@@ -41,6 +41,24 @@
     #bmi-form-success { color: lightgreen; }
     #bmi-form-error { color: red; }
   </style>
+
+  <!----matamo analytics---->
+  <!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://gymbmi.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='https://cdn.matomo.cloud/gymbmi.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
 </head>
 <body>
 
@@ -224,7 +242,7 @@
     <!-- Right Pane: BMI Tracker Chart -->
     <div class="right-pane">
       <div class="tracker-header">
-        <h2>📊 BMI Tracker : See Your Progress</h2>
+        <h2>📊Progress Tracker : </h2>
         <div class="menu-wrapper">
           <button id="trackerMenuBtn" class="menu-btn">&#8942;</button>
           <div id="trackerMenu" class="menu-dropdown">
