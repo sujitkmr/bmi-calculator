@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadButtons.style.display = "flex";
     if (addToTrackerText) {
       addToTrackerText.style.display = "block";
-      addToTrackerText.textContent = "Add this BMI to your Progress Tracker »";
+      addToTrackerText.textContent = "Click Here – Log Your BMI»";
       addToTrackerText.style.pointerEvents = "auto";
     }
     showPopup();
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (existingIndex !== -1) bmiData[existingIndex].bmi = window.lastBMI;
       else bmiData.push({ bmi: window.lastBMI, date: today });
       localStorage.setItem("bmiData", JSON.stringify(bmiData));
-      addToTrackerText.textContent = "✔ Added to Tracker";
+      addToTrackerText.textContent = "✔ Logged Successfully – Keep Tracking!";
       addToTrackerText.style.pointerEvents = "none";
       if (window.refreshBMIChart) window.refreshBMIChart();
       document.querySelector("#progress-tracker")?.scrollIntoView({ behavior: "smooth" });
